@@ -2,12 +2,7 @@ import "./Home.css";
 import smiley from "../../assets/smiley.svg";
 import illustration_scroll from "../../assets/illustration_scroll.svg";
 import illustration_network from "../../assets/illustration_network.svg";
-import {
-	Icon_feedback,
-	Icon_need_more,
-	Icon_opportunities,
-	Icon_share,
-} from "../../assets";
+
 import { HomeCard } from "../../components";
 import { opportunityData, connectionData } from "./HomeData";
 const Home = () => {
