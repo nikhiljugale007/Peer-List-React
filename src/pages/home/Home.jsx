@@ -1,20 +1,22 @@
 import "./Home.css";
 import smiley from "../../assets/smiley.svg";
 import illustration_scroll from "../../assets/illustration_scroll.svg";
-
+import illustration_network from "../../assets/illustration_network.svg";
 import {
 	Icon_feedback,
 	Icon_need_more,
 	Icon_opportunities,
 	Icon_share,
 } from "../../assets";
+import { HomeCard } from "../../components";
+import { opportunityData, connectionData } from "./HomeData";
 const Home = () => {
 	return (
 		<div className="flex flex-col gap-10">
 			<div className="min-h-screen flex flex-col items-center justify-center md:px-20 bg-bg-black ">
-				<p className="lg:text-8xl sm:text-7xl leading-tight font-extrabold text-primary-bg-color text-center text-5xl">
+				<p className="lg:text-8xl sm:text-7xl leading-tight font-extrabold text-primary-bg-color text-center text-4xl">
 					The <span className="text-primary-color"> Professional </span>{" "}
-					<span className="line-through">Network </span>
+					<span className="line-through">Network</span>
 					<span className="text-primary-color"> Community</span> you were
 					waiting for.
 				</p>
@@ -45,7 +47,7 @@ const Home = () => {
 					</button>
 				</div>
 			</div>
-			<div className=" bg-primary-bg-color flex sm:flex-row flex-col items-center justify-center md:px-20 px-5">
+			<div className=" bg-bg-off-white flex sm:flex-row flex-col items-center justify-center md:px-20 px-5">
 				<div className="flex-1 bg-primary-bg-color flex flex-col gap-5">
 					<p className="text-lg text-primary-font-color">Peerlist scroll</p>
 					<p className="md:text-6xl sm:text-5xl text-4xl leading-tight font-extrabold text-secondary-bg-color ">
@@ -58,49 +60,53 @@ const Home = () => {
 					</p>
 					<p className="text-lg">Finite scroll with infinite possibilities ∞</p>
 					<div className="grid sm:grid-cols-2 grid-cols-1 gap-2 items-center justify-center">
-						<div className="flex flex-row border-2 gap-4 p-2 rounded-md">
-							<img src={Icon_share} alt="share-icon" />
-							<div>
-								<p className="text-lg font-semibold">Share work</p>
-								<p className="text-sm text-gray-600">
-									Put stuff out into the world. Manufacture your luck!
-								</p>
-							</div>
-						</div>
-						<div className="flex flex-row border-2 gap-4 p-2 rounded-md">
-							<img src={Icon_feedback} alt="share-icon" />
-							<div>
-								<p className="text-lg font-semibold">Get feedback</p>
-								<p className="text-sm text-gray-600">
-									Early feedback steers you in the right direction.
-								</p>
-							</div>
-						</div>
-						<div className="flex flex-row border-2 gap-4 p-2 rounded-md">
-							<img src={Icon_opportunities} alt="share-icon" />
-							<div>
-								<p className="text-lg font-semibold">Opportunities</p>
-								<p className="text-sm text-gray-600">
-									Get exposed to new opportunities by getting noticed with proof
-									of work!
-								</p>
-							</div>
-						</div>
-						<div className="flex flex-row border-2 gap-4 p-2 rounded-md">
-							<img src={Icon_need_more} alt="share-icon" />
-							<div>
-								<p className="text-lg font-semibold">Discover</p>
-								<p className="text-sm text-gray-600">
-									Discover right people & get discovered by people because of
-									work.
-								</p>
-							</div>
-						</div>
+						{opportunityData.map((item, index) => {
+							return (
+								<HomeCard
+									key={index}
+									image_src={item.image_src}
+									title={item.title}
+									description={item.description}
+								/>
+							);
+						})}
 					</div>
 				</div>
 				<img
 					src={illustration_scroll}
 					alt="illustration-scroll"
+					className="flex-1"
+				/>
+			</div>
+			<div className=" bg-primary-bg-color flex sm:flex-row flex-col items-center justify-center md:px-20 px-5">
+				<div className="flex-1 bg-primary-bg-color flex flex-col gap-5">
+					<p className="text-lg text-primary-font-color">Networking</p>
+					<p className="md:text-6xl sm:text-5xl text-4xl leading-tight font-extrabold text-secondary-bg-color ">
+						Become Peers, connections
+					</p>
+					<p className="text-lg">
+						Develop meaningful relationships with talented peers worldwide that
+						will last far beyond your traditional connection requests.
+					</p>
+					<p className="text-lg">
+						PS: You “connect” only when you follow each other !.
+					</p>
+					<div className="grid sm:grid-cols-2 grid-cols-1 gap-2 items-center justify-center">
+						{connectionData.map((item, index) => {
+							return (
+								<HomeCard
+									key={index}
+									image_src={item.image_src}
+									title={item.title}
+									description={item.description}
+								/>
+							);
+						})}
+					</div>
+				</div>
+				<img
+					src={illustration_network}
+					alt="illustration_network"
 					className="flex-1"
 				/>
 			</div>
