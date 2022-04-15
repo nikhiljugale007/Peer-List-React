@@ -1,7 +1,6 @@
 import "./Home.css";
 import smiley from "../../assets/smiley.svg";
-import illustration_scroll from "../../assets/illustration_scroll.svg";
-import illustration_network from "../../assets/illustration_network.svg";
+import { illustration_network, illustration_scroll } from "../../assets";
 
 import { HomeCard } from "../../components";
 import { opportunityData, connectionData } from "./HomeData";
