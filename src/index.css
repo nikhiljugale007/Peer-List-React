@@ -1,13 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("./utitlity.css");
 body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-      sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-  
-  code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-      monospace;
-  }
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+		"Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+		sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+code {
+	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+		monospace;
+}
+:root {
+	--primary-color: #00aa45;
+	--dark-primary-color: #00aa45;
+
+	--primary-font-color: #27ae60;
+	--complimentary-font-color: #27ae60;
+
+	--primary-bg-color: #fefffe;
+	--secondary-bg-color: #202120;
+	--border-color: rgb(225 228 232);
+
+	--hover-color: #e9f5ff;
+
+	--box-shadow: rgb(0 0 0 / 0.2);
+	--font: "Montserrat", sans-serif;
+
+	--primary-border-color: #22bff2;
+	--danger-color: #f54337;
+	--dark-danger-color: #d22f2e;
+	--success-color: #67bb6b;
+	--dark-success-color: #2e7d32;
+	--warning-color: #fac424;
+	--dark-warning-color: #feb203;
+	--highlight-color: #ccff00;
+	--card-bg-color: white;
+
+	--primary-green: #00aa45;
+	--text-green: #27ae60;
+	--off-white: #e1e4e8;
+	--off-black: #2e363c;
+	--bg-white: #fefffe;
+	--bg-black: #202120;
+}
