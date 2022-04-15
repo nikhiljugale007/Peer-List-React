@@ -5,10 +5,12 @@ const PostCard = () => {
 	return (
 		<div className="w-full p-10 flex flex-col gap-5 border-t border-b bg-primary-bg-color">
 			<div className="flex flex-row gap-5 items-center ">
-				<img src={avatar} alt="profile-pic" className="h-16 w-16" />
+				<img src={avatar} alt="profile-pic" className="h-14 w-14" />
 				<div className="flex flex-col">
 					<p className="text-lg">Amit Wani</p>
-					<p className="text-sm text-gray-600">13 Apr, 2022</p>
+					<p className="text-xs text-gray-600">
+						13 Apr, 2022 • About 1 hour ago
+					</p>
 				</div>
 			</div>
 			<div>
