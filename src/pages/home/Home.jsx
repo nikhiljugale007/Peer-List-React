@@ -55,14 +55,7 @@ const Home = () => {
 					<p className="text-lg">Finite scroll with infinite possibilities ∞</p>
 					<div className="grid sm:grid-cols-2 grid-cols-1 gap-2 items-center justify-center">
 						{opportunityData.map((item, index) => {
-							return (
-								<HomeCard
-									key={index}
-									image_src={item.image_src}
-									title={item.title}
-									description={item.description}
-								/>
-							);
+							return <HomeCard key={index} item={item} />;
 						})}
 					</div>
 				</div>
@@ -87,14 +80,7 @@ const Home = () => {
 					</p>
 					<div className="grid sm:grid-cols-2 grid-cols-1 gap-2 items-center justify-center">
 						{connectionData.map((item, index) => {
-							return (
-								<HomeCard
-									key={index}
-									image_src={item.image_src}
-									title={item.title}
-									description={item.description}
-								/>
-							);
+							return <HomeCard key={index} item={item} />;
 						})}
 					</div>
 				</div>
