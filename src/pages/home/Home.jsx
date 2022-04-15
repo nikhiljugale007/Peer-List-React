@@ -1,9 +1,17 @@
 import "./Home.css";
 import smiley from "../../assets/smiley.svg";
+import illustration_scroll from "../../assets/illustration_scroll.svg";
+
+import {
+	Icon_feedback,
+	Icon_need_more,
+	Icon_opportunities,
+	Icon_share,
+} from "../../assets";
 const Home = () => {
 	return (
-		<div className="">
-			<div className="h-screen flex flex-col items-center justify-center md:px-20 bg-bg-black ">
+		<div className="flex flex-col gap-10">
+			<div className="min-h-screen flex flex-col items-center justify-center md:px-20 bg-bg-black ">
 				<p className="lg:text-8xl sm:text-7xl leading-tight font-extrabold text-primary-bg-color text-center text-5xl">
 					The <span className="text-primary-color"> Professional </span>{" "}
 					<span className="line-through">Network </span>
@@ -36,6 +44,65 @@ const Home = () => {
 						</div>
 					</button>
 				</div>
+			</div>
+			<div className=" bg-primary-bg-color flex sm:flex-row flex-col items-center justify-center md:px-20 px-5">
+				<div className="flex-1 bg-primary-bg-color flex flex-col gap-5">
+					<p className="text-lg text-primary-font-color">Peerlist scroll</p>
+					<p className="md:text-6xl sm:text-5xl text-4xl leading-tight font-extrabold text-secondary-bg-color ">
+						A feed of opportunities!
+					</p>
+					<p className="text-lg">
+						Peerlist Scroll is designed for the distribution and discovery of
+						your work. But, you never know, that new side-project you shared
+						might land you an opportunity of a lifetime.
+					</p>
+					<p className="text-lg">Finite scroll with infinite possibilities ∞</p>
+					<div className="grid sm:grid-cols-2 grid-cols-1 gap-2 items-center justify-center">
+						<div className="flex flex-row border-2 gap-4 p-2 rounded-md">
+							<img src={Icon_share} alt="share-icon" />
+							<div>
+								<p className="text-lg font-semibold">Share work</p>
+								<p className="text-sm text-gray-600">
+									Put stuff out into the world. Manufacture your luck!
+								</p>
+							</div>
+						</div>
+						<div className="flex flex-row border-2 gap-4 p-2 rounded-md">
+							<img src={Icon_feedback} alt="share-icon" />
+							<div>
+								<p className="text-lg font-semibold">Get feedback</p>
+								<p className="text-sm text-gray-600">
+									Early feedback steers you in the right direction.
+								</p>
+							</div>
+						</div>
+						<div className="flex flex-row border-2 gap-4 p-2 rounded-md">
+							<img src={Icon_opportunities} alt="share-icon" />
+							<div>
+								<p className="text-lg font-semibold">Opportunities</p>
+								<p className="text-sm text-gray-600">
+									Get exposed to new opportunities by getting noticed with proof
+									of work!
+								</p>
+							</div>
+						</div>
+						<div className="flex flex-row border-2 gap-4 p-2 rounded-md">
+							<img src={Icon_need_more} alt="share-icon" />
+							<div>
+								<p className="text-lg font-semibold">Discover</p>
+								<p className="text-sm text-gray-600">
+									Discover right people & get discovered by people because of
+									work.
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<img
+					src={illustration_scroll}
+					alt="illustration-scroll"
+					className="flex-1"
+				/>
 			</div>
 			<div className="min-h-screen bg-bg-off-white flex flex-col items-center justify-center gap-5  ">
 				<p className="lg:text-7xl md:text-6xl sm:text-5xl text-4xl leading-tight font-extrabold text-secondary-bg-color text-center lg:w-1/2 md:w-3/4 w-4/5">
