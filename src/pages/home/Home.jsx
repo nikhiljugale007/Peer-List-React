@@ -6,7 +6,7 @@ import { HomeCard } from "../../components";
 import { opportunityData, connectionData } from "./HomeData";
 const Home = () => {
 	return (
-		<div className="flex flex-col gap-10">
+		<div className="flex flex-col">
 			<div className="min-h-screen flex flex-col items-center justify-center md:px-20 bg-bg-black ">
 				<p className="lg:text-8xl sm:text-7xl leading-tight font-extrabold text-primary-bg-color text-center text-4xl">
 					The <span className="text-primary-color"> Professional </span>{" "}
@@ -14,7 +14,7 @@ const Home = () => {
 					<span className="text-primary-color"> Community</span> you were
 					waiting for.
 				</p>
-				<p className="text-2xl text-primary-bg-color text-center py-4">
+				<p className="text-2xl text-primary-bg-color text-center py-4 px-5">
 					Peerlist is a community of working professionals focused on building a
 					personal brand, sharing professional content, and finding peers to
 					collaborate with.
@@ -41,8 +41,8 @@ const Home = () => {
 					</button>
 				</div>
 			</div>
-			<div className=" bg-bg-off-white flex sm:flex-row flex-col items-center justify-center md:px-20 px-5">
-				<div className="flex-1 bg-primary-bg-color flex flex-col gap-5">
+			<div className=" bg-bg-off-white flex sm:flex-row flex-col items-center justify-center md:px-20 p-5">
+				<div className="flex-1  flex flex-col gap-5">
 					<p className="text-lg text-primary-font-color">Peerlist scroll</p>
 					<p className="md:text-6xl sm:text-5xl text-4xl leading-tight font-extrabold text-secondary-bg-color ">
 						A feed of opportunities!
@@ -72,7 +72,7 @@ const Home = () => {
 					className="flex-1"
 				/>
 			</div>
-			<div className=" bg-primary-bg-color flex sm:flex-row flex-col items-center justify-center md:px-20 px-5">
+			<div className=" bg-primary-bg-color flex sm:flex-row flex-col items-center justify-center md:px-20 p-5">
 				<div className="flex-1 bg-primary-bg-color flex flex-col gap-5">
 					<p className="text-lg text-primary-font-color">Networking</p>
 					<p className="md:text-6xl sm:text-5xl text-4xl leading-tight font-extrabold text-secondary-bg-color ">
