@@ -11,6 +11,9 @@ import Icon_find from "./icons/Icon_find.svg";
 import Icon_my_network from "./icons/Icon_my_network.svg";
 import Icon_notification from "./icons/Icon_notification.svg";
 import Icon_profile from "./icons/Icon_profile.svg";
+import avatar from "./avatar.svg";
+import icon_like from "./icons/icon_like.svg";
+import icon_comment from "./icons/icon_comment.svg";
 export {
 	Icon_feedback,
 	Icon_need_more,
@@ -25,4 +28,7 @@ export {
 	Icon_my_network,
 	Icon_notification,
 	Icon_profile,
+	avatar,
+	icon_like,
+	icon_comment,
 };

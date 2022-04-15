@@ -23,6 +23,9 @@ module.exports = {
 			gridTemplateColumns: {
 				"feed-3": "repeat(3,minMax(200px,1fr))",
 			},
+			width: {
+				128: "35rem",
+			},
 		},
 	},
 	plugins: [],
