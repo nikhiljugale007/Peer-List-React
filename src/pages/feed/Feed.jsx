@@ -7,20 +7,27 @@ import {
   Icon_profile,
 } from "../../assets";
 import { Scroll } from "../scroll/Scroll";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, NavLink } from "react-router-dom";
 import { Profile } from "../profile/Profile";
 const Feed = () => {
+  const getActiveStyle = ({ isActive }) => ({
+    backgroundColor: isActive ? "#E0E4E9" : "",
+  });
+  const getMobileActiveStyle = ({ isActive }) => ({
+    borderTop: isActive ? "2px solid #00aa45" : "",
+  });
   return (
     <div className="flex md:flex-row flex-col w-full md:px-20">
       <aside className="sidebar h-screen p-5 w-60 bg-bg-off-white sticky top-0 ">
         <ul className="flex flex-col gap-2 ">
-          <Link
+          <NavLink
             to="/scroll"
-            className="flex flex-row gap-4  p-2 hover:cursor-pointer bg-hover-color rounded-md"
+            className="flex flex-row gap-4  p-2 hover:cursor-pointer rounded-md"
+            style={getActiveStyle}
           >
             <img src={Icon_home} alt="home" />
             <p className="font-semibold">Scroll</p>
-          </Link>
+          </NavLink>
           <li className="flex flex-row gap-4 p-2 hover:cursor-pointer ">
             <img src={Icon_my_network} alt="home" />
             <p className="">My Network</p>
@@ -33,13 +40,14 @@ const Feed = () => {
             <img src={Icon_notification} alt="home" />
             <p className="">Notifications</p>
           </li>
-          <Link
+          <NavLink
             to="/profile"
-            className="flex flex-row gap-4  p-2 hover:cursor-pointer "
+            className="flex flex-row gap-4  p-2 hover:cursor-pointer rounded-md"
+            style={getActiveStyle}
           >
             <img src={Icon_profile} alt="home" />
             <p className="">Profile</p>
-          </Link>
+          </NavLink>
         </ul>
       </aside>
       <main className="w-full ">
@@ -50,13 +58,14 @@ const Feed = () => {
       </main>
       <div className="bottom-navigation bg-bg-off-white fixed bottom-0 left-0 w-full">
         <ul className="flex flex-row gap-2 justify-evenly items-center py-2 ">
-          <Link
+          <NavLink
             to="/scroll"
             className="flex flex-col  p-2 hover:cursor-pointer border-t"
+            style={getMobileActiveStyle}
           >
             <img src={Icon_home} alt="home" className="w-6 h-6 self-center" />
             <p className="text-xs text-gray-600">Scroll</p>
-          </Link>
+          </NavLink>
           <li className="flex flex-col p-2 hover:cursor-pointer ">
             <img
               src={Icon_my_network}
@@ -74,9 +83,10 @@ const Feed = () => {
             />
             <p className="text-xs text-gray-600">Notifications</p>
           </li>
-          <Link
+          <NavLink
             to="/profile"
-            className="flex flex-col  p-2 hover:cursor-pointer "
+            className="flex flex-col  p-2 px-4 hover:cursor-pointer "
+            style={getMobileActiveStyle}
           >
             <img
               src={Icon_profile}
@@ -84,7 +94,7 @@ const Feed = () => {
               className="w-6 h-6 self-center"
             />
             <p className="text-xs text-gray-600">Profile</p>
-          </Link>
+          </NavLink>
         </ul>
       </div>
     </div>
