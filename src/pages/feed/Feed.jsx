@@ -43,7 +43,7 @@ const Feed = () => {
 						</Link>
 					</ul>
 				</aside>
-				<div>
+				<div className="w-full">
 					<Routes>
 						<Route path="/" element={<Scroll />} />
 						<Route path="profile" element={<Profile />} />

@@ -8,6 +8,7 @@ const Scroll = () => {
 				<p className="font-semibold border-b p-4  sticky top-0 bg-primary-bg-color">
 					All posts
 				</p>
+				
 				<PostCard />
 				<PostCard />
 				<PostCard />

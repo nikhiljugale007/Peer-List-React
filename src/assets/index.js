@@ -14,6 +14,11 @@ import Icon_profile from "./icons/Icon_profile.svg";
 import avatar from "./avatar.svg";
 import icon_like from "./icons/icon_like.svg";
 import icon_comment from "./icons/icon_comment.svg";
+import Icon_twitter from "./icons/Icon_twitter.svg";
+import Icon_portfolio2 from "./icons/Icon_portfolio2.svg";
+
+import Icon_medium from "./icons/Icon_medium.svg";
+
 export {
 	Icon_feedback,
 	Icon_need_more,
@@ -30,5 +35,5 @@ export {
 	Icon_profile,
 	avatar,
 	icon_like,
-	icon_comment,
+	icon_comment,Icon_twitter,Icon_medium,Icon_portfolio2
 };
