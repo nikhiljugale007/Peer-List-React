@@ -11,9 +11,6 @@ function App() {
 				<Routes>
 					<Route path="/" element={<Home />} />
 					<Route path="/scroll/*" element={<Feed />} />
-						{/* <Route path="/" element={<Scroll />} />
-						<Route path="/profile" element={<Profile />} />
-					</Route> */}
 					<Route path="/mockman" element={<Mockman />} />
 				</Routes>
 			</main>
