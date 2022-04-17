@@ -8,7 +8,7 @@ import { useAuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
-  const { authDispatch } = useAuthContext();
+  const { authState, authDispatch } = useAuthContext();
   const navigate = useNavigate();
 
   const logoutUser = () => {
@@ -22,7 +22,9 @@ const Profile = () => {
           <div className="flex sm:flex-row flex-col-reverse gap-10 items-center justify-between">
             <div className="flex flex-col gap-5">
               <div className="flex sm:flex-row flex-col-reverse items-center gap-5">
-                <p className="text-4xl font-semibold">Nikhil Jugale</p>
+                <p className="text-4xl font-semibold">
+                  {authState.user.firstName + " " + authState.user.lastName}
+                </p>
                 <button className="border px-2 py-1 rounded-sm">
                   <p className="text-sm ">Edit Profile</p>
                 </button>
