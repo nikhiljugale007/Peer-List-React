@@ -9,7 +9,7 @@ const Footer = () => {
         <p>The professional community you were waiting for</p>
         <Link
           to="/scroll"
-          className="px-5 py-4 my-5 bg-complimentary-font-color rounded-md flex flex-row items-center gap-3 hover:opacity-75"
+          className="w-max px-5 py-4 my-5 bg-complimentary-font-color rounded-md flex flex-row items-center gap-3 hover:opacity-75"
         >
           <p className="text-primary-bg-color text-lg font-bold ">
             Join Peerlist
