@@ -1,10 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { validateForm } from "./FormValidator";
+import { PostApi } from "../../apicalls/PostApi";
 
 const initialSignUpFormState = {
-  name: "",
-  email: "",
+  firstName: "",
+  lastName: "",
+  username: "",
   password: "",
   confirm_password: "",
   accept_terms: false,
@@ -12,11 +14,25 @@ const initialSignUpFormState = {
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
-
   const [signUpFormState, setSignUpFormState] = useState(
     initialSignUpFormState
   );
   const [formError, setFormError] = useState(initialSignUpFormState);
+  const navigate = useNavigate();
+  const signUpUserFun = async () => {
+    const response = await PostApi(
+      "/api/auth/signup",
+      { ...signUpFormState },
+      false
+    );
+    const { success } = response;
+    if (success) {
+      navigate("/login");
+    } else {
+      alert("Some error occured. Check console");
+    }
+  };
+
   const inputChangeHandler = (e) => {
     const new_val = { [e.target.name]: e.target.value };
     setSignUpFormState((prev) => ({ ...prev, ...new_val }));
@@ -34,7 +50,7 @@ const SignUp = () => {
 
     if (Object.keys(errors).length === 0) {
       setFormError(initialSignUpFormState);
-      //   signUpUserFun();
+      signUpUserFun();
     } else {
       setFormError(errors);
     }
@@ -47,36 +63,53 @@ const SignUp = () => {
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm mb-2 border border-gray-400 rounded px-2 focus-within:border-black"
-              htmlFor="name"
+              htmlFor="firstName"
             >
-              Name
+              firstName
               <input
                 className="appearance-none w-full my-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="name"
-                name="name"
+                id="firstName"
+                name="firstName"
                 type="text"
-                value={signUpFormState.name}
+                value={signUpFormState.firstName}
                 onChange={inputChangeHandler}
               />
             </label>
-            <p className="text-xs text-red-500">{formError.email}</p>
+            <p className="text-xs text-red-500">{formError.firstName}</p>
           </div>
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm mb-2 border border-gray-400 rounded px-2 focus-within:border-black"
-              htmlFor="email"
+              htmlFor="lastName"
             >
-              Email
+              lastName
               <input
                 className="appearance-none w-full my-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="email"
-                name="email"
+                id="lastName"
+                name="lastName"
                 type="text"
-                value={signUpFormState.email}
+                value={signUpFormState.lastName}
                 onChange={inputChangeHandler}
               />
             </label>
-            <p className="text-xs text-red-500">{formError.email}</p>
+            <p className="text-xs text-red-500">{formError.lastName}</p>
+          </div>
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm mb-2 border border-gray-400 rounded px-2 focus-within:border-black"
+              htmlFor="username"
+            >
+              username
+              <input
+                className="appearance-none w-full my-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="username"
+                name="username"
+                type="text"
+                value={signUpFormState.username}
+                onChange={inputChangeHandler}
+              />
+            </label>
+            <p className="text-xs text-red-500">{formError.username}</p>
           </div>
           <div className="mb-4">
             <label

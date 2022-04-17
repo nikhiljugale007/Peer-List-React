@@ -13,7 +13,7 @@ const Header = () => {
         to={authState.isLoggedIn ? "/profile" : "/login"}
         className="px-5 py-1 bg-primary-bg-color rounded-md text-lg"
       >
-        {authState.isLoggedIn ? "User" : "Login"}
+        {authState.isLoggedIn ? authState.user.firstName : "Login"}
       </Link>
     </div>
   );

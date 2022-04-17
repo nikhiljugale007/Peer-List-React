@@ -1,19 +1,17 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useAuthContext } from "../../context/AuthContext";
+import { PostApi } from "../../apicalls/PostApi";
 
-const inititalLoginState = { email: "", password: "" };
+const inititalLoginState = { username: "", password: "" };
 
 const validateForm = (formState) => {
-  const { email, password } = formState;
+  const { username, password } = formState;
 
   const errors = {};
 
-  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-  if (!email) {
-    errors.email = "Email is required!";
-  } else if (!regex.test(email)) {
-    errors.email = "This is not a valid email format!";
+  if (!username) {
+    errors.username = "username is required!";
   }
   if (!password) {
     errors.password = "Password is required";
@@ -29,16 +27,29 @@ const Login = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const loginUser = (e) => {
-    e.preventDefault();
-    const errors = validateForm(loginFormState);
-    console.log(loginFormState);
-    if (Object.keys(errors).length === 0) {
-      setFormError(inititalLoginState);
-      authDispatch({ type: "SET_LOGGED_USER" });
+  const loginUserApiCall = async () => {
+    const response = await PostApi(
+      "/api/auth/login",
+      { ...loginFormState },
+      false
+    );
+    const { data, success } = response;
+    if (success) {
+      authDispatch({ type: "SET_LOGGED_USER", payload: data });
       location.state === null
         ? navigate("/scroll")
         : navigate(location?.state?.from);
+    } else {
+      alert("Something went wrong, check console");
+    }
+  };
+
+  const loginUser = (e) => {
+    e.preventDefault();
+    const errors = validateForm(loginFormState);
+    if (Object.keys(errors).length === 0) {
+      setFormError(inititalLoginState);
+      loginUserApiCall();
     } else {
       setFormError(errors);
     }
@@ -51,7 +62,7 @@ const Login = () => {
   const fillDemoCredentials = () => {
     setLoginFormState((prev) => ({
       ...prev,
-      email: "adarshbalika@gmail.com",
+      username: "adarshbalika",
       password: "adarshBalika123",
     }));
   };
@@ -65,19 +76,19 @@ const Login = () => {
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm mb-2 border border-gray-400 rounded px-2 focus-within:border-black"
-              htmlFor="email"
+              htmlFor="username"
             >
-              Email
+              Username
               <input
                 className="appearance-none w-full my-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="email"
-                name="email"
+                id="username"
+                name="username"
                 type="text"
-                value={loginFormState.email}
+                value={loginFormState.username}
                 onChange={inputChangeHandler}
               />
             </label>
-            <p className="text-xs text-red-500">{formError.email}</p>
+            <p className="text-xs text-red-500">{formError.username}</p>
           </div>
           <div className="mb-6">
             <label

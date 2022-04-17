@@ -5,11 +5,10 @@ import {
   Icon_portfolio2,
 } from "../../assets";
 import { useAuthContext } from "../../context/AuthContext";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const { authDispatch } = useAuthContext();
-  const location = useLocation();
   const navigate = useNavigate();
 
   const logoutUser = () => {

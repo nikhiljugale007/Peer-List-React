@@ -4,8 +4,10 @@ const AuthContext = createContext();
 const authReducerFunction = (state, action) => {
 	switch (action.type) {
 		case "SET_LOGGED_USER":
+			localStorage.setItem("token",action.payload.encodedToken);
 			return {
 				...state,
+				user:action.payload.foundUser,
 				isLoggedIn: true,
 			};
 		case "LOGOUT_USER":
@@ -26,6 +28,7 @@ const AuthContextProvider = ({ children }) => {
 		authReducerFunction,
 		authInitialState
 	);
+	console.log(authState)
 	return (
 		<AuthContext.Provider value={{ authState, authDispatch }}>
 			{children}
