@@ -1,7 +1,7 @@
 import "./App.css";
 import Mockman from "mockman-js";
 import { Routes, Route } from "react-router-dom";
-import { Home, Feed } from "./pages";
+import { Home, Feed, Login, SignUp } from "./pages";
 import { Header, Footer } from "./components";
 function App() {
 	return (
@@ -9,7 +9,9 @@ function App() {
 			<Header />
 			<main className="flex-grow">
 				<Routes>
-					<Route path="/home" element={<Home />} />
+					<Route path="/home" element={<Home />} />	
+					<Route path="/login" element={<Login/> } />
+					<Route path="/signup" element={<SignUp/> } />
 					<Route path="/*" element={<Feed />} />
 					<Route path="/mockman" element={<Mockman />} />
 				</Routes>
