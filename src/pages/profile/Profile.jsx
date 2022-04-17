@@ -4,8 +4,18 @@ import {
   Icon_medium,
   Icon_portfolio2,
 } from "../../assets";
+import { useAuthContext } from "../../context/AuthContext";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Profile = () => {
+  const { authDispatch } = useAuthContext();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const logoutUser = () => {
+    authDispatch({ type: "LOGOUT_USER" });
+    navigate("/home");
+  };
   return (
     <div className="h-screen  w-full">
       <main className="flex-grow border-l border-r h-screen w-full">
@@ -54,6 +64,12 @@ const Profile = () => {
               <p>Medium</p>
             </a>
           </div>
+          <button
+            className="bg-primary-color text-white px-2 py-1 rounded  hover:bg-primary-font-color w-max"
+            onClick={logoutUser}
+          >
+            Logout
+          </button>
         </div>
       </main>
     </div>

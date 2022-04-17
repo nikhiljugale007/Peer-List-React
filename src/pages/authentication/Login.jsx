@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useAuthContext } from "../../context/AuthContext";
 
 const inititalLoginState = { email: "", password: "" };
 
@@ -24,6 +25,9 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loginFormState, setLoginFormState] = useState(inititalLoginState);
   const [formError, setFormError] = useState(inititalLoginState);
+  const { authDispatch } = useAuthContext();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const loginUser = (e) => {
     e.preventDefault();
@@ -31,6 +35,10 @@ const Login = () => {
     console.log(loginFormState);
     if (Object.keys(errors).length === 0) {
       setFormError(inititalLoginState);
+      authDispatch({ type: "SET_LOGGED_USER" });
+      location.state === null
+        ? navigate("/scroll")
+        : navigate(location?.state?.from);
     } else {
       setFormError(errors);
     }
