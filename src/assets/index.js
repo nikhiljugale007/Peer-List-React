@@ -6,6 +6,18 @@ import Icon_portfolio from "./icons/Icon_portfolio.svg";
 import Icon_linkedin_imports from "./icons/Icon_linkedin_imports.svg";
 import illustration_network from "./illustration_network.svg";
 import illustration_scroll from "./illustration_scroll.svg";
+import Icon_home from "./icons/Icon_home.svg";
+import Icon_find from "./icons/Icon_find.svg";
+import Icon_my_network from "./icons/Icon_my_network.svg";
+import Icon_notification from "./icons/Icon_notification.svg";
+import Icon_profile from "./icons/Icon_profile.svg";
+import avatar from "./avatar.svg";
+import icon_like from "./icons/icon_like.svg";
+import icon_comment from "./icons/icon_comment.svg";
+import Icon_twitter from "./icons/Icon_twitter.svg";
+import Icon_portfolio2 from "./icons/Icon_portfolio2.svg";
+
+import Icon_medium from "./icons/Icon_medium.svg";
 
 export {
 	Icon_feedback,
@@ -16,4 +28,12 @@ export {
 	Icon_linkedin_imports,
 	illustration_network,
 	illustration_scroll,
+	Icon_home,
+	Icon_find,
+	Icon_my_network,
+	Icon_notification,
+	Icon_profile,
+	avatar,
+	icon_like,
+	icon_comment,Icon_twitter,Icon_medium,Icon_portfolio2
 };

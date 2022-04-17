@@ -1,0 +1,15 @@
+.sidebar {
+	display: none;
+}
+
+.bottom-navigation {
+	display: block;
+}
+@media only screen and (min-width: 1024px) {
+	.sidebar {
+		display: block;
+	}
+	.bottom-navigation {
+		display: none;
+	}
+}

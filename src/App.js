@@ -5,13 +5,15 @@ import { Home, Feed } from "./pages";
 import { Header, Footer } from "./components";
 function App() {
 	return (
-		<div>
+		<div className="flex flex-col min-h-screen">
 			<Header />
-			<Routes>
-				<Route path="/" element={<Home />} />
-				<Route path="/scroll" element={<Feed />} />
-				<Route path="/mockman" element={<Mockman />} />
-			</Routes>
+			<main className="flex-grow">
+				<Routes>
+					<Route path="/home" element={<Home />} />
+					<Route path="/*" element={<Feed />} />
+					<Route path="/mockman" element={<Mockman />} />
+				</Routes>
+			</main>
 			<Footer />
 		</div>
 	);

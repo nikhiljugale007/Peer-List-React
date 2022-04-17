@@ -12,12 +12,19 @@ module.exports = {
 				"tertiory-bg-color": "#E3F5EB",
 				"bg-off-white": "#F7F9FA",
 				"bg-black": "#0C0C0D",
+				"hover-color": "#E0E4E9",
 			},
 			padding: {
 				"px-20": "40%",
 			},
 			screens: {
 				xs: "480px",
+			},
+			gridTemplateColumns: {
+				"feed-3": "repeat(3,minMax(200px,1fr))",
+			},
+			width: {
+				128: "35rem",
 			},
 		},
 	},
