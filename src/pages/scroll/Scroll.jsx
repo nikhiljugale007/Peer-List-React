@@ -10,6 +10,7 @@ const Scroll = () => {
   useEffect(() => {
     const getPosts = async () => {
       const { data, success } = await GetApi("/api/posts", false);
+      console.log(data);
       if (success) {
         appDispatch({ type: "SET_FEED", payload: data.posts });
       } else {
