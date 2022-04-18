@@ -19,7 +19,7 @@ const PostCard = ({ post }) => {
         </div>
       </div>
       <div>
-        <p className={!expandPost && "max-h-24 " + "text-ellipsis"}>
+        <p className={"text-ellipsis" + expandPost ? "max-h-24" : ""}>
           {content}
         </p>
         <button

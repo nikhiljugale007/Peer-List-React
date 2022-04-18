@@ -1,11 +1,6 @@
 .text-ellipsis{
       display: -webkit-box;
- max-width: 100%;
- margin: 0 auto;
- -webkit-line-clamp: 4;
- /* autoprefixer: off */
- -webkit-box-orient: vertical;
- /* autoprefixer: on */
- overflow: hidden;
- text-overflow: ellipsis;
+	-webkit-line-clamp: 4;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
 }
