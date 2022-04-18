@@ -5,4 +5,14 @@ import PostCard from "./post-card/PostCard";
 import UserCard from "./user-card/UserCard";
 import { RequireAuth } from "./auth_wrapper/RequireAuth";
 import { SpinLoder } from "./loders/SpinLoder";
-export { Header, Footer, HomeCard, PostCard, UserCard, RequireAuth, SpinLoder };
+import { EditProfileModal } from "./modal/EditProfileModal";
+export {
+  Header,
+  Footer,
+  HomeCard,
+  PostCard,
+  UserCard,
+  RequireAuth,
+  SpinLoder,
+  EditProfileModal,
+};

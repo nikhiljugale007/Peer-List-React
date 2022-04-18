@@ -1,4 +1,3 @@
-import axios from "axios";
 import {
   avatar,
   Icon_twitter,
@@ -9,13 +8,14 @@ import { useAuthContext } from "../../context/AuthContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { GetApi } from "../../apicalls/GetApi";
-import { PostCard, SpinLoder } from "../../components";
+import { EditProfileModal, PostCard, SpinLoder } from "../../components";
 
 const Profile = () => {
   const { authState, authDispatch } = useAuthContext();
   const [userState, setUserState] = useState({});
   const [userPosts, setUserPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showEditProfileModal, setEditProfileModal] = useState(false);
   const navigate = useNavigate();
   const { user_id } = useParams();
   useEffect(() => {
@@ -27,12 +27,7 @@ const Profile = () => {
         alert("Some error occured, check console");
       }
     };
-    // const getPostsByUser = () => {
-    //   axios
-    //     .get(`/api/posts/user/${userState.username}`)
-    //     .then((res) => console.log(res))
-    //     .catch((err) => console.log(err));
-    // };
+
     const getPostsByUser = async () => {
       const { data, success } = await GetApi(
         `/api/posts/user/${userState.username}`,
@@ -64,7 +59,18 @@ const Profile = () => {
           <SpinLoder />
         </div>
       ) : (
-        <main className="flex-grow border-l border-r h-screen w-full">
+        <main className={"flex-grow border-l border-r h-screen w-full "}>
+          {/* modal */}
+          {showEditProfileModal && (
+            <div>
+              <EditProfileModal
+                setEditProfileModal={setEditProfileModal}
+                userState={userState}
+              />
+            </div>
+          )}
+
+          {/* main profile */}
           <div className="w-full p-10 flex flex-col gap-5 border-t border-b bg-primary-bg-color">
             <div className="flex sm:flex-row flex-col-reverse gap-10 items-center justify-between">
               <div className="flex flex-col gap-5">
@@ -72,7 +78,10 @@ const Profile = () => {
                   <p className="text-4xl font-semibold">
                     {userState.firstName + " " + userState.lastName}
                   </p>
-                  <button className="border px-2 py-1 rounded-sm">
+                  <button
+                    className="border px-2 py-1 rounded-sm"
+                    onClick={() => setEditProfileModal(true)}
+                  >
                     <p className="text-sm ">Edit Profile</p>
                   </button>
                 </div>
@@ -136,6 +145,7 @@ const Profile = () => {
               return (
                 <PostCard
                   post={post}
+                  key={post._id}
                   deleteCard={authState.user._id === userState._id}
                 />
               );
@@ -148,3 +158,10 @@ const Profile = () => {
 };
 
 export { Profile };
+// {
+//   "_id": "f2eba8e4-d8ae-4510-9c3f-d7ad111f541f",
+//   "firstName": "Adarsh1",
+//   "lastName": "Balika1",
+//   "username": "adarshbalika",
+// }
+// "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJmMmViYThlNC1kOGFlLTQ1MTAtOWMzZi1kN2FkMTExZjU0MWYiLCJ1c2VybmFtZSI6ImFkYXJzaGJhbGlrYSJ9.9L1GkdnqI3awI5E_4-zNz091L-bd9SJylC92a_DnpQ0"

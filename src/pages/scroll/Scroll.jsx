@@ -35,7 +35,7 @@ const Scroll = () => {
         ) : (
           <div>
             {appState.feed.map((post) => {
-              return <PostCard post={post} />;
+              return <PostCard post={post} key={post._id  } />;
             })}
           </div>
         )}
