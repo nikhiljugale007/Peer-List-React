@@ -15,6 +15,8 @@ const validateForm = (formState) => {
   }
   if (!password) {
     errors.password = "Password is required";
+  } else if (password.length < 4) {
+    errors.password = "Password must be more than 4 characters";
   }
   return errors;
 };
@@ -55,7 +57,6 @@ const Login = () => {
     }
   };
   const inputChangeHandler = (e) => {
-    setFormError(inititalLoginState);
     const new_val = { [e.target.name]: e.target.value };
     setLoginFormState((prev) => ({ ...prev, ...new_val }));
   };
@@ -107,7 +108,10 @@ const Login = () => {
                 />
                 <button
                   className="flex absolute inset-y-0 right-0 bg-hover-color h-6 px-1 rounded-md"
-                  onClick={() => setShowPassword((prev) => !prev)}
+                  onClick={(e) => {
+                    setShowPassword((prev) => !prev);
+                    e.preventDefault();
+                  }}
                 >
                   {showPassword ? "HIDE" : "SHOW"}
                 </button>

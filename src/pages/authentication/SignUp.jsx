@@ -128,7 +128,10 @@ const SignUp = () => {
                 />
                 <button
                   className="flex absolute inset-y-0 right-0 bg-hover-color h-6 px-1 rounded-md"
-                  onClick={() => setShowPassword((prev) => !prev)}
+                  onClick={(e) => {
+                    setShowPassword((prev) => !prev);
+                    e.preventDefault();
+                  }}
                 >
                   {showPassword ? "HIDE" : "SHOW"}
                 </button>
@@ -153,7 +156,10 @@ const SignUp = () => {
                 />
                 <button
                   className="flex absolute inset-y-0 right-0 bg-hover-color h-6 px-1 rounded-md"
-                  onClick={() => setShowPasswordConfirm((prev) => !prev)}
+                  onClick={(e) => {
+                    setShowPasswordConfirm((prev) => !prev);
+                    e.preventDefault();
+                  }}
                 >
                   {showPasswordConfirm ? "HIDE" : "SHOW"}
                 </button>
