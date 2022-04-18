@@ -19,12 +19,12 @@ const PostCard = ({ post }) => {
         </div>
       </div>
       <div>
-        <p className={expandPost ? "text-ellipsis max-h-24" : ""}>{content}</p>
+        <p className={expandPost ? "" : "text-ellipsis max-h-24"}>{content}</p>
         <button
           className="text-primary-color py-1 outline-none"
           onClick={() => setExpandPost((prev) => !prev)}
         >
-          {expandPost ? "Read More" : "Read Less"}
+          {expandPost ? "Read Less" : "Read More"}
         </button>
       </div>
       <div className="flex flex-row gap-20">
