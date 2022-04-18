@@ -4,4 +4,5 @@ import HomeCard from "./home-card/HomeCard";
 import PostCard from "./post-card/PostCard";
 import UserCard from "./user-card/UserCard";
 import { RequireAuth } from "./auth_wrapper/RequireAuth";
-export { Header, Footer, HomeCard, PostCard, UserCard, RequireAuth };
+import { SpinLoder } from "./loders/SpinLoder";
+export { Header, Footer, HomeCard, PostCard, UserCard, RequireAuth, SpinLoder };
