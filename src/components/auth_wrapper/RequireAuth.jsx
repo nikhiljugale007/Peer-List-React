@@ -6,7 +6,7 @@ const RequireAuth = ({ children, from }) => {
   return authState.isLoggedIn ? (
     children
   ) : (
-    <Navigate to="/login" replace state={{ from: from }} />
+    <Navigate to="/home" replace state={{ from: from }} />
   );
 };
 export { RequireAuth };
