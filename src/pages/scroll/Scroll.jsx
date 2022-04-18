@@ -7,22 +7,19 @@ const Scroll = () => {
   const { appState, appDispatch } = useAppContext();
   const [gettingDataFromApi, setGettingDataFromApi] = useState(true);
 
-  const getPosts = async () => {
-    const { data, success } = await GetApi("/api/posts", false);
-    if (success) {
-      appDispatch({ type: "SET_FEED", payload: data.posts });
-    } else {
-      alert("Something went wrong, check console");
-    }
-  };
-
   useEffect(() => {
+    const getPosts = async () => {
+      const { data, success } = await GetApi("/api/posts", false);
+      if (success) {
+        appDispatch({ type: "SET_FEED", payload: data.posts });
+      } else {
+        alert("Something went wrong, check console");
+      }
+    };
     setGettingDataFromApi(true);
     getPosts();
-    setTimeout(() => {
-      setGettingDataFromApi(false);
-    }, 2000);
-  }, []);
+    setGettingDataFromApi(false);
+  }, [appDispatch]);
 
   return (
     <div className="h-screen flex flex-row w-full">
