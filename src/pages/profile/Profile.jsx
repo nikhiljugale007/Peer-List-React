@@ -8,7 +8,12 @@ import { useAuthContext } from "../../context/AuthContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { GetApi } from "../../apicalls/GetApi";
-import { EditProfileModal, PostCard, SpinLoder } from "../../components";
+import {
+  EditProfileModal,
+  ListModal,
+  PostCard,
+  SpinLoder,
+} from "../../components";
 
 const Profile = () => {
   const { authState, authDispatch } = useAuthContext();
@@ -16,6 +21,11 @@ const Profile = () => {
   const [userPosts, setUserPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showEditProfileModal, setEditProfileModal] = useState(false);
+  const [listModal, setListModal] = useState({
+    showList: false,
+    title: "",
+    list: [],
+  });
   const navigate = useNavigate();
   const { user_id } = useParams();
   useEffect(() => {
@@ -69,7 +79,11 @@ const Profile = () => {
               />
             </div>
           )}
-
+          {listModal.showList && (
+            <div>
+              <ListModal setListModal={setListModal} listModal={listModal} />
+            </div>
+          )}
           {/* main profile */}
           <div className="w-full p-10 flex flex-col gap-5 border-t border-b bg-primary-bg-color">
             <div className="flex sm:flex-row flex-col-reverse gap-10 items-center justify-between">
@@ -122,12 +136,32 @@ const Profile = () => {
               </a>
             </div>
             <div className="flex sm:flex-row  sm:gap-20 gap-5 flex-wrap">
-              <p className="text-lg">
+              <button
+                className="text-lg"
+                onClick={() =>
+                  setListModal((prev) => ({
+                    ...prev,
+                    showList: true,
+                    title: "Followers",
+                    list: authState.user.followers,
+                  }))
+                }
+              >
                 {userState.followers.length + " "}Followers
-              </p>
-              <p className="text-lg">
-                {userState.following.length + " "}Followers
-              </p>
+              </button>
+              <button
+                className="text-lg"
+                onClick={() =>
+                  setListModal((prev) => ({
+                    ...prev,
+                    showList: true,
+                    title: "Following",
+                    list: authState.user.following,
+                  }))
+                }
+              >
+                {userState.following.length + " "}Following
+              </button>
             </div>
             {authState.user._id === userState._id && (
               <button
