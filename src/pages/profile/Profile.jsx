@@ -62,13 +62,17 @@ const Profile = () => {
     navigate("/home");
   };
   return (
-    <div className="h-screen  w-full">
+    <div className="h-screen w-full">
       {loading ? (
         <div className="text-center p-10">
           <SpinLoder />
         </div>
       ) : (
-        <main className={"flex-grow border-l border-r h-screen w-full "}>
+        <main
+          className={
+            "flex-grow border-l border-r h-screen w-full overflow-scroll pb-4 no-scrollbar"
+          }
+        >
           {/* modal */}
           {showEditProfileModal && (
             <div>
