@@ -23,7 +23,7 @@ function App() {
           <Route path="/mockman" element={<Mockman />} />
         </Routes>
       </main>
-      {/* <Footer />   */}
+      <Footer />
     </div>
   );
 }
