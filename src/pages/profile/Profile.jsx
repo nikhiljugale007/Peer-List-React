@@ -180,7 +180,9 @@ const Profile = () => {
                 <PostCard
                   post={post}
                   key={post._id}
-                  deleteCard={authState.user._id === userState._id}
+                  cardType={
+                    authState.user._id === userState._id ? "DELETE_CARD" : ""
+                  }
                 />
               );
             })

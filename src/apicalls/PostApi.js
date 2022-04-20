@@ -5,8 +5,9 @@ const PostApi = async (url, body, isAuthRequired) => {
   try {
     const response = await axios.post(url, body, {
       headers: isAuthRequired ? auth : "",
+      "Access-Control-Allow-Origin": true,
+      mode: "cors",
     });
-
     return {
       data: response.data,
       success: true,
