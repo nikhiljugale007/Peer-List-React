@@ -27,7 +27,7 @@ const EditProfileModal = ({ setEditProfileModal, userState }) => {
     );
     if (success) {
       authDispatch({ type: "UPDATE_USER", payload: data.user });
-      navigate(`/profile/${_id}`);
+      navigate(`/scroll`);
       setEditProfileModal(false);
     } else {
       alert("Some error occurred. Check console.");
@@ -36,7 +36,7 @@ const EditProfileModal = ({ setEditProfileModal, userState }) => {
   };
   return (
     <div
-      class="modal fade fixed top-0 left-0 w-full h-full outline-none overflow-x-hidden overflow-y-auto
+      className="modal fade fixed top-0 left-0 w-full h-full outline-none overflow-x-hidden overflow-y-auto
                 flex flex-row items-center justify-center 
               "
       id="exampleModalCenter"
@@ -45,17 +45,17 @@ const EditProfileModal = ({ setEditProfileModal, userState }) => {
       aria-modal="true"
       role="dialog"
     >
-      <div class="modal-dialog modal-dialog-centered relative w-auto pointer-events-none">
-        <div class="modal-content border-none shadow-lg relative flex flex-col w-max pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
-          <div class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md">
+      <div className="modal-dialog modal-dialog-centered relative w-auto pointer-events-none">
+        <div className="modal-content border-none shadow-lg relative flex flex-col w-max pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
+          <div className="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md">
             <h5
-              class="text-xl font-medium leading-normal text-gray-800"
+              className="text-xl font-medium leading-normal text-gray-800"
               id="exampleModalScrollableLabel"
             >
               Edit profile
             </h5>
           </div>
-          <div class="modal-body relative p-4">
+          <div className="modal-body relative p-4">
             <label
               className="block text-gray-700 text-sm mb-2 border border-gray-400 rounded px-2 focus-within:border-black"
               htmlFor="firstName"
@@ -113,10 +113,10 @@ const EditProfileModal = ({ setEditProfileModal, userState }) => {
               />
             </label>
           </div>
-          <div class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
+          <div className="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
             <button
               type="button"
-              class="inline-block px-6 py-2.5 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out"
+              className="inline-block px-6 py-2.5 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out"
               data-bs-dismiss="modal"
               onClick={() => setEditProfileModal(false)}
             >
@@ -124,7 +124,7 @@ const EditProfileModal = ({ setEditProfileModal, userState }) => {
             </button>
             <button
               type="button"
-              class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out ml-1"
+              className="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out ml-1"
               onClick={updateUserProfile}
             >
               Update Profile

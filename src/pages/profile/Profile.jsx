@@ -109,17 +109,13 @@ const Profile = () => {
 
             <div className="flex sm:flex-row  sm:gap-20 gap-5 flex-wrap">
               <a
-                href="https://twitter.com/"
+                href={userState.twitterProfile}
                 target="_blank"
                 rel="noreferrer"
                 className="flex flex-row gap-2 p-1 "
               >
                 <img src={Icon_twitter} alt="twitter" />
-                <p>
-                  {userState.twitterProfile === undefined
-                    ? "Add twitter profile"
-                    : userState.twitterProfile}
-                </p>
+                <p>Twitter</p>
               </a>
               <a
                 href="https://google.com/"

@@ -3,7 +3,7 @@ import { Icon_close } from "../../assets";
 const ListModal = ({ setListModal, listModal }) => {
   return (
     <div
-      class="modal fade fixed top-0 left-0 w-full h-full outline-none overflow-x-hidden overflow-y-auto
+      className="modal fade fixed top-0 left-0 w-full h-full outline-none overflow-x-hidden overflow-y-auto
                       flex flex-row items-center justify-center 
                     "
       id="exampleModalCenter"
@@ -12,11 +12,11 @@ const ListModal = ({ setListModal, listModal }) => {
       aria-modal="true"
       role="dialog"
     >
-      <div class="modal-dialog modal-dialog-centered relative w-auto pointer-events-none ">
-        <div class="border modal-content border-none shadow-lg relative flex flex-col w-64 pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
-          <div class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md">
+      <div className="modal-dialog modal-dialog-centered relative w-auto pointer-events-none ">
+        <div className="border modal-content border-none shadow-lg relative flex flex-col w-64 pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
+          <div className="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md">
             <h5
-              class="text-xl font-medium leading-normal text-gray-800"
+              className="text-xl font-medium leading-normal text-gray-800"
               id="exampleModalScrollableLabel"
             >
               {listModal.title}
@@ -32,7 +32,7 @@ const ListModal = ({ setListModal, listModal }) => {
               />
             </button>
           </div>
-          <div class="modal-body relative">
+          <div className="modal-body relative">
             {listModal.list.length === 0 && (
               <p className="border-b w-full p-4">{"Zero " + listModal.title}</p>
             )}
