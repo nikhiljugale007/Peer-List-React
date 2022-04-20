@@ -7,6 +7,7 @@ import { RequireAuth } from "./auth_wrapper/RequireAuth";
 import { SpinLoder } from "./loders/SpinLoder";
 import { EditProfileModal } from "./modal/EditProfileModal";
 import { ListModal } from "./modal/ListModal";
+import { NewPostModal } from "./modal/NewPostModal";
 export {
   Header,
   Footer,
@@ -17,4 +18,5 @@ export {
   SpinLoder,
   EditProfileModal,
   ListModal,
+  NewPostModal,
 };

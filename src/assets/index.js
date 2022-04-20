@@ -20,6 +20,7 @@ import Icon_delete from "./icons/Icon_delete.svg";
 import Icon_medium from "./icons/Icon_medium.svg";
 import Icon_back from "./icons/Icon_back.svg";
 import Icon_close from "./icons/Icon_close.svg";
+import Icon_emoji from "./icons/Icon_emoji.svg";
 export {
   Icon_feedback,
   Icon_need_more,
@@ -43,4 +44,5 @@ export {
   Icon_delete,
   Icon_back,
   Icon_close,
+  Icon_emoji,
 };

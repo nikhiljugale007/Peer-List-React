@@ -4,9 +4,9 @@ const PostApi = async (url, body, isAuthRequired) => {
   const auth = isAuthRequired ? localStorage.getItem("token") : "";
   try {
     const response = await axios.post(url, body, {
-      headers: isAuthRequired ? auth : "",
-      "Access-Control-Allow-Origin": true,
-      mode: "cors",
+      headers: {
+        authorization: auth,
+      },
     });
     return {
       data: response.data,
