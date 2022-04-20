@@ -23,7 +23,6 @@ const PostCard = ({ post, deleteCard, cardType }) => {
     } else {
       alert("Some error occurred, check console.");
     }
-    console.log(res);
   };
   const unfollowUser = async () => {
     const res = await PostApi(`/api/users/unfollow/${userId}`, {}, true);
@@ -32,7 +31,6 @@ const PostCard = ({ post, deleteCard, cardType }) => {
     } else {
       alert("Some error occurred, check console.");
     }
-    console.log(res);
   };
   return (
     <div className=" p-10 flex flex-col gap-5 border-t border-b bg-primary-bg-color w-full">

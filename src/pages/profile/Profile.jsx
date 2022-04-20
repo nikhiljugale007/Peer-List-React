@@ -61,7 +61,6 @@ const Profile = () => {
     authDispatch({ type: "LOGOUT_USER" });
     navigate("/home");
   };
-
   return (
     <div className="h-screen  w-full">
       {loading ? (
@@ -100,7 +99,9 @@ const Profile = () => {
                   </button>
                 </div>
                 <p className="text-lg">
-                  Learning web development @neog.camp 2022
+                  {userState.about === undefined
+                    ? "Add about section."
+                    : userState.about}
                 </p>
               </div>
               <img src={avatar} alt="profile-pic" className="h-20 w-20 " />
@@ -114,7 +115,11 @@ const Profile = () => {
                 className="flex flex-row gap-2 p-1 "
               >
                 <img src={Icon_twitter} alt="twitter" />
-                <p>Twitter</p>
+                <p>
+                  {userState.twitterProfile === undefined
+                    ? "Add twitter profile"
+                    : userState.twitterProfile}
+                </p>
               </a>
               <a
                 href="https://google.com/"
@@ -143,7 +148,7 @@ const Profile = () => {
                     ...prev,
                     showList: true,
                     title: "Followers",
-                    list: authState.user.followers,
+                    list: userState.followers,
                   }))
                 }
               >
@@ -156,7 +161,7 @@ const Profile = () => {
                     ...prev,
                     showList: true,
                     title: "Following",
-                    list: authState.user.following,
+                    list: userState.following,
                   }))
                 }
               >

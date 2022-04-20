@@ -1,8 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { PostApi } from "../../apicalls/PostApi";
+import { useAuthContext } from "../../context/AuthContext";
 
 const EditProfileModal = ({ setEditProfileModal, userState }) => {
   const { firstName, lastName, _id, about, twitterProfile } = userState;
+  const { authDispatch } = useAuthContext();
+  const navigate = useNavigate();
   const [editProfileState, setEditProfileState] = useState({
     _id: _id,
     firstName: firstName,
@@ -16,13 +20,19 @@ const EditProfileModal = ({ setEditProfileModal, userState }) => {
   };
 
   const updateUserProfile = async () => {
-    //     console.log(editProfileState); edit profile
-    // this is not working dont know why
-    //     const { data, success } = await PostApi(
-    //       `api/users/edit`,
-    //       { editProfileState },
-    //       true
-    //     );
+    const { data, success } = await PostApi(
+      "/api/users/edit",
+      { userData: editProfileState },
+      true
+    );
+    if (success) {
+      authDispatch({ type: "UPDATE_USER", payload: data.user });
+      navigate(`/profile/${_id}`);
+      setEditProfileModal(false);
+    } else {
+      alert("Some error occurred. Check console.");
+      setEditProfileModal(false);
+    }
   };
   return (
     <div

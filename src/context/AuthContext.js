@@ -33,7 +33,6 @@ const AuthContextProvider = ({ children }) => {
     authReducerFunction,
     authInitialState
   );
-  console.log(authState);
   return (
     <AuthContext.Provider value={{ authState, authDispatch }}>
       {children}
