@@ -95,12 +95,14 @@ const Profile = () => {
                   <p className="text-4xl font-semibold">
                     {userState.firstName + " " + userState.lastName}
                   </p>
-                  <button
-                    className="border px-2 py-1 rounded-sm"
-                    onClick={() => setEditProfileModal(true)}
-                  >
-                    <p className="text-sm ">Edit Profile</p>
-                  </button>
+                  {userState.username === authState.user.username && (
+                    <button
+                      className="border px-2 py-1 rounded-sm"
+                      onClick={() => setEditProfileModal(true)}
+                    >
+                      <p className="text-sm ">Edit Profile</p>
+                    </button>
+                  )}
                 </div>
                 <p className="text-lg">
                   {userState.about === undefined
