@@ -10,7 +10,7 @@ const Header = () => {
         <img src={logo} alt="SVG" />
       </Link>
       <Link
-        to={authState.isLoggedIn ? "/profile" : "/login"}
+        to={authState.isLoggedIn ? `/profile/${authState.user._id}` : "/login"}
         className="px-5 py-1 bg-primary-bg-color rounded-md text-lg"
       >
         {authState.isLoggedIn ? authState.user.firstName : "Login"}

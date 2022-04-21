@@ -1,12 +1,10 @@
 import axios from "axios";
 
-const PostApi = async (url, body, isAuthRequired) => {
+const GetApi = async (url, isAuthRequired) => {
   const auth = isAuthRequired ? localStorage.getItem("token") : "";
   try {
-    const response = await axios.post(url, body, {
-      headers: {
-        authorization: auth,
-      },
+    const response = await axios.get(url, {
+      headers: isAuthRequired ? auth : "",
     });
     return {
       data: response.data,
@@ -22,4 +20,4 @@ const PostApi = async (url, body, isAuthRequired) => {
   }
 };
 
-export { PostApi };
+export { GetApi };

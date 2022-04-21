@@ -9,7 +9,9 @@ import {
 import { Scroll } from "../scroll/Scroll";
 import { Routes, Route, NavLink } from "react-router-dom";
 import { Profile } from "../profile/Profile";
+import { useAuthContext } from "../../context/AuthContext";
 const Feed = () => {
+  const { authState } = useAuthContext();
   const getActiveStyle = ({ isActive }) => ({
     backgroundColor: isActive ? "#E0E4E9" : "",
   });
@@ -41,7 +43,7 @@ const Feed = () => {
             <p className="">Notifications</p>
           </li>
           <NavLink
-            to="/profile"
+            to={`/profile/${authState.user._id}`}
             className="flex flex-row gap-4  p-2 hover:cursor-pointer rounded-md"
             style={getActiveStyle}
           >
@@ -53,7 +55,7 @@ const Feed = () => {
       <main className="w-full ">
         <Routes>
           <Route path="scroll" element={<Scroll />} />
-          <Route path="profile" element={<Profile />} />
+          <Route path="profile/:user_id" element={<Profile />} />
         </Routes>
       </main>
       <div className="bottom-navigation bg-bg-off-white fixed bottom-0 left-0 w-full">
@@ -84,7 +86,7 @@ const Feed = () => {
             <p className="text-xs text-gray-600">Notifications</p>
           </li>
           <NavLink
-            to="/profile"
+            to={`/profile/${authState.user._id}`}
             className="flex flex-col  p-2 px-4 hover:cursor-pointer "
             style={getMobileActiveStyle}
           >
