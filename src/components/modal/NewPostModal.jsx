@@ -41,8 +41,6 @@ const NewPostModal = ({ setShowNewPostModal }) => {
                 id="firstName"
                 name="firstName"
                 type="text"
-                //     value={editProfileState.firstName}
-                //     onChange={inputChangeHandler}
               />
             </label>
             <div>

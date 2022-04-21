@@ -201,10 +201,3 @@ const Profile = () => {
 };
 
 export { Profile };
-// {
-//   "_id": "f2eba8e4-d8ae-4510-9c3f-d7ad111f541f",
-//   "firstName": "Adarsh1",
-//   "lastName": "Balika1",
-//   "username": "adarshbalika",
-// }
-// "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJmMmViYThlNC1kOGFlLTQ1MTAtOWMzZi1kN2FkMTExZjU0MWYiLCJ1c2VybmFtZSI6ImFkYXJzaGJhbGlrYSJ9.9L1GkdnqI3awI5E_4-zNz091L-bd9SJylC92a_DnpQ0"
