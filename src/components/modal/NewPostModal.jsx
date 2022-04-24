@@ -29,7 +29,6 @@ const NewPostModal = ({ setShowNewPostModal }) => {
     setOpenEmojiPicker(false);
   };
   const submitForm = async () => {
-    console.log(newPost);
     const { data, success } = await NewPostApi(
       "/api/posts",
       { postData: { ...newPost } },
@@ -37,7 +36,6 @@ const NewPostModal = ({ setShowNewPostModal }) => {
     );
     if (success) {
       appDispatch({ type: "SET_FEED", payload: data.posts });
-      console.log(data);
     } else {
       alert("Something went wrong. Check console.");
     }

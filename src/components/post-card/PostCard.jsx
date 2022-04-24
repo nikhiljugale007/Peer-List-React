@@ -5,10 +5,14 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../../context/AuthContext";
 import { PostApi } from "../../apicalls/PostApi";
+import { useAppContext } from "../../context/AppContext";
+import { ThumbUpIcon } from "@heroicons/react/outline";
+
 const PostCard = ({ post, deleteCard, cardType }) => {
-  const { username, content, updatedAt, likes, userId, media } = post;
+  const { username, content, updatedAt, likes, userId, media, _id } = post;
   const [expandPost, setExpandPost] = useState(false);
   const { authState, authDispatch } = useAuthContext();
+  const { appDispatch } = useAppContext();
   const checkUserIsFollowed = () => {
     return (
       authState.user.following.find((user) => user.username === username) ||
@@ -31,6 +35,33 @@ const PostCard = ({ post, deleteCard, cardType }) => {
     } else {
       alert("Some error occurred, check console.");
     }
+  };
+  const likePost = async () => {
+    const { data, success } = await PostApi(`/api/posts/like/${_id}`, {}, true);
+    if (success) {
+      appDispatch({ type: "SET_FEED", payload: data.posts });
+    } else {
+      alert("Some error occurred, check console.");
+    }
+  };
+  const dislikePost = async () => {
+    const { data, success } = await PostApi(
+      `/api/posts/dislike/${_id}`,
+      {},
+      true
+    );
+    if (success) {
+      appDispatch({ type: "SET_FEED", payload: data.posts });
+    } else {
+      alert("Some error occurred, check console.");
+    }
+  };
+  const checkLikedPost = () => {
+    const likedArray = likes.likedBy.filter(
+      (user) => user._id === authState.user._id
+    );
+    if (likedArray.length === 0) return false;
+    else return true;
   };
   return (
     <div className=" p-10 flex flex-col gap-5 border-t border-b bg-primary-bg-color w-full">
@@ -86,14 +117,24 @@ const PostCard = ({ post, deleteCard, cardType }) => {
         </button>
       </div>
       <div className="flex flex-row gap-20">
-        <div className="flex flex-row items-center">
-          <img
-            src={icon_like}
-            alt="like"
-            className="hover:cursor-pointer hover:bg-hover-color p-2 rounded-full"
-          />
-          <p>{likes.likedBy.length}</p>
-        </div>
+        {checkLikedPost() ? (
+          <div
+            className="flex flex-row items-center cursor-pointer gap-2"
+            onClick={dislikePost}
+          >
+            <ThumbUpIcon className="p-2 h-10 w-10 stroke-primary-color  hover:bg-hover-color rounded-full" />
+            <p>{likes.likedBy.length}</p>
+          </div>
+        ) : (
+          <div
+            className="flex flex-row items-center cursor-pointer gap-2 "
+            onClick={likePost}
+          >
+            <ThumbUpIcon className="p-2 h-10 w-10  hover:bg-hover-color rounded-full" />
+            <p>{likes.likedBy.length}</p>
+          </div>
+        )}
+
         <img
           src={icon_comment}
           alt="comment"
