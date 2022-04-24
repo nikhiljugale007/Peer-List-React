@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useAuthContext } from "../../context/AuthContext";
 import { PostApi } from "../../apicalls/PostApi";
 const PostCard = ({ post, deleteCard, cardType }) => {
-  const { username, content, updatedAt, likes, userId } = post;
+  const { username, content, updatedAt, likes, userId, media } = post;
   const [expandPost, setExpandPost] = useState(false);
   const { authState, authDispatch } = useAuthContext();
   const checkUserIsFollowed = () => {
@@ -74,16 +74,9 @@ const PostCard = ({ post, deleteCard, cardType }) => {
               ))}
           </div>
         )}
-        {/* {cardType === "FOLLOW_CARD" && !checkUserIsFollowed() && (
-          <button
-            onClick={followUser}
-            className="border p-1 px-2 rounded-md hover:bg-hover-color"
-          >
-            Follow
-          </button>
-        )} */}
       </div>
       <div>
+        <p>{media ? "MEDIA" : "NO MEDIA"}</p>
         <p className={expandPost ? "" : "text-ellipsis max-h-24 "}>{content}</p>
         <button
           className="text-primary-color py-1 outline-none"
