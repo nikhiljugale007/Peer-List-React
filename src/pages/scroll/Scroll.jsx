@@ -26,7 +26,7 @@ const Scroll = () => {
       {showNewPostModal && (
         <NewPostModal setShowNewPostModal={setShowNewPostModal} />
       )}
-      <div className="h-screen w-full border-l border-r overflow-y-scroll no-scrollbar">
+      <div className="h-screen w-full border-l border-r overflow-y-scroll no-scrollbar sm:pb-16">
         <div className="sticky top-0 flex flex-row items-center justify-between p-2 border-b bg-primary-bg-color">
           <p className="font-semibold">All feed</p>
           <button

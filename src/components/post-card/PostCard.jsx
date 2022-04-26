@@ -87,9 +87,10 @@ const PostCard = ({ post, deleteCard, cardType }) => {
     else return true;
   };
   const checkBookmarkedPost = () => {
-    const temp = authState.user.bookmarks.filter((post) => post._id === _id);
-    console.log(temp);
-      if (temp.length === 0) return false;
+    const bookmaredArray = authState.user.bookmarks.filter(
+      (post) => post._id === _id
+    );
+    if (bookmaredArray.length === 0) return false;
     else return true;
   };
   return (
