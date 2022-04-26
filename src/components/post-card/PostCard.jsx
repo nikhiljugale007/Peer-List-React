@@ -1,12 +1,11 @@
 import "./PostCard.css";
 import { avatar, Icon_delete } from "../../assets";
-import { icon_like, icon_comment } from "../../assets";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../../context/AuthContext";
 import { PostApi } from "../../apicalls/PostApi";
 import { useAppContext } from "../../context/AppContext";
-import { ThumbUpIcon } from "@heroicons/react/outline";
+import { ThumbUpIcon, BookmarkIcon } from "@heroicons/react/outline";
 
 const PostCard = ({ post, deleteCard, cardType }) => {
   const { username, content, updatedAt, likes, userId, media, _id } = post;
@@ -56,11 +55,41 @@ const PostCard = ({ post, deleteCard, cardType }) => {
       alert("Some error occurred, check console.");
     }
   };
+  const bookmarkPost = async () => {
+    const { data, success } = await PostApi(
+      `api/users/bookmark/${_id}`,
+      {},
+      true
+    );
+    if (success) {
+      authDispatch({ type: "UPDATE_USER_BOOKMARK", payload: data.bookmarks });
+    } else {
+      alert("Some error occurred, check console.");
+    }
+  };
+  const removeBookmarkPost = async () => {
+    const { data, success } = await PostApi(
+      `api/users/remove-bookmark/${_id}`,
+      {},
+      true
+    );
+    if (success) {
+      authDispatch({ type: "UPDATE_USER_BOOKMARK", payload: data.bookmarks });
+    } else {
+      alert("Some error occurred, check console.");
+    }
+  };
   const checkLikedPost = () => {
     const likedArray = likes.likedBy.filter(
       (user) => user._id === authState.user._id
     );
     if (likedArray.length === 0) return false;
+    else return true;
+  };
+  const checkBookmarkedPost = () => {
+    const temp = authState.user.bookmarks.filter((post) => post._id === _id);
+    console.log(temp);
+      if (temp.length === 0) return false;
     else return true;
   };
   return (
@@ -134,12 +163,21 @@ const PostCard = ({ post, deleteCard, cardType }) => {
             <p>{likes.likedBy.length}</p>
           </div>
         )}
-
-        <img
-          src={icon_comment}
-          alt="comment"
-          className="hover:cursor-pointer hover:bg-hover-color p-2 rounded-full"
-        />
+        {checkBookmarkedPost() ? (
+          <div
+            className="flex flex-row items-center cursor-pointer gap-2"
+            onClick={removeBookmarkPost}
+          >
+            <BookmarkIcon className="p-2 h-10 w-10  stroke-primary-color  hover:bg-hover-color rounded-full cursor-pointer" />
+          </div>
+        ) : (
+          <div
+            className="flex flex-row items-center cursor-pointer gap-2 "
+            onClick={bookmarkPost}
+          >
+            <BookmarkIcon className="p-2 h-10 w-10  hover:bg-hover-color rounded-full cursor-pointer" />
+          </div>
+        )}
       </div>
     </div>
   );
