@@ -1,14 +1,17 @@
 import "./PostCard.css";
 import { avatar, Icon_delete } from "../../assets";
-import { icon_like, icon_comment } from "../../assets";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../../context/AuthContext";
 import { PostApi } from "../../apicalls/PostApi";
+import { useAppContext } from "../../context/AppContext";
+import { ThumbUpIcon, BookmarkIcon } from "@heroicons/react/outline";
+
 const PostCard = ({ post, deleteCard, cardType }) => {
-  const { username, content, updatedAt, likes, userId } = post;
+  const { username, content, updatedAt, likes, userId, media, _id } = post;
   const [expandPost, setExpandPost] = useState(false);
   const { authState, authDispatch } = useAuthContext();
+  const { appDispatch } = useAppContext();
   const checkUserIsFollowed = () => {
     return (
       authState.user.following.find((user) => user.username === username) ||
@@ -31,6 +34,64 @@ const PostCard = ({ post, deleteCard, cardType }) => {
     } else {
       alert("Some error occurred, check console.");
     }
+  };
+  const likePost = async () => {
+    const { data, success } = await PostApi(`/api/posts/like/${_id}`, {}, true);
+    if (success) {
+      appDispatch({ type: "SET_FEED", payload: data.posts });
+    } else {
+      alert("Some error occurred, check console.");
+    }
+  };
+  const dislikePost = async () => {
+    const { data, success } = await PostApi(
+      `/api/posts/dislike/${_id}`,
+      {},
+      true
+    );
+    if (success) {
+      appDispatch({ type: "SET_FEED", payload: data.posts });
+    } else {
+      alert("Some error occurred, check console.");
+    }
+  };
+  const bookmarkPost = async () => {
+    const { data, success } = await PostApi(
+      `api/users/bookmark/${_id}`,
+      {},
+      true
+    );
+    if (success) {
+      authDispatch({ type: "UPDATE_USER_BOOKMARK", payload: data.bookmarks });
+    } else {
+      alert("Some error occurred, check console.");
+    }
+  };
+  const removeBookmarkPost = async () => {
+    const { data, success } = await PostApi(
+      `api/users/remove-bookmark/${_id}`,
+      {},
+      true
+    );
+    if (success) {
+      authDispatch({ type: "UPDATE_USER_BOOKMARK", payload: data.bookmarks });
+    } else {
+      alert("Some error occurred, check console.");
+    }
+  };
+  const checkLikedPost = () => {
+    const likedArray = likes.likedBy.filter(
+      (user) => user._id === authState.user._id
+    );
+    if (likedArray.length === 0) return false;
+    else return true;
+  };
+  const checkBookmarkedPost = () => {
+    const bookmaredArray = authState.user.bookmarks.filter(
+      (post) => post._id === _id
+    );
+    if (bookmaredArray.length === 0) return false;
+    else return true;
   };
   return (
     <div className=" p-10 flex flex-col gap-5 border-t border-b bg-primary-bg-color w-full">
@@ -74,16 +135,9 @@ const PostCard = ({ post, deleteCard, cardType }) => {
               ))}
           </div>
         )}
-        {/* {cardType === "FOLLOW_CARD" && !checkUserIsFollowed() && (
-          <button
-            onClick={followUser}
-            className="border p-1 px-2 rounded-md hover:bg-hover-color"
-          >
-            Follow
-          </button>
-        )} */}
       </div>
       <div>
+        <p>{media ? "MEDIA" : "NO MEDIA"}</p>
         <p className={expandPost ? "" : "text-ellipsis max-h-24 "}>{content}</p>
         <button
           className="text-primary-color py-1 outline-none"
@@ -93,19 +147,38 @@ const PostCard = ({ post, deleteCard, cardType }) => {
         </button>
       </div>
       <div className="flex flex-row gap-20">
-        <div className="flex flex-row items-center">
-          <img
-            src={icon_like}
-            alt="like"
-            className="hover:cursor-pointer hover:bg-hover-color p-2 rounded-full"
-          />
-          <p>{likes.likedBy.length}</p>
-        </div>
-        <img
-          src={icon_comment}
-          alt="comment"
-          className="hover:cursor-pointer hover:bg-hover-color p-2 rounded-full"
-        />
+        {checkLikedPost() ? (
+          <div
+            className="flex flex-row items-center cursor-pointer gap-2"
+            onClick={dislikePost}
+          >
+            <ThumbUpIcon className="p-2 h-10 w-10 stroke-primary-color  hover:bg-hover-color rounded-full" />
+            <p>{likes.likedBy.length}</p>
+          </div>
+        ) : (
+          <div
+            className="flex flex-row items-center cursor-pointer gap-2 "
+            onClick={likePost}
+          >
+            <ThumbUpIcon className="p-2 h-10 w-10  hover:bg-hover-color rounded-full" />
+            <p>{likes.likedBy.length}</p>
+          </div>
+        )}
+        {checkBookmarkedPost() ? (
+          <div
+            className="flex flex-row items-center cursor-pointer gap-2"
+            onClick={removeBookmarkPost}
+          >
+            <BookmarkIcon className="p-2 h-10 w-10  stroke-primary-color  hover:bg-hover-color rounded-full cursor-pointer" />
+          </div>
+        ) : (
+          <div
+            className="flex flex-row items-center cursor-pointer gap-2 "
+            onClick={bookmarkPost}
+          >
+            <BookmarkIcon className="p-2 h-10 w-10  hover:bg-hover-color rounded-full cursor-pointer" />
+          </div>
+        )}
       </div>
     </div>
   );

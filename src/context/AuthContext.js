@@ -20,6 +20,14 @@ const authReducerFunction = (state, action) => {
         ...state,
         user: action.payload,
       };
+    case "UPDATE_USER_BOOKMARK":
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          bookmarks: action.payload,
+        },
+      };
     default:
       return state;
   }
