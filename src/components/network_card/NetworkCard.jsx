@@ -38,15 +38,21 @@ const NetworkCard = ({ user }) => {
         {!(username === authState.user.username) &&
           (checkUserIsFollowed() ? (
             <button
-              onClick={unfollowUser}
-              className="border p-1 px-2 rounded-md hover:bg-hover-color"
+              onClick={(e) => {
+                e.preventDefault();
+                unfollowUser();
+              }}
+              className="border p-1 px-2 rounded-md hover:bg-bg-black text-primary-bg-color bg-secondary-bg-color"
             >
               UnFollow
             </button>
           ) : (
             <button
-              onClick={followUser}
-              className="border p-1 px-2 rounded-md hover:bg-hover-color text-primary-bg-color bg-secondary-bg-color"
+              onClick={(e) => {
+                e.preventDefault();
+                followUser();
+              }}
+              className="border p-1 px-2 rounded-md hover:bg-bg-black text-primary-bg-color bg-secondary-bg-color"
             >
               Follow
             </button>

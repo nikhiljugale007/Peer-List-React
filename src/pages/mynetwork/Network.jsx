@@ -2,6 +2,8 @@ import { useState } from "react";
 import "./Network.css";
 import { NetworkCard } from "../../components";
 import { FindUser } from "./FindUser";
+import { Following } from "./Following";
+import { Followers } from "./Followers";
 
 const Network = () => {
   const [activeTab, setActiveTab] = useState("FIND");
@@ -20,23 +22,27 @@ const Network = () => {
         <li
           className={
             "cursor-pointer py-1 px-4 " +
-            (activeTab === "FOLLOWERS" ? "active-tab" : "")
-          }
-          onClick={() => setActiveTab("FOLLOWERS")}
-        >
-          <p className=" px-2 py-1">Followers</p>
-        </li>
-        <li
-          className={
-            "cursor-pointer py-1 px-4 " +
             (activeTab === "FOLLOWING" ? "active-tab" : "")
           }
           onClick={() => setActiveTab("FOLLOWING")}
         >
           <p className=" px-2 py-1">Following</p>
         </li>
+        <li
+          className={
+            "cursor-pointer py-1 px-4 " +
+            (activeTab === "FOLLOWERS" ? "active-tab" : "")
+          }
+          onClick={() => setActiveTab("FOLLOWERS")}
+        >
+          <p className=" px-2 py-1">Followers</p>
+        </li>
       </ul>
-      <div>{activeTab === "FIND" && <FindUser />}</div>
+      <div>
+        {activeTab === "FIND" && <FindUser />}
+        {activeTab === "FOLLOWING" && <Following />}
+        {activeTab === "FOLLOWERS" && <Followers />}
+      </div>
     </div>
   );
 };
