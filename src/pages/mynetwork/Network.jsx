@@ -1,6 +1,5 @@
 import { useState } from "react";
 import "./Network.css";
-import { NetworkCard } from "../../components";
 import { FindUser } from "./FindUser";
 import { Following } from "./Following";
 import { Followers } from "./Followers";
