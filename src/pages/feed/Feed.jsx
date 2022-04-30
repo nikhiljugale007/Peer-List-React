@@ -10,6 +10,7 @@ import { Scroll } from "../scroll/Scroll";
 import { Routes, Route, NavLink } from "react-router-dom";
 import { Profile } from "../profile/Profile";
 import { useAuthContext } from "../../context/AuthContext";
+import { Network } from "../mynetwork/Network";
 const Feed = () => {
   const { authState } = useAuthContext();
   const getActiveStyle = ({ isActive }) => ({
@@ -30,10 +31,15 @@ const Feed = () => {
             <img src={Icon_home} alt="home" />
             <p className="font-semibold">Scroll</p>
           </NavLink>
-          <li className="flex flex-row gap-4 p-2 hover:cursor-pointer ">
+          <NavLink
+            to="/network"
+            className="flex flex-row gap-4  p-2 hover:cursor-pointer rounded-md"
+            style={getActiveStyle}
+          >
             <img src={Icon_my_network} alt="home" />
             <p className="">My Network</p>
-          </li>
+          </NavLink>
+
           <li className="flex flex-row gap-4  p-2 hover:cursor-pointer">
             <img src={Icon_find} alt="home" />
             <p className="">Find</p>
@@ -55,6 +61,7 @@ const Feed = () => {
       <main className="w-full ">
         <Routes>
           <Route path="scroll" element={<Scroll />} />
+          <Route path="network" element={<Network />} />
           <Route path="profile/:user_id" element={<Profile />} />
         </Routes>
       </main>
@@ -68,14 +75,18 @@ const Feed = () => {
             <img src={Icon_home} alt="home" className="w-6 h-6 self-center" />
             <p className="text-xs text-gray-600">Scroll</p>
           </NavLink>
-          <li className="flex flex-col p-2 hover:cursor-pointer ">
+          <NavLink
+            to="/network"
+            className="flex flex-col  p-2 hover:cursor-pointer border-t"
+            style={getMobileActiveStyle}
+          >
             <img
               src={Icon_my_network}
-              alt="home"
+              alt="netowork"
               className="w-6 h-6 self-center"
             />
             <p className="text-xs text-gray-600">My Network</p>
-          </li>
+          </NavLink>
 
           <li className="flex flex-col  p-2 hover:cursor-pointer ">
             <img

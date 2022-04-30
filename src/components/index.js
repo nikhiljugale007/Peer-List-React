@@ -8,6 +8,7 @@ import { SpinLoder } from "./loders/SpinLoder";
 import { EditProfileModal } from "./modal/EditProfileModal";
 import { ListModal } from "./modal/ListModal";
 import { NewPostModal } from "./modal/NewPostModal";
+import { NetworkCard } from "./network_card/NetworkCard";
 export {
   Header,
   Footer,
@@ -19,4 +20,5 @@ export {
   EditProfileModal,
   ListModal,
   NewPostModal,
+  NetworkCard,
 };
