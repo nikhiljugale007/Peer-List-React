@@ -1,7 +1,6 @@
 import "./Feed.css";
 import {
   Icon_home,
-  Icon_find,
   Icon_my_network,
   Icon_notification,
   Icon_profile,
@@ -95,15 +94,6 @@ const Feed = () => {
             />
             <p className="text-xs text-gray-600">My Network</p>
           </NavLink>
-
-          {/* <li className="flex flex-col  p-2 hover:cursor-pointer ">
-            <img
-              src={Icon_notification}
-              alt="home"
-              className="w-6 h-6 self-center"
-            />
-            <p className="text-xs text-gray-600">Notifications</p>
-          </li> */}
           <NavLink
             to={`/bookmark`}
             className="flex flex-col  p-2 px-4 hover:cursor-pointer "
