@@ -4,7 +4,9 @@ import { illustration_network, illustration_scroll } from "../../assets";
 import { Link } from "react-router-dom";
 import { HomeCard } from "../../components";
 import { opportunityData, connectionData } from "./HomeData";
+import { useAuthContext } from "../../context/AuthContext";
 const Home = () => {
+  const { authState } = useAuthContext();
   return (
     <div className="flex flex-col">
       <div className="min-h-screen flex flex-col items-center justify-center md:px-20 bg-bg-black ">
@@ -25,7 +27,7 @@ const Home = () => {
             className="px-5 py-3 bg-primary-color rounded-md flex flex-row items-center gap-3 hover:opacity-75"
           >
             <p className="text-primary-bg-color text-lg font-bold ">
-              Join Peerlist
+              {authState.isLoggedIn ? "Explore Peerlist" : "Join Peerlist"}
             </p>
             <div>
               <svg
