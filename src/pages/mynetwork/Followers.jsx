@@ -10,9 +10,11 @@ const Followers = () => {
           You do not have any followers yet.
         </div>
       )}
-      {authState.user.followers.map((user) => {
-        return <NetworkCard user={user} key={user._id} />;
-      })}
+      <div className="grid lg:grid-cols-2 grid-cols-1">
+        {authState.user.followers.map((user) => {
+          return <NetworkCard user={user} key={user._id} />;
+        })}
+      </div>
     </div>
   );
 };

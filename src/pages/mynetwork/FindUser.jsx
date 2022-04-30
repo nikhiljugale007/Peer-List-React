@@ -18,7 +18,7 @@ const FindUser = () => {
     getUsers();
     setTimeout(() => {
       setLoading(false);
-    }, 3000);
+    }, 1500);
   }, []);
   return (
     <div className="">
@@ -29,9 +29,7 @@ const FindUser = () => {
       ) : (
         <div className="grid lg:grid-cols-2 grid-cols-1">
           {allUsers.map((user) => (
-            <div>
-              <NetworkCard user={user} key={user._id} />
-            </div>
+            <NetworkCard user={user} key={user._id} />
           ))}
         </div>
       )}
