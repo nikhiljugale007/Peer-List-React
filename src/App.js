@@ -1,9 +1,10 @@
 import "./App.css";
 import Mockman from "mockman-js";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { Home, Feed, Login, SignUp } from "./pages";
 import { Header, Footer, RequireAuth } from "./components";
 function App() {
+  const location = useLocation();
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
@@ -23,7 +24,7 @@ function App() {
           <Route path="/mockman" element={<Mockman />} />
         </Routes>
       </main>
-      <Footer />
+      {location.pathname === "/home" && <Footer />}
     </div>
   );
 }

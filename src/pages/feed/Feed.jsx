@@ -11,6 +11,9 @@ import { Routes, Route, NavLink } from "react-router-dom";
 import { Profile } from "../profile/Profile";
 import { useAuthContext } from "../../context/AuthContext";
 import { Network } from "../mynetwork/Network";
+import { BookmarkIcon } from "@heroicons/react/outline";
+import { Bookmark } from "../bookmark/Bookmark";
+
 const Feed = () => {
   const { authState } = useAuthContext();
   const getActiveStyle = ({ isActive }) => ({
@@ -39,11 +42,15 @@ const Feed = () => {
             <img src={Icon_my_network} alt="home" />
             <p className="">My Network</p>
           </NavLink>
+          <NavLink
+            to={`/bookmark`}
+            className="flex flex-row gap-4  p-2 hover:cursor-pointer rounded-md"
+            style={getActiveStyle}
+          >
+            <BookmarkIcon className="h-6 w-6" />
+            <p className="">Bookmarks</p>
+          </NavLink>
 
-          <li className="flex flex-row gap-4  p-2 hover:cursor-pointer">
-            <img src={Icon_find} alt="home" />
-            <p className="">Find</p>
-          </li>
           <li className="flex flex-row gap-4  p-2 hover:cursor-pointer ">
             <img src={Icon_notification} alt="home" />
             <p className="">Notifications</p>
@@ -58,10 +65,11 @@ const Feed = () => {
           </NavLink>
         </ul>
       </aside>
-      <main className="w-full ">
+      <main className="w-full mb-20 md:-mb-0">
         <Routes>
           <Route path="scroll" element={<Scroll />} />
           <Route path="network" element={<Network />} />
+          <Route path="bookmark" element={<Bookmark />} />
           <Route path="profile/:user_id" element={<Profile />} />
         </Routes>
       </main>
@@ -69,7 +77,7 @@ const Feed = () => {
         <ul className="flex flex-row gap-2 justify-evenly items-center py-2 ">
           <NavLink
             to="/scroll"
-            className="flex flex-col  p-2 hover:cursor-pointer border-t"
+            className="flex flex-col  p-2 hover:cursor-pointer "
             style={getMobileActiveStyle}
           >
             <img src={Icon_home} alt="home" className="w-6 h-6 self-center" />
@@ -77,7 +85,7 @@ const Feed = () => {
           </NavLink>
           <NavLink
             to="/network"
-            className="flex flex-col  p-2 hover:cursor-pointer border-t"
+            className="flex flex-col  p-2 hover:cursor-pointer "
             style={getMobileActiveStyle}
           >
             <img
@@ -88,14 +96,22 @@ const Feed = () => {
             <p className="text-xs text-gray-600">My Network</p>
           </NavLink>
 
-          <li className="flex flex-col  p-2 hover:cursor-pointer ">
+          {/* <li className="flex flex-col  p-2 hover:cursor-pointer ">
             <img
               src={Icon_notification}
               alt="home"
               className="w-6 h-6 self-center"
             />
             <p className="text-xs text-gray-600">Notifications</p>
-          </li>
+          </li> */}
+          <NavLink
+            to={`/bookmark`}
+            className="flex flex-col  p-2 px-4 hover:cursor-pointer "
+            style={getMobileActiveStyle}
+          >
+            <BookmarkIcon className="h-6 w-6 self-center" />
+            <p className="">Bookmarks</p>
+          </NavLink>
           <NavLink
             to={`/profile/${authState.user._id}`}
             className="flex flex-col  p-2 px-4 hover:cursor-pointer "
