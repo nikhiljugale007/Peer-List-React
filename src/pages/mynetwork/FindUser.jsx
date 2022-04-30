@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { GetApi } from "../../apicalls/GetApi";
-import { NetworkCard } from "../../components";
+import { NetworkCard, SpinLoder } from "../../components";
 
 const FindUser = () => {
   const [allUsers, setAllUsers] = useState([]);
@@ -23,7 +23,9 @@ const FindUser = () => {
   return (
     <div className="">
       {loading ? (
-        <p>Loading...</p>
+        <div className="text-center p-10">
+          <SpinLoder />
+        </div>
       ) : (
         <div className="grid lg:grid-cols-2 grid-cols-1">
           {allUsers.map((user) => (
