@@ -41,17 +41,14 @@ const FindUser = () => {
               <input
                 type="text"
                 id="search-user-form"
-                className="h-12 w-96 pl-10 pr-20 rounded z-0 focus:shadow focus:outline-none bg-gray-50"
-                placeholder="Search anything..."
+                className="h-12 w-70 pl-10 pr-20 rounded z-0 focus:shadow focus:outline-none bg-gray-50"
+                placeholder="Enter username to search"
                 value={searchUserName}
                 onChange={(e) => setSearchUserName(e.target.value)}
               />
-              <div className="absolute top-2 right-2">
-                <button
-                  className="h-8 w-16 text-white rounded bg-primary-color hover:bg-primary-font-color"
-                  type="submit"
-                >
-                  Search
+              <div className="absolute top-2 right-2 h-8 flex flex-col justify-center">
+                <button type="submit">
+                  <SearchIcon className="h-6 w-6" />
                 </button>
               </div>
             </form>
@@ -60,7 +57,7 @@ const FindUser = () => {
             className="bg-primary-color text-white px-2 py-1 rounded  hover:bg-primary-font-color w-max"
             onClick={() => setFilteredData(allUsers)}
           >
-            Clear Search
+            Clear
           </button>
         </div>
       </div>
