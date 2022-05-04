@@ -23,6 +23,19 @@ export const posts = [
   },
   {
     _id: uuid(),
+    userId: "f2eba8e4-d8ae-4510-9c3f-d7ad111f541e",
+    content: "Secong post my adarsh balika",
+    likes: {
+      likeCount: 0,
+      likedBy: [],
+      dislikedBy: [],
+    },
+    username: "adarshbalika",
+    createdAt: formatDate(),
+    updatedAt: formatDate(),
+  },
+  {
+    _id: uuid(),
     userId: "g2eba8e4-d8ae-4510-9c3f-d7ad111f552e",
     content: "Demo post by Nikhil Jugale",
     likes: {

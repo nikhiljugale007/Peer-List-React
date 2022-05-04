@@ -18,7 +18,6 @@ import {
 const Profile = () => {
   const { authState, authDispatch } = useAuthContext();
   const [userState, setUserState] = useState({});
-  const [userPosts, setUserPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showEditProfileModal, setEditProfileModal] = useState(false);
   const [listModal, setListModal] = useState({
@@ -44,7 +43,7 @@ const Profile = () => {
         false
       );
       if (success) {
-        setUserPosts(data.posts);
+        authDispatch({ type: "UPDATE_USER_POSTS", payload: data.posts });
       } else {
         alert("Something went wrong, check console");
       }
@@ -55,7 +54,7 @@ const Profile = () => {
       setLoading(false);
     }, 1000);
     getPostsByUser();
-  }, [user_id, userState.username]);
+  }, [user_id, userState.username, authDispatch]);
 
   const logoutUser = () => {
     authDispatch({ type: "LOGOUT_USER" });
@@ -179,10 +178,10 @@ const Profile = () => {
               </button>
             )}
           </div>
-          {userPosts.length === 0 ? (
+          {authState.userPosts.length === 0 ? (
             <p>You do not have any posts yet</p>
           ) : (
-            userPosts.map((post) => {
+            authState.userPosts.map((post) => {
               return (
                 <PostCard
                   post={post}

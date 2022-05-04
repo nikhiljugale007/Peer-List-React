@@ -1,13 +1,20 @@
 import "./PostCard.css";
-import { avatar, Icon_delete } from "../../assets";
+import { avatar } from "../../assets";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../../context/AuthContext";
 import { PostApi } from "../../apicalls/PostApi";
 import { useAppContext } from "../../context/AppContext";
-import { ThumbUpIcon, BookmarkIcon } from "@heroicons/react/outline";
+import {
+  ThumbUpIcon,
+  BookmarkIcon,
+  PencilAltIcon,
+  TrashIcon,
+} from "@heroicons/react/outline";
+import { DeleteApi } from "../../apicalls/DeleteApi";
+import { GetApi } from "../../apicalls/GetApi";
 
-const PostCard = ({ post, deleteCard, cardType }) => {
+const PostCard = ({ post, cardType }) => {
   const { username, content, updatedAt, likes, userId, media, _id } = post;
   const [expandPost, setExpandPost] = useState(false);
   const { authState, authDispatch } = useAuthContext();
@@ -79,6 +86,21 @@ const PostCard = ({ post, deleteCard, cardType }) => {
       alert("Some error occurred, check console.");
     }
   };
+
+  const deletePost = async () => {
+    const { data, success } = await DeleteApi(`/api/posts/${_id}`, true);
+    if (success) {
+      appDispatch({ type: "SET_FEED", payload: data.posts });
+      const updatedUserPosts = data.posts.filter(
+        (post) => post.userId === authState.user._id
+      );
+      authDispatch({ type: "UPDATE_USER_POSTS", payload: updatedUserPosts });
+    } else {
+      alert("Some error occurred, check console.");
+    }
+  };
+
+  const editPost = () => {};
   const checkLikedPost = () => {
     const likedArray = likes.likedBy.filter(
       (user) => user._id === authState.user._id
@@ -93,6 +115,10 @@ const PostCard = ({ post, deleteCard, cardType }) => {
     if (bookmaredArray.length === 0) return false;
     else return true;
   };
+  const checkPostIdOfLoggedUser = () => {
+    return userId === authState.user._id;
+  };
+
   return (
     <div className=" p-10 flex flex-col gap-5 border-t border-b bg-primary-bg-color w-full">
       <div className="flex flex-row items-center justify-between ">
@@ -106,35 +132,33 @@ const PostCard = ({ post, deleteCard, cardType }) => {
             <p className="text-xs text-gray-600">{updatedAt}</p>
           </div>
         </Link>
-        {cardType === "DELETE_CARD" && (
-          <button>
-            <img
-              src={Icon_delete}
-              alt="delete"
-              className="hover:bg-hover-color p-2 rounded-full"
-            />
-          </button>
-        )}
-        {cardType === "FOLLOW_CARD" && (
-          <div>
-            {!(username === authState.user.username) &&
-              (checkUserIsFollowed() ? (
-                <button
-                  onClick={unfollowUser}
-                  className="border p-1 px-2 rounded-md hover:bg-hover-color"
-                >
-                  UnFollow
-                </button>
-              ) : (
-                <button
-                  onClick={followUser}
-                  className="border p-1 px-2 rounded-md hover:bg-hover-color"
-                >
-                  Follow
-                </button>
-              ))}
+        {checkPostIdOfLoggedUser() && (
+          <div className="flex flex-row">
+            <button onClick={deletePost}>
+              <TrashIcon className="p-2 h-10 w-10 hover:bg-hover-color rounded-full" />
+            </button>
+            <button onClick={editPost}>
+              <PencilAltIcon className="p-2 h-10 w-10 hover:bg-hover-color rounded-full" />
+            </button>
           </div>
         )}
+
+        {!(username === authState.user.username) &&
+          (checkUserIsFollowed() ? (
+            <button
+              onClick={unfollowUser}
+              className="border p-1 px-2 rounded-md hover:bg-hover-color"
+            >
+              UnFollow
+            </button>
+          ) : (
+            <button
+              onClick={followUser}
+              className="border p-1 px-2 rounded-md hover:bg-hover-color"
+            >
+              Follow
+            </button>
+          ))}
       </div>
       <div>
         <p>{media ? "MEDIA" : "NO MEDIA"}</p>
