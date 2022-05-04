@@ -10,16 +10,26 @@ const NewPostModal = ({ setShowNewPostModal }) => {
     media: "",
   });
   const emojiList = [
+    { icon: "❤️" },
+    { icon: "⚽" },
+    { icon: "👍" },
+    { icon: "🗺️" },
+    { icon: "🙏" },
+    { icon: "😘" },
+    { icon: "🥰" },
+    { icon: "🚀" },
+    { icon: "🍔" },
     { icon: "😅" },
-    { icon: "😅" },
-    { icon: "😅" },
-    { icon: "😅" },
-    { icon: "😅" },
-    { icon: "😅" },
-    { icon: "😅" },
-    { icon: "😅" },
-    { icon: "😅" },
-    { icon: "😅" },
+    { icon: "😇" },
+    { icon: "🤑" },
+    { icon: "💥" },
+    { icon: "🐋" },
+    { icon: "🌟" },
+    { icon: "🌈" },
+    { icon: "🔥" },
+    { icon: "⌛" },
+    { icon: "💻" },
+    { icon: "📖" },
   ];
   const emojiAdder = (item) => {
     setNewPost((prev) => ({
@@ -123,12 +133,12 @@ const NewPostModal = ({ setShowNewPostModal }) => {
             </div>
           </div>
           {openEmpjiPicker && (
-            <div className="flex flex-wrap gap-6 w-60 mx-auto p-2">
+            <div className="flex flex-wrap gap-2 w-60 mx-auto">
               {emojiList.map((item, index) => (
                 <span
                   key={index}
                   onClick={() => emojiAdder(item)}
-                  className="hover:cursor-pointer inline  w-min"
+                  className="hover:cursor-pointer inline w-min"
                 >
                   {item.icon}
                 </span>
