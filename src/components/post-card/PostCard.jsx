@@ -12,11 +12,12 @@ import {
   TrashIcon,
 } from "@heroicons/react/outline";
 import { DeleteApi } from "../../apicalls/DeleteApi";
-import { GetApi } from "../../apicalls/GetApi";
+import { EditPostModal } from "../modal/EditPostModal";
 
 const PostCard = ({ post, cardType }) => {
   const { username, content, updatedAt, likes, userId, media, _id } = post;
   const [expandPost, setExpandPost] = useState(false);
+  const [showEditPostModal, setShowEditPostModal] = useState(false);
   const { authState, authDispatch } = useAuthContext();
   const { appDispatch } = useAppContext();
   const checkUserIsFollowed = () => {
@@ -100,7 +101,9 @@ const PostCard = ({ post, cardType }) => {
     }
   };
 
-  const editPost = () => {};
+  const editPost = () => {
+    setShowEditPostModal(true);
+  };
   const checkLikedPost = () => {
     const likedArray = likes.likedBy.filter(
       (user) => user._id === authState.user._id
@@ -121,6 +124,12 @@ const PostCard = ({ post, cardType }) => {
 
   return (
     <div className=" p-10 flex flex-col gap-5 border-t border-b bg-primary-bg-color w-full">
+      {showEditPostModal && (
+        <EditPostModal
+          setShowEditPostModal={setShowEditPostModal}
+          post={post}
+        />
+      )}
       <div className="flex flex-row items-center justify-between ">
         <Link
           to={`/profile/${userId}`}

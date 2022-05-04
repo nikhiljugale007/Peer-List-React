@@ -2,12 +2,13 @@ import { Icon_close, Icon_emoji } from "../../assets";
 import { useState } from "react";
 import { PostApi } from "../../apicalls/PostApi";
 import { useAppContext } from "../../context/AppContext";
-const NewPostModal = ({ setShowNewPostModal }) => {
+const EditPostModal = ({ setShowEditPostModal, post }) => {
   const [openEmpjiPicker, setOpenEmojiPicker] = useState(false);
+  const { content, media, _id } = post;
   const { appDispatch } = useAppContext();
   const [newPost, setNewPost] = useState({
-    content: "",
-    media: "",
+    content: content,
+    media: media,
   });
   const emojiList = [
     { icon: "😅" },
@@ -30,7 +31,7 @@ const NewPostModal = ({ setShowNewPostModal }) => {
   };
   const submitForm = async () => {
     const { data, success } = await PostApi(
-      "/api/posts",
+      `/api/posts/edit/${_id}`,
       { postData: { ...newPost } },
       true
     );
@@ -39,7 +40,7 @@ const NewPostModal = ({ setShowNewPostModal }) => {
     } else {
       alert("Something went wrong. Check console.");
     }
-    setShowNewPostModal(false);
+    setShowEditPostModal(false);
   };
   return (
     <div
@@ -59,12 +60,12 @@ const NewPostModal = ({ setShowNewPostModal }) => {
               className="text-xl font-medium leading-normal text-gray-800"
               id="exampleModalScrollableLabel"
             >
-              New Post
+              Edit Post
             </h5>
             <button>
               <img
                 className="p-1 border rounded-full"
-                onClick={() => setShowNewPostModal(false)}
+                onClick={() => setShowEditPostModal(false)}
                 src={Icon_close}
                 alt="close"
               />
@@ -118,7 +119,7 @@ const NewPostModal = ({ setShowNewPostModal }) => {
                 className="bg-primary-color text-white px-2 py-1 rounded  hover:bg-primary-font-color w-max"
                 onClick={() => submitForm()}
               >
-                POST
+                Update
               </button>
             </div>
           </div>
@@ -140,4 +141,4 @@ const NewPostModal = ({ setShowNewPostModal }) => {
     </div>
   );
 };
-export { NewPostModal };
+export { EditPostModal };
