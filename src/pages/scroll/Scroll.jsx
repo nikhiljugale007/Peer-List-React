@@ -51,7 +51,7 @@ const Scroll = () => {
         )}
       </div>
       <aside className="recommended-sidebar w-72 sticky top-0 overflow-y-scroll no-scrollbar">
-        <p className="font-semibold border-b p-2">Recommeded People</p>
+        <p className="font-semibold border-b p-3">Recommeded People</p>
         <div className="flex flex-col gap-2">
           <UserCard />
           <UserCard />
