@@ -170,17 +170,20 @@ const PostCard = ({ post, cardType }) => {
           ))}
       </div>
       <div>
-        <p>{media ? "MEDIA" : "NO MEDIA"}</p>
+        {media && (
+          <img
+            className="max-w-full h-auto border p-2 rounded-md	object-cover"
+            src={media}
+            alt="post"
+          />
+        )}
         <p className={expandPost ? "" : "text-ellipsis max-h-24 "}>{content}</p>
-        <Link to={`/scroll/post/${_id}`}>
-          <button
-            className="text-primary-color py-1 outline-none"
-            onClick={() => setExpandPost((prev) => !prev)}
-          >
-            {/* {expandPost ? "Read Less" : "Read More"} */}
-            Show More
-          </button>
-        </Link>
+        <button
+          className="text-primary-color py-1 outline-none"
+          onClick={() => setExpandPost((prev) => !prev)}
+        >
+          {expandPost ? "Read Less" : "Read More"}
+        </button>
       </div>
       <div className="flex flex-row gap-20">
         {checkLikedPost() ? (
