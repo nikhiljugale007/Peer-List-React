@@ -172,12 +172,15 @@ const PostCard = ({ post, cardType }) => {
       <div>
         <p>{media ? "MEDIA" : "NO MEDIA"}</p>
         <p className={expandPost ? "" : "text-ellipsis max-h-24 "}>{content}</p>
-        <button
-          className="text-primary-color py-1 outline-none"
-          onClick={() => setExpandPost((prev) => !prev)}
-        >
-          {expandPost ? "Read Less" : "Read More"}
-        </button>
+        <Link to={`/scroll/post/${_id}`}>
+          <button
+            className="text-primary-color py-1 outline-none"
+            onClick={() => setExpandPost((prev) => !prev)}
+          >
+            {/* {expandPost ? "Read Less" : "Read More"} */}
+            Show More
+          </button>
+        </Link>
       </div>
       <div className="flex flex-row gap-20">
         {checkLikedPost() ? (

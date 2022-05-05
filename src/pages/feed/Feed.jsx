@@ -12,6 +12,7 @@ import { useAuthContext } from "../../context/AuthContext";
 import { Network } from "../mynetwork/Network";
 import { BookmarkIcon } from "@heroicons/react/outline";
 import { Bookmark } from "../bookmark/Bookmark";
+import { PostPage } from "../postpage/PostPage";
 
 const Feed = () => {
   const { authState } = useAuthContext();
@@ -70,6 +71,7 @@ const Feed = () => {
           <Route path="network" element={<Network />} />
           <Route path="bookmark" element={<Bookmark />} />
           <Route path="profile/:user_id" element={<Profile />} />
+          <Route path="/scroll/post/:post_id" element={<PostPage />} />
         </Routes>
       </main>
       <div className="bottom-navigation bg-bg-off-white fixed bottom-0 left-0 w-full">
