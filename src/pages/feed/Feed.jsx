@@ -12,8 +12,6 @@ import { useAuthContext } from "../../context/AuthContext";
 import { Network } from "../mynetwork/Network";
 import { BookmarkIcon } from "@heroicons/react/outline";
 import { Bookmark } from "../bookmark/Bookmark";
-import { PostPage } from "../postpage/PostPage";
-
 const Feed = () => {
   const { authState } = useAuthContext();
   const getActiveStyle = ({ isActive }) => ({

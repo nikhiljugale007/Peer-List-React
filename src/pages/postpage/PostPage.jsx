@@ -1,11 +1,9 @@
-import { useAuthContext } from "../../context/AuthContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { GetApi } from "../../apicalls/GetApi";
 import { PostCard, SpinLoder } from "../../components";
-import { ArrowLeftIcon, SearchIcon } from "@heroicons/react/outline";
+import { ArrowLeftIcon } from "@heroicons/react/outline";
 const PostPage = () => {
-  const { authState, authDispatch } = useAuthContext();
   const [post, setPost] = useState({});
   const [loading, setLoading] = useState(true);
   const { post_id } = useParams();
