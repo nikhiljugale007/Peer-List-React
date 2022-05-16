@@ -48,7 +48,7 @@ export const addPostCommentHandler = function (schema, request) {
     }
     const { postId } = request.params;
     const { commentData } = JSON.parse(request.requestBody);
-    console.log(commentData);
+
     const comment = {
       _id: uuid(),
       ...commentData,
@@ -58,10 +58,7 @@ export const addPostCommentHandler = function (schema, request) {
       updatedAt: formatDate(),
     };
     const post = schema.posts.findBy({ _id: postId }).attrs;
-    console.log(post);
     post.comments.push(comment);
-    console.log(post);
-
     this.db.posts.update({ _id: postId }, post);
     return new Response(201, {}, { comments: post.comments });
   } catch (error) {
@@ -249,7 +246,6 @@ export const downvotePostCommentHandler = function (schema, request) {
     }
     const { postId, commentId } = request.params;
     const post = schema.posts.findBy({ _id: postId }).attrs;
-
     const commentIndex = post.comments.findIndex(
       (comment) => comment._id === commentId
     );

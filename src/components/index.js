@@ -9,6 +9,7 @@ import { EditProfileModal } from "./modal/EditProfileModal";
 import { ListModal } from "./modal/ListModal";
 import { NewPostModal } from "./modal/NewPostModal";
 import { NetworkCard } from "./network_card/NetworkCard";
+import { CommentCard } from "./comment-card/CommentCard";
 export {
   Header,
   Footer,
@@ -21,4 +22,5 @@ export {
   ListModal,
   NewPostModal,
   NetworkCard,
+  CommentCard,
 };

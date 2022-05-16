@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { GetApi } from "../../apicalls/GetApi";
-import { PostCard, SpinLoder } from "../../components";
+import { CommentCard, PostCard, SpinLoder } from "../../components";
 import { ArrowLeftIcon } from "@heroicons/react/outline";
 import { PostApi } from "../../apicalls/PostApi";
 const PostPage = () => {
@@ -9,6 +9,7 @@ const PostPage = () => {
   const [loading, setLoading] = useState(true);
   const [newComment, setNewComment] = useState("");
   const [commentList, setCommentList] = useState([]);
+  const [sortCommentsBy, setSortCommentsBy] = useState("LATEST");
   const { post_id } = useParams();
   const navigate = useNavigate();
   useEffect(() => {
@@ -21,8 +22,8 @@ const PostPage = () => {
       }
       setLoading(false);
 
-      const res = await GetApi(`/api/comments/${post_id}`, true);
-      console.log(res);
+      const res = await GetApi(`/api/comments/${post_id}`, false);
+      setCommentList(res.data.comments);
     };
     getPostById();
   }, [post_id]);
@@ -32,11 +33,49 @@ const PostPage = () => {
     const { data, success } = await PostApi(
       `/api/comments/add/${post_id}`,
       {
-        commentData: { commentMessage: newComment },
+        commentData: { text: newComment },
       },
       true
     );
-    console.log(data);
+    if (success) {
+      setCommentList(data.comments);
+      setNewComment("");
+    } else {
+      alert("Some error occurred. Check console.");
+    }
+  };
+
+  const sortedCommentsArray = () => {
+    if (sortCommentsBy === "UPVOTES") {
+      return commentList.sort((commentA, commentB) => {
+        const upVoteDiff =
+          commentB.votes.upvotedBy.length - commentA.votes.upvotedBy.length;
+        if (upVoteDiff === 0) {
+          return (
+            commentA.votes.downvotedBy.length -
+            commentB.votes.downvotedBy.length
+          );
+        }
+        return upVoteDiff;
+      });
+    } else if (sortCommentsBy === "DOWNVOTES") {
+      return commentList.sort((commentA, commentB) => {
+        const downVoteDiff =
+          commentB.votes.downvotedBy.length - commentA.votes.downvotedBy.length;
+        if (downVoteDiff === 0) {
+          return (
+            commentA.votes.upvotedBy.length - commentB.votes.upvotedBy.length
+          );
+        }
+        return downVoteDiff;
+      });
+    } else if (sortCommentsBy === "LATEST") {
+      return commentList.sort(
+        (commentA, commentB) =>
+          new Date(commentB.updatedAt) - new Date(commentA.updatedAt)
+      );
+    }
+    return commentList;
   };
   return (
     <div className="h-screen w-full ">
@@ -76,8 +115,54 @@ const PostPage = () => {
               </div>
             </form>
           </div>
-          <div className="flex sm:flex-row  sm:gap-20 gap-5 flex-wrap">
-            comments map
+          <div className="flex flex-col gap-2 p-2 pt-2">
+            <div className="flex gap-2 items-center">
+              <p>Sort By : </p>
+              <button
+                className={
+                  "border p-1 px-2 rounded-md " +
+                  (sortCommentsBy === "LATEST"
+                    ? "hover:bg-bg-black text-primary-bg-color bg-secondary-bg-color"
+                    : "")
+                }
+                onClick={() => setSortCommentsBy("LATEST")}
+              >
+                LATEST
+              </button>
+              <button
+                className={
+                  "border p-1 px-2 rounded-md " +
+                  (sortCommentsBy === "UPVOTES"
+                    ? "hover:bg-bg-black text-primary-bg-color bg-secondary-bg-color"
+                    : "")
+                }
+                onClick={() => setSortCommentsBy("UPVOTES")}
+              >
+                UpVotes
+              </button>
+              <button
+                className={
+                  "border p-1 px-2 rounded-md " +
+                  (sortCommentsBy === "DOWNVOTES"
+                    ? "hover:bg-bg-black text-primary-bg-color bg-secondary-bg-color"
+                    : "")
+                }
+                onClick={() => setSortCommentsBy("DOWNVOTES")}
+              >
+                DownVotes
+              </button>
+            </div>
+            {commentList !== undefined &&
+              sortedCommentsArray().map((comment) => {
+                return (
+                  <CommentCard
+                    key={comment._id}
+                    comment={comment}
+                    postId={post_id}
+                    setCommentList={setCommentList}
+                  />
+                );
+              })}
           </div>
         </main>
       )}
