@@ -3,9 +3,12 @@ import { useState, useEffect } from "react";
 import { GetApi } from "../../apicalls/GetApi";
 import { PostCard, SpinLoder } from "../../components";
 import { ArrowLeftIcon } from "@heroicons/react/outline";
+import { PostApi } from "../../apicalls/PostApi";
 const PostPage = () => {
   const [post, setPost] = useState({});
   const [loading, setLoading] = useState(true);
+  const [newComment, setNewComment] = useState("");
+  const [commentList, setCommentList] = useState([]);
   const { post_id } = useParams();
   const navigate = useNavigate();
   useEffect(() => {
@@ -16,12 +19,25 @@ const PostPage = () => {
       } else {
         alert("Some error occured, check console");
       }
-      setTimeout(() => {
-        setLoading(false);
-      }, 2000);
+      setLoading(false);
+
+      const res = await GetApi(`/api/comments/${post_id}`, true);
+      console.log(res);
     };
     getPostById();
   }, [post_id]);
+
+  const addCommentToPost = async (e) => {
+    e.preventDefault();
+    const { data, success } = await PostApi(
+      `/api/comments/add/${post_id}`,
+      {
+        commentData: { commentMessage: newComment },
+      },
+      true
+    );
+    console.log(data);
+  };
   return (
     <div className="h-screen w-full ">
       {loading ? (
@@ -41,12 +57,14 @@ const PostPage = () => {
           <PostCard post={post} />
 
           <div className="relative  border-2 bg-gray-50 rounded m-2">
-            <form>
+            <form onSubmit={addCommentToPost}>
               <input
                 type="text"
                 id="search-user-form"
                 className="h-12 w-full pl-10 pr-20 rounded z-0 focus:shadow focus:outline-none bg-gray-50"
                 placeholder="Post your comment..."
+                value={newComment}
+                onChange={(e) => setNewComment(e.target.value)}
               />
               <div className="absolute top-2 right-2 h-8 flex flex-col justify-center">
                 <button

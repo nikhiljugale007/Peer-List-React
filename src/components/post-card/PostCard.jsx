@@ -10,6 +10,7 @@ import {
   BookmarkIcon,
   PencilAltIcon,
   TrashIcon,
+  AnnotationIcon,
 } from "@heroicons/react/outline";
 import { DeleteApi } from "../../apicalls/DeleteApi";
 import { EditPostModal } from "../modal/EditPostModal";
@@ -218,6 +219,13 @@ const PostCard = ({ post, cardType }) => {
             <BookmarkIcon className="p-2 h-10 w-10  hover:bg-hover-color rounded-full cursor-pointer" />
           </div>
         )}
+        <Link
+          to={`/post/${_id}`}
+          className="flex flex-row items-center cursor-pointer gap-2 "
+          // onClick={bookmarkPost}
+        >
+          <AnnotationIcon className="p-2 h-10 w-10  hover:bg-hover-color rounded-full cursor-pointer" />
+        </Link>
       </div>
     </div>
   );
