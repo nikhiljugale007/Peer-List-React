@@ -1,9 +1,9 @@
 import axios from "axios";
 
-const PostApi = async (url, body, isAuthRequired) => {
+const DeleteApi = async (url, isAuthRequired) => {
   const auth = isAuthRequired ? localStorage.getItem("token") : "";
   try {
-    const response = await axios.post(url, body, {
+    const response = await axios.delete(url, {
       headers: {
         authorization: auth,
       },
@@ -14,13 +14,10 @@ const PostApi = async (url, body, isAuthRequired) => {
     };
   } catch (err) {
     console.log(err);
-    // console.log(err.response.status);
     return {
       data: "",
       success: false,
-      status: err.response.status,
     };
   }
 };
-
-export { PostApi };
+export { DeleteApi };

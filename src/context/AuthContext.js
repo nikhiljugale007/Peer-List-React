@@ -28,6 +28,11 @@ const authReducerFunction = (state, action) => {
           bookmarks: action.payload,
         },
       };
+    case "UPDATE_USER_POSTS":
+      return {
+        ...state,
+        userPosts: action.payload,
+      };
     default:
       return state;
   }
@@ -35,6 +40,7 @@ const authReducerFunction = (state, action) => {
 const authInitialState = {
   user: {},
   isLoggedIn: false,
+  userPosts: [],
 };
 const AuthContextProvider = ({ children }) => {
   const [authState, authDispatch] = useReducer(

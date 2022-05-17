@@ -8,7 +8,6 @@ export const requiresAuth = function (request) {
     encodedToken,
     process.env.REACT_APP_JWT_SECRET
   );
-
   if (decodedToken) {
     const user = this.db.users.findBy({ username: decodedToken.username });
     return user;

@@ -5,6 +5,8 @@ const AppContextReducerFunction = (state, action) => {
         ...state,
         feed: action.payload,
       };
+    case "SET_COMMENTS":
+      return state;
     default:
       return state;
   }

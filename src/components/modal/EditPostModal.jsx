@@ -2,12 +2,13 @@ import { Icon_close, Icon_emoji } from "../../assets";
 import { useState } from "react";
 import { PostApi } from "../../apicalls/PostApi";
 import { useAppContext } from "../../context/AppContext";
-const NewPostModal = ({ setShowNewPostModal }) => {
+const EditPostModal = ({ setShowEditPostModal, post }) => {
   const [openEmpjiPicker, setOpenEmojiPicker] = useState(false);
+  const { content, media, _id } = post;
   const { appDispatch } = useAppContext();
   const [newPost, setNewPost] = useState({
-    content: "",
-    media: "",
+    content: content,
+    media: media,
   });
   const emojiList = [
     { icon: "❤️" },
@@ -40,7 +41,7 @@ const NewPostModal = ({ setShowNewPostModal }) => {
   };
   const submitForm = async () => {
     const { data, success } = await PostApi(
-      "/api/posts",
+      `/api/posts/edit/${_id}`,
       { postData: { ...newPost } },
       true
     );
@@ -49,7 +50,7 @@ const NewPostModal = ({ setShowNewPostModal }) => {
     } else {
       alert("Something went wrong. Check console.");
     }
-    setShowNewPostModal(false);
+    setShowEditPostModal(false);
   };
   return (
     <div
@@ -69,12 +70,12 @@ const NewPostModal = ({ setShowNewPostModal }) => {
               className="text-xl font-medium leading-normal text-gray-800"
               id="exampleModalScrollableLabel"
             >
-              New Post
+              Edit Post
             </h5>
             <button>
               <img
                 className="p-1 border rounded-full"
-                onClick={() => setShowNewPostModal(false)}
+                onClick={() => setShowEditPostModal(false)}
                 src={Icon_close}
                 alt="close"
               />
@@ -116,29 +117,26 @@ const NewPostModal = ({ setShowNewPostModal }) => {
                   onChange={(e) => {
                     setNewPost((prev) => ({
                       ...prev,
-                      media: URL.createObjectURL(e.target.files[0]),
+                      media: e.target.files[0],
                     }));
                   }}
                 />
-                {/* <button className="p-1 rounded-full hover:bg-hover-color">
-                  <img src={Icon_media} className="w-6" alt="media" />
-                </button> */}
               </div>
               <button
                 className="bg-primary-color text-white px-2 py-1 rounded  hover:bg-primary-font-color w-max"
                 onClick={() => submitForm()}
               >
-                POST
+                Update
               </button>
             </div>
           </div>
           {openEmpjiPicker && (
-            <div className="flex flex-wrap gap-2 w-60 mx-auto">
+            <div className="flex flex-wrap gap-6 w-60 mx-auto p-2">
               {emojiList.map((item, index) => (
                 <span
                   key={index}
                   onClick={() => emojiAdder(item)}
-                  className="hover:cursor-pointer inline w-min"
+                  className="hover:cursor-pointer inline  w-min"
                 >
                   {item.icon}
                 </span>
@@ -150,4 +148,4 @@ const NewPostModal = ({ setShowNewPostModal }) => {
     </div>
   );
 };
-export { NewPostModal };
+export { EditPostModal };
