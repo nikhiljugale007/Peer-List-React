@@ -14,7 +14,6 @@ const DeleteApi = async (url, isAuthRequired) => {
     };
   } catch (err) {
     console.log(err);
-    console.log(err.message);
     return {
       data: "",
       success: false,

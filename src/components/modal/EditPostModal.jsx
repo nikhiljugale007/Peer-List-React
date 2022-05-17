@@ -121,9 +121,6 @@ const EditPostModal = ({ setShowEditPostModal, post }) => {
                     }));
                   }}
                 />
-                {/* <button className="p-1 rounded-full hover:bg-hover-color">
-                  <img src={Icon_media} className="w-6" alt="media" />
-                </button> */}
               </div>
               <button
                 className="bg-primary-color text-white px-2 py-1 rounded  hover:bg-primary-font-color w-max"

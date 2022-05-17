@@ -2,9 +2,8 @@ import "./PostCard.css";
 import { avatar } from "../../assets";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useAuthContext } from "../../context/AuthContext";
+import { useAppContext, useAuthContext } from "../../context";
 import { PostApi } from "../../apicalls/PostApi";
-import { useAppContext } from "../../context/AppContext";
 import {
   ThumbUpIcon,
   BookmarkIcon,
