@@ -14,7 +14,7 @@ const PostApi = async (url, body, isAuthRequired) => {
     };
   } catch (err) {
     console.log(err);
-    console.log(err.response.status);
+    // console.log(err.response.status);
     return {
       data: "",
       success: false,
