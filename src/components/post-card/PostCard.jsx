@@ -179,12 +179,14 @@ const PostCard = ({ post, cardType }) => {
           />
         )}
         <p className={expandPost ? "" : "text-ellipsis max-h-24 "}>{content}</p>
-        <button
-          className="text-primary-color py-1 outline-none"
-          onClick={() => setExpandPost((prev) => !prev)}
-        >
-          {expandPost ? "Read Less" : "Read More"}
-        </button>
+        {content.length > 150 && (
+          <button
+            className="text-primary-color py-1 outline-none"
+            onClick={() => setExpandPost((prev) => !prev)}
+          >
+            {expandPost ? "Read Less" : "Read More"}
+          </button>
+        )}
       </div>
       <div className="flex flex-row gap-20">
         {checkLikedPost() ? (
