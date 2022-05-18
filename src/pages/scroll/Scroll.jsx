@@ -1,17 +1,19 @@
 import { useState, useEffect } from "react";
 import { PostCard, UserCard, SpinLoder, NewPostModal } from "../../components";
-import { useAppContext } from "../../context/AppContext";
 import { GetApi } from "../../apicalls/GetApi";
 import "./Scroll.css";
+import { useDispatch, useSelector } from "react-redux";
+import { setFeed } from "../../redux/postSlice";
 const Scroll = () => {
-  const { appState, appDispatch } = useAppContext();
   const [gettingDataFromApi, setGettingDataFromApi] = useState(true);
   const [showNewPostModal, setShowNewPostModal] = useState(false);
+  const dispatch = useDispatch();
+  const { feed } = useSelector((store) => store.postSlice);
   useEffect(() => {
     const getPosts = async () => {
       const { data, success } = await GetApi("/api/posts", false);
       if (success) {
-        appDispatch({ type: "SET_FEED", payload: data.posts });
+        dispatch(setFeed({ feed: data.posts }));
       } else {
         alert("Something went wrong, check console");
       }
@@ -19,7 +21,7 @@ const Scroll = () => {
     setGettingDataFromApi(true);
     getPosts();
     setGettingDataFromApi(false);
-  }, [appDispatch]);
+  }, [dispatch]);
 
   return (
     <div className="h-screen flex flex-row w-full">
@@ -42,7 +44,7 @@ const Scroll = () => {
           </div>
         ) : (
           <div>
-            {appState.feed.map((post) => {
+            {feed.map((post) => {
               return (
                 <PostCard post={post} key={post._id} cardType={"FOLLOW_CARD"} />
               );

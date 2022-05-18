@@ -1,10 +1,11 @@
 import { Icon_close, Icon_emoji } from "../../assets";
 import { useState } from "react";
 import { PostApi } from "../../apicalls/PostApi";
-import { useAppContext } from "../../context/AppContext";
+import { useDispatch } from "react-redux";
+import { setFeed } from "../../redux/postSlice";
 const NewPostModal = ({ setShowNewPostModal }) => {
   const [openEmpjiPicker, setOpenEmojiPicker] = useState(false);
-  const { appDispatch } = useAppContext();
+  const dispatch = useDispatch();
   const [newPost, setNewPost] = useState({
     content: "",
     media: "",
@@ -45,7 +46,7 @@ const NewPostModal = ({ setShowNewPostModal }) => {
       true
     );
     if (success) {
-      appDispatch({ type: "SET_FEED", payload: data.posts });
+      dispatch(setFeed({ feed: data.posts }));
     } else {
       alert("Something went wrong. Check console.");
     }

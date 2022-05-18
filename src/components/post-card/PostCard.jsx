@@ -2,7 +2,6 @@ import "./PostCard.css";
 import { avatar } from "../../assets";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useAppContext } from "../../context";
 import { PostApi } from "../../apicalls/PostApi";
 import {
   updateUserBookmarks,
@@ -19,13 +18,13 @@ import {
 } from "@heroicons/react/outline";
 import { DeleteApi } from "../../apicalls/DeleteApi";
 import { EditPostModal } from "../modal/EditPostModal";
+import { setFeed } from "../../redux/postSlice";
 
 const PostCard = ({ post, cardType }) => {
   const { username, content, updatedAt, likes, userId, media, _id } = post;
   const [expandPost, setExpandPost] = useState(false);
   const [showEditPostModal, setShowEditPostModal] = useState(false);
   const { user } = useSelector((store) => store.authSlice);
-  const { appDispatch } = useAppContext();
   const dispatch = useDispatch();
   const checkUserIsFollowed = () => {
     return (
@@ -54,7 +53,7 @@ const PostCard = ({ post, cardType }) => {
   const likePost = async () => {
     const { data, success } = await PostApi(`/api/posts/like/${_id}`, {}, true);
     if (success) {
-      appDispatch({ type: "SET_FEED", payload: data.posts });
+      dispatch(setFeed({ feed: data.posts }));
     } else {
       alert("Some error occurred, check console.");
     }
@@ -66,7 +65,7 @@ const PostCard = ({ post, cardType }) => {
       true
     );
     if (success) {
-      appDispatch({ type: "SET_FEED", payload: data.posts });
+      dispatch(setFeed({ feed: data.posts }));
     } else {
       alert("Some error occurred, check console.");
     }
@@ -99,7 +98,8 @@ const PostCard = ({ post, cardType }) => {
   const deletePost = async () => {
     const { data, success } = await DeleteApi(`/api/posts/${_id}`, true);
     if (success) {
-      appDispatch({ type: "SET_FEED", payload: data.posts });
+      dispatch(setFeed({ feed: data.posts }));
+
       const updatedUserPosts = data.posts.filter(
         (post) => post.userId === user._id
       );
