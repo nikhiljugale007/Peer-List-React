@@ -71,7 +71,7 @@ const FindUser = () => {
             <div className="text-center p-10">No User Found</div>
           )}
           {filteredData.map((user) => (
-            <NetworkCard user={user} key={user._id} />
+            <NetworkCard currentUser={user} key={user._id} />
           ))}
         </div>
       )}

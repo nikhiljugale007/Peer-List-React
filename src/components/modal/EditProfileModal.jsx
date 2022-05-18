@@ -1,11 +1,12 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { PostApi } from "../../apicalls/PostApi";
-import { useAuthContext } from "../../context/AuthContext";
+import { updateUser } from "../../redux/authSlice";
 
 const EditProfileModal = ({ setEditProfileModal, userState }) => {
   const { firstName, lastName, _id, about, twitterProfile } = userState;
-  const { authDispatch } = useAuthContext();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [editProfileState, setEditProfileState] = useState({
     _id: _id,
@@ -26,7 +27,7 @@ const EditProfileModal = ({ setEditProfileModal, userState }) => {
       true
     );
     if (success) {
-      authDispatch({ type: "UPDATE_USER", payload: data.user });
+      dispatch(updateUser({ user: data.user }));
       navigate(`/scroll`);
       setEditProfileModal(false);
     } else {

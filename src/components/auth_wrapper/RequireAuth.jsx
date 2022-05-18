@@ -1,9 +1,8 @@
 import { Navigate } from "react-router-dom";
-import { useAuthContext } from "../../context/AuthContext";
-
+import { useSelector } from "react-redux";
 const RequireAuth = ({ children, from }) => {
-  const { authState } = useAuthContext();
-  return authState.isLoggedIn ? (
+  const { isLoggedIn } = useSelector((store) => store.authSlice);
+  return isLoggedIn ? (
     children
   ) : (
     <Navigate to="/home" replace state={{ from: from }} />

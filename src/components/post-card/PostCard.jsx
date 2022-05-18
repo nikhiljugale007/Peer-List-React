@@ -2,10 +2,14 @@ import "./PostCard.css";
 import { avatar } from "../../assets";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useAppContext, useAuthContext } from "../../context";
+import { useAppContext } from "../../context";
 import { PostApi } from "../../apicalls/PostApi";
-import { updateUserBookmarks } from "../../redux/authSlice";
-import { useDispatch } from "react-redux";
+import {
+  updateUserBookmarks,
+  updateUser,
+  updateUserPosts,
+} from "../../redux/authSlice";
+import { useDispatch, useSelector } from "react-redux";
 import {
   ThumbUpIcon,
   BookmarkIcon,
@@ -20,20 +24,21 @@ const PostCard = ({ post, cardType }) => {
   const { username, content, updatedAt, likes, userId, media, _id } = post;
   const [expandPost, setExpandPost] = useState(false);
   const [showEditPostModal, setShowEditPostModal] = useState(false);
-  const { authState, authDispatch } = useAuthContext();
+  const { user } = useSelector((store) => store.authSlice);
   const { appDispatch } = useAppContext();
   const dispatch = useDispatch();
   const checkUserIsFollowed = () => {
     return (
-      authState.user.following.find((user) => user.username === username) ||
-      username === authState.user.username
+      user.following.find(
+        (userFollowing) => userFollowing.username === username
+      ) || username === user.username
     );
   };
 
   const followUser = async () => {
     const res = await PostApi(`/api/users/follow/${userId}`, {}, true);
     if (res.success) {
-      authDispatch({ type: "UPDATE_USER", payload: res.data.user });
+      dispatch(updateUser({ user: res.data.user }));
     } else {
       alert("Some error occurred, check console.");
     }
@@ -41,7 +46,7 @@ const PostCard = ({ post, cardType }) => {
   const unfollowUser = async () => {
     const res = await PostApi(`/api/users/unfollow/${userId}`, {}, true);
     if (res.success) {
-      authDispatch({ type: "UPDATE_USER", payload: res.data.user });
+      dispatch(updateUser({ user: res.data.user }));
     } else {
       alert("Some error occurred, check console.");
     }
@@ -85,7 +90,7 @@ const PostCard = ({ post, cardType }) => {
       true
     );
     if (success) {
-      authDispatch({ type: "UPDATE_USER_BOOKMARK", payload: data.bookmarks });
+      dispatch(updateUserBookmarks({ bookmarks: data.bookmarks }));
     } else {
       alert("Some error occurred, check console.");
     }
@@ -96,9 +101,9 @@ const PostCard = ({ post, cardType }) => {
     if (success) {
       appDispatch({ type: "SET_FEED", payload: data.posts });
       const updatedUserPosts = data.posts.filter(
-        (post) => post.userId === authState.user._id
+        (post) => post.userId === user._id
       );
-      authDispatch({ type: "UPDATE_USER_POSTS", payload: updatedUserPosts });
+      dispatch(updateUserPosts({ posts: updatedUserPosts }));
     } else {
       alert("Some error occurred, check console.");
     }
@@ -109,20 +114,18 @@ const PostCard = ({ post, cardType }) => {
   };
   const checkLikedPost = () => {
     const likedArray = likes.likedBy.filter(
-      (user) => user._id === authState.user._id
+      (userLiked) => userLiked._id === user._id
     );
     if (likedArray.length === 0) return false;
     else return true;
   };
   const checkBookmarkedPost = () => {
-    const bookmaredArray = authState.user.bookmarks.filter(
-      (post) => post._id === _id
-    );
+    const bookmaredArray = user.bookmarks.filter((post) => post._id === _id);
     if (bookmaredArray.length === 0) return false;
     else return true;
   };
   const checkPostIdOfLoggedUser = () => {
-    return userId === authState.user._id;
+    return userId === user._id;
   };
 
   return (
@@ -155,7 +158,7 @@ const PostCard = ({ post, cardType }) => {
           </div>
         )}
 
-        {!(username === authState.user.username) &&
+        {!(username === user.username) &&
           (checkUserIsFollowed() ? (
             <button
               onClick={unfollowUser}

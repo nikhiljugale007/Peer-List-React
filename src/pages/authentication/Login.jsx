@@ -1,6 +1,5 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useAuthContext } from "../../context/AuthContext";
 import { PostApi } from "../../apicalls/PostApi";
 import { useDispatch } from "react-redux";
 import { setLoggedUser } from "../../redux/authSlice";
@@ -25,7 +24,6 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loginFormState, setLoginFormState] = useState(inititalLoginState);
   const [formError, setFormError] = useState(inititalLoginState);
-  const { authDispatch } = useAuthContext();
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -38,8 +36,6 @@ const Login = () => {
     );
     const { data, success } = response;
     if (success) {
-      authDispatch({ type: "SET_LOGGED_USER", payload: data });
-      console.log("JO");
       dispatch(setLoggedUser({ ...data }));
       location.state === null
         ? navigate("/scroll")

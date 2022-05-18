@@ -7,11 +7,11 @@ import {
 } from "@heroicons/react/outline";
 
 import { PostApi } from "../../apicalls/PostApi";
-import { useAuthContext } from "../../context/AuthContext";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 const CommentCard = ({ comment, postId, setCommentList }) => {
   const { text, username, votes, updatedAt, _id } = comment;
-  const { authState } = useAuthContext();
+  const { user } = useSelector((store) => store.authSlice);
   const [editComment, setEditComment] = useState(false);
   const [newComment, setNewComment] = useState("");
   const upVotePost = async (e) => {
@@ -57,12 +57,12 @@ const CommentCard = ({ comment, postId, setCommentList }) => {
   };
   const checkPostUpVotedByLoggedUser = () => {
     return comment.votes.upvotedBy.find(
-      (comment) => comment.username === authState.user.username
+      (comment) => comment.username === user.username
     );
   };
   const checkPostDownVotedByLoggedUser = () => {
     return comment.votes.downvotedBy.find(
-      (comment) => comment.username === authState.user.username
+      (comment) => comment.username === user.username
     );
   };
   const getWhenPostCreated = () => {
@@ -84,7 +84,7 @@ const CommentCard = ({ comment, postId, setCommentList }) => {
     return "Just now";
   };
   const checkCommentIdOfLoggedUser = () => {
-    return username === authState.user.username;
+    return username === user.username;
   };
   const deleteCommentFunction = async () => {
     const { data, success } = await PostApi(

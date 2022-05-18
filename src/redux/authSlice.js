@@ -19,11 +19,13 @@ const authSlice = createSlice({
     logoutUser: (state) => {
       state.isLoggedIn = false;
     },
+    updateUser: (state, action) => {
+      state.user = action.payload.user;
+    },
     updateUserPosts: (state, action) => {
       state.userPosts = action.payload.posts;
     },
     updateUserBookmarks: (state, action) => {
-      console.log(action.payload);
       state.user.bookmarks = action.payload.bookmarks;
     },
   },
@@ -34,5 +36,6 @@ export const {
   logoutUser,
   updateUserPosts,
   updateUserBookmarks,
+  updateUser,
 } = authSlice.actions;
 export default authSlice.reducer;
