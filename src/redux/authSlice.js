@@ -23,6 +23,7 @@ const authSlice = createSlice({
       state.userPosts = action.payload.posts;
     },
     updateUserBookmarks: (state, action) => {
+      console.log(action.payload);
       state.user.bookmarks = action.payload.bookmarks;
     },
   },

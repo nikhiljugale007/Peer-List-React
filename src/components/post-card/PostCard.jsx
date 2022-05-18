@@ -4,6 +4,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAppContext, useAuthContext } from "../../context";
 import { PostApi } from "../../apicalls/PostApi";
+import { updateUserBookmarks } from "../../redux/authSlice";
+import { useDispatch } from "react-redux";
 import {
   ThumbUpIcon,
   BookmarkIcon,
@@ -20,6 +22,7 @@ const PostCard = ({ post, cardType }) => {
   const [showEditPostModal, setShowEditPostModal] = useState(false);
   const { authState, authDispatch } = useAuthContext();
   const { appDispatch } = useAppContext();
+  const dispatch = useDispatch();
   const checkUserIsFollowed = () => {
     return (
       authState.user.following.find((user) => user.username === username) ||
@@ -70,7 +73,7 @@ const PostCard = ({ post, cardType }) => {
       true
     );
     if (success) {
-      authDispatch({ type: "UPDATE_USER_BOOKMARK", payload: data.bookmarks });
+      dispatch(updateUserBookmarks({ bookmarks: data.bookmarks }));
     } else {
       alert("Some error occurred, check console.");
     }
