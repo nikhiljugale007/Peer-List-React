@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { GetApi } from "../../apicalls/GetApi";
-import { updateUserPosts, logoutUser } from "../../redux/authSlice";
+import { logoutUser } from "../../redux/authSlice";
 import {
   EditProfileModal,
   ListModal,
@@ -17,8 +17,9 @@ import {
 } from "../../components";
 
 const Profile = () => {
-  const { user, userPosts } = useSelector((store) => store.authSlice);
+  const { user } = useSelector((store) => store.authSlice);
   const [userState, setUserState] = useState({});
+  const [userPosts, setUserPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showEditProfileModal, setEditProfileModal] = useState(false);
   const [listModal, setListModal] = useState({
@@ -45,7 +46,8 @@ const Profile = () => {
         false
       );
       if (success) {
-        dispatch(updateUserPosts({ posts: data.posts }));
+        // dispatch(updateUserPosts({ posts: data.posts }));
+        setUserPosts(data.posts);
       } else {
         alert("Something went wrong, check console");
       }

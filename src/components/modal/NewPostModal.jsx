@@ -1,8 +1,7 @@
 import { Icon_close, Icon_emoji } from "../../assets";
 import { useState } from "react";
-import { PostApi } from "../../apicalls/PostApi";
 import { useDispatch } from "react-redux";
-import { setFeed } from "../../redux/postSlice";
+import { addNewPostThunk } from "../../redux/postSlice";
 const NewPostModal = ({ setShowNewPostModal }) => {
   const [openEmpjiPicker, setOpenEmojiPicker] = useState(false);
   const dispatch = useDispatch();
@@ -40,16 +39,7 @@ const NewPostModal = ({ setShowNewPostModal }) => {
     setOpenEmojiPicker(false);
   };
   const submitForm = async () => {
-    const { data, success } = await PostApi(
-      "/api/posts",
-      { postData: { ...newPost } },
-      true
-    );
-    if (success) {
-      dispatch(setFeed({ feed: data.posts }));
-    } else {
-      alert("Something went wrong. Check console.");
-    }
+    dispatch(addNewPostThunk({ newPost }));
     setShowNewPostModal(false);
   };
   return (

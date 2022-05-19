@@ -23,4 +23,12 @@ const PostApi = async (url, body, isAuthRequired) => {
   }
 };
 
-export { PostApi };
+const PostApi2 = async (url, body, isAuthRequired) => {
+  const auth = isAuthRequired ? localStorage.getItem("token") : "";
+  return await axios.post(url, body, {
+    headers: {
+      authorization: auth,
+    },
+  });
+};
+export { PostApi, PostApi2 };

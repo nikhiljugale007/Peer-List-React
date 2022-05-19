@@ -16,8 +16,15 @@ const GetApi = async (url, isAuthRequired) => {
     return {
       data: "",
       success: false,
+      error: err.message,
     };
   }
 };
 
-export { GetApi };
+const GetApi2 = async (url, isAuthRequired) => {
+  const auth = isAuthRequired ? localStorage.getItem("token") : "";
+  return await axios.get(url, {
+    headers: isAuthRequired ? auth : "",
+  });
+};
+export { GetApi, GetApi2 };

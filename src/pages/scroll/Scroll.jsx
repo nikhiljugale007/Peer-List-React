@@ -1,27 +1,17 @@
 import { useState, useEffect } from "react";
 import { PostCard, UserCard, SpinLoder, NewPostModal } from "../../components";
-import { GetApi } from "../../apicalls/GetApi";
 import "./Scroll.css";
 import { useDispatch, useSelector } from "react-redux";
-import { setFeed } from "../../redux/postSlice";
+import { loadPosts } from "../../redux/postSlice";
 const Scroll = () => {
-  const [gettingDataFromApi, setGettingDataFromApi] = useState(true);
   const [showNewPostModal, setShowNewPostModal] = useState(false);
   const dispatch = useDispatch();
-  const { feed } = useSelector((store) => store.postSlice);
+  const { feed, status, error } = useSelector((store) => store.postSlice);
   useEffect(() => {
-    const getPosts = async () => {
-      const { data, success } = await GetApi("/api/posts", false);
-      if (success) {
-        dispatch(setFeed({ feed: data.posts }));
-      } else {
-        alert("Something went wrong, check console");
-      }
-    };
-    setGettingDataFromApi(true);
-    getPosts();
-    setGettingDataFromApi(false);
-  }, [dispatch]);
+    if (status === "idle") {
+      dispatch(loadPosts());
+    }
+  }, [dispatch, status]);
 
   return (
     <div className="h-screen flex flex-row w-full">
@@ -38,7 +28,8 @@ const Scroll = () => {
             <p className="font-semibold">New Post</p>
           </button>
         </div>
-        {gettingDataFromApi ? (
+        {status === "rejected" && alert("Error = " + error)}
+        {status === "loading" ? (
           <div className="text-center p-10">
             <SpinLoder />
           </div>

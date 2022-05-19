@@ -20,4 +20,12 @@ const DeleteApi = async (url, isAuthRequired) => {
     };
   }
 };
-export { DeleteApi };
+const DeleteApi2 = async (url, isAuthRequired) => {
+  const auth = isAuthRequired ? localStorage.getItem("token") : "";
+  return await axios.delete(url, {
+    headers: {
+      authorization: auth,
+    },
+  });
+};
+export { DeleteApi, DeleteApi2 };
