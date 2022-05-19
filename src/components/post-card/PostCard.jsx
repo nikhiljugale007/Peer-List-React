@@ -130,6 +130,7 @@ const PostCard = ({ post, cardType }) => {
           />
         )}
         <p className={expandPost ? "" : "text-ellipsis max-h-24 "}>{content}</p>
+
         {content.length > 150 && (
           <button
             className="text-primary-color py-1 outline-none"

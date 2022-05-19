@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 const Bookmark = () => {
   const { user } = useSelector((store) => store.authSlice);
   return (
-    <div>
+    <div className="h-screen">
       {user.bookmarks.length === 0 && (
         <div className="text-center p-10">
           You haven't bookmared any post yet

@@ -8,23 +8,24 @@ import {
 
 import { PostApi } from "../../apicalls/PostApi";
 import { useState } from "react";
-import { useSelector } from "react-redux";
-const CommentCard = ({ comment, postId, setCommentList }) => {
+import { useDispatch, useSelector } from "react-redux";
+import { setCommentList } from "../../redux/commentSlice";
+const CommentCard = ({ comment, postId }) => {
   const { text, username, votes, updatedAt, _id } = comment;
   const { user } = useSelector((store) => store.authSlice);
   const [editComment, setEditComment] = useState(false);
   const [newComment, setNewComment] = useState("");
+  const dispatch = useDispatch();
   const upVotePost = async (e) => {
     e.stopPropagation();
     e.nativeEvent.stopImmediatePropagation();
-
     const { data, success, status } = await PostApi(
       `/api/comments/upvote/${postId}/${_id}`,
       {},
       true
     );
     if (success) {
-      setCommentList(data.comments);
+      dispatch(setCommentList({ commentList: data.comments }));
     } else {
       if (status === 400) {
         alert("Already upvoted");
@@ -36,14 +37,13 @@ const CommentCard = ({ comment, postId, setCommentList }) => {
   const downVotePost = async (e) => {
     e.stopPropagation();
     e.nativeEvent.stopImmediatePropagation();
-
     const { data, success, status } = await PostApi(
       `/api/comments/downvote/${postId}/${_id}`,
       {},
       true
     );
     if (success) {
-      setCommentList(data.comments);
+      dispatch(setCommentList({ commentList: data.comments }));
     } else {
       if (status === 400) {
         alert("Already downvoted");
@@ -93,7 +93,8 @@ const CommentCard = ({ comment, postId, setCommentList }) => {
       true
     );
     if (success) {
-      setCommentList(data.comments);
+      // setCommentList(data.comments);
+      dispatch(setCommentList({ commentList: data.comments }));
     } else {
       alert("Something went wrong, check console");
     }
