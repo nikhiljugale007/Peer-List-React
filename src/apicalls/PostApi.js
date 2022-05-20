@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const PostApi = async (url, body, isAuthRequired) => {
-  const auth = isAuthRequired ? localStorage.getItem("token") : "";
+  const auth = isAuthRequired ? localStorage.getItem("authToken") : "";
   try {
     const response = await axios.post(url, body, {
       headers: {
@@ -24,7 +24,7 @@ const PostApi = async (url, body, isAuthRequired) => {
 };
 
 const PostApi2 = async (url, body, isAuthRequired) => {
-  const auth = isAuthRequired ? localStorage.getItem("token") : "";
+  const auth = isAuthRequired ? localStorage.getItem("authToken") : "";
   return await axios.post(url, body, {
     headers: {
       authorization: auth,

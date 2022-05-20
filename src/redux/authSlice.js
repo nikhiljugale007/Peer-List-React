@@ -4,7 +4,7 @@ import { PostApi2 } from "../apicalls/PostApi";
 const initialState = {
   user: {},
   isLoggedIn: false,
-  token: "",
+  authToken: "",
   userPosts: [],
 };
 
@@ -41,10 +41,12 @@ const authSlice = createSlice({
   reducers: {
     setLoggedUser: (state, action) => {
       state.isLoggedIn = true;
+      localStorage.setItem("authToken", action.payload.encodedToken);
       state.user = action.payload.foundUser;
-      state.token = action.payload.encodedToken;
+      state.authToken = action.payload.encodedToken;
     },
     logoutUser: (state) => {
+      localStorage.removeItem("authToken");
       state.isLoggedIn = false;
     },
     updateUser: (state, action) => {
