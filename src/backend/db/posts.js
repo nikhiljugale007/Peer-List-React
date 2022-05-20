@@ -22,7 +22,8 @@ export const posts = [
     comments: [
       {
         _id: uuid(),
-        username: "shubhamsoni",
+        username: "nikhiljugale007",
+        userId: "g2eba8e4-d8ae-4510-9c3f-d7ad111f552e",
         text: "Interesting",
         votes: {
           upvotedBy: [],
@@ -32,7 +33,8 @@ export const posts = [
       },
       {
         _id: uuid(),
-        username: "sohamshah",
+        username: "sanketpatil006",
+        userId: "g2eba8e4-d8ae-4510-9c3f-d7ad111f553e",
         text: "Wow!",
         votes: {
           upvotedBy: [],
@@ -95,7 +97,8 @@ export const posts = [
     comments: [
       {
         _id: uuid(),
-        username: "nikhiljugale007",
+        username: "adarshbalika",
+        userId: "f2eba8e4-d8ae-4510-9c3f-d7ad111f541e",
         text: "Interesting",
         votes: {
           upvotedBy: [],
@@ -105,7 +108,8 @@ export const posts = [
       },
       {
         _id: uuid(),
-        username: "adarshbalika",
+        username: "harshalshelake02",
+        userId: "g2eba8e4-d8ae-4510-9c3f-d7ad111f556e",
         text: "Wow!",
         votes: {
           upvotedBy: [],

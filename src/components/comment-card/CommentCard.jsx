@@ -10,12 +10,15 @@ import { PostApi } from "../../apicalls/PostApi";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setCommentList } from "../../redux/commentSlice";
+import { useNavigate } from "react-router-dom";
 const CommentCard = ({ comment, postId }) => {
-  const { text, username, votes, updatedAt, _id } = comment;
+  const { text, username, votes, updatedAt, _id, userId } = comment;
   const { user } = useSelector((store) => store.authSlice);
   const [editComment, setEditComment] = useState(false);
   const [newComment, setNewComment] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const upVotePost = async (e) => {
     e.stopPropagation();
     e.nativeEvent.stopImmediatePropagation();
@@ -53,7 +56,7 @@ const CommentCard = ({ comment, postId }) => {
     }
   };
   const navigateToProfilePage = () => {
-    //to be done yet
+    navigate(`/profile/${userId}`);
   };
   const checkPostUpVotedByLoggedUser = () => {
     return comment.votes.upvotedBy.find(
@@ -123,14 +126,12 @@ const CommentCard = ({ comment, postId }) => {
   return (
     <div>
       <div className="flex flex-row items-center justify-between border rounded-md p-2">
-        <div
-          onClick={navigateToProfilePage}
-          className="flex flex-row items-center gap-2 w-full"
-        >
+        <div className="flex flex-row items-center gap-2 w-full">
           <img
             src={avatar}
             alt="profile-pic"
-            className="h-14 w-14 self-start"
+            className="h-14 w-14 self-start  cursor-pointer"
+            onClick={navigateToProfilePage}
           />
           <div className="flex flex-col w-full">
             <div className="flex gap-1 items-center justify-between">

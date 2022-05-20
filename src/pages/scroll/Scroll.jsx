@@ -53,7 +53,7 @@ const Scroll = () => {
               </div>
             </button>
             {showSortPostDropDown && (
-              <div className="z-10 absolute bg-white border-2 border-gray-800 rounded w-60 mt-1">
+              <div className="z-10 absolute bg-white border-2 border-gray-800 border-r-4 border-b-4 rounded-md w-60 mt-1">
                 <ul className="py-1">
                   <li
                     onClick={() => {
@@ -81,7 +81,7 @@ const Scroll = () => {
             className="p-1 hover:bg-hover-color rounded-md"
             onClick={() => setShowNewPostModal((prev) => !prev)}
           >
-            <p className="font-semibold">New Post</p>
+            <p className="font-semibold px-2">New Post</p>
           </button>
         </div>
         {status === "rejected" && alert("Error = " + error)}
@@ -100,7 +100,7 @@ const Scroll = () => {
         )}
       </div>
       <aside className="recommended-sidebar w-72 sticky top-0 overflow-y-scroll no-scrollbar">
-        <p className="font-semibold border-b p-3">Recommeded People</p>
+        <p className="font-semibold border-b p-4">Recommeded People</p>
         <div className="flex flex-col gap-2">
           <UserCard />
           <UserCard />
