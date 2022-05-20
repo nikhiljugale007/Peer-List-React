@@ -20,14 +20,12 @@ const Scroll = () => {
   const getSortedFeed = () => {
     switch (sortPostBy) {
       case "LATEST":
-        return feed
-          .slice()
-          .sort(
-            (postA, postB) =>
-              new Date(postB.createdAt) - new Date(postA.createdAt)
-          );
+        return [...feed].sort(
+          (postA, postB) =>
+            new Date(postB.createdAt) - new Date(postA.createdAt)
+        );
       case "TRENDING":
-        return feed.slice().sort((postA, postB) => {
+        return [...feed].sort((postA, postB) => {
           return postB.likes.likeCount - postA.likes.likeCount;
         });
       default:
