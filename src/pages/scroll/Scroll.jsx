@@ -34,7 +34,7 @@ const Scroll = () => {
             <SpinLoder />
           </div>
         ) : (
-          <div>
+          <div className="scroll-smooth">
             {feed.map((post) => {
               return (
                 <PostCard post={post} key={post._id} cardType={"FOLLOW_CARD"} />

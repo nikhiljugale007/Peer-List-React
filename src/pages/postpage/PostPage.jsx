@@ -1,6 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { GetApi } from "../../apicalls/GetApi";
 import { CommentCard, PostCard, SpinLoder } from "../../components";
 import { ArrowLeftIcon } from "@heroicons/react/outline";
 import { PostApi } from "../../apicalls/PostApi";
@@ -11,15 +10,12 @@ import {
   setCommentList,
 } from "../../redux/commentSlice";
 const PostPage = () => {
-  const [post, setPost] = useState({});
-  const [loading, setLoading] = useState(true);
   const [newComment, setNewComment] = useState("");
-  // const [commentList, setCommentList] = useState([]);
   const [sortCommentsBy, setSortCommentsBy] = useState("LATEST");
   const { post_id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { currentPost, postStatus, commentStatus, commentList } = useSelector(
+  const { currentPost, postStatus, commentList } = useSelector(
     (state) => state.commentSlice
   );
   useEffect(() => {
@@ -47,35 +43,37 @@ const PostPage = () => {
     }
   };
   const sortedCommentsArray = () => {
-    // if (sortCommentsBy === "UPVOTES") {
-    //   return commentList.sort((commentA, commentB) => {
-    //     const upVoteDiff =
-    //       commentB.votes.upvotedBy.length - commentA.votes.upvotedBy.length;
-    //     if (upVoteDiff === 0) {
-    //       return (
-    //         commentA.votes.downvotedBy.length -
-    //         commentB.votes.downvotedBy.length
-    //       );
-    //     }
-    //     return upVoteDiff;
-    //   });
-    // } else if (sortCommentsBy === "DOWNVOTES") {
-    //   return commentList.sort((commentA, commentB) => {
-    //     const downVoteDiff =
-    //       commentB.votes.downvotedBy.length - commentA.votes.downvotedBy.length;
-    //     if (downVoteDiff === 0) {
-    //       return (
-    //         commentA.votes.upvotedBy.length - commentB.votes.upvotedBy.length
-    //       );
-    //     }
-    //     return downVoteDiff;
-    //   });
-    // } else if (sortCommentsBy === "LATEST") {
-    //   return commentList.sort(
-    //     (commentA, commentB) =>
-    //       new Date(commentB.updatedAt) - new Date(commentA.updatedAt)
-    //   );
-    // }
+    if (sortCommentsBy === "UPVOTES") {
+      return commentList.slice().sort((commentA, commentB) => {
+        const upVoteDiff =
+          commentB.votes.upvotedBy.length - commentA.votes.upvotedBy.length;
+        if (upVoteDiff === 0) {
+          return (
+            commentA.votes.downvotedBy.length -
+            commentB.votes.downvotedBy.length
+          );
+        }
+        return upVoteDiff;
+      });
+    } else if (sortCommentsBy === "DOWNVOTES") {
+      return commentList.slice().sort((commentA, commentB) => {
+        const downVoteDiff =
+          commentB.votes.downvotedBy.length - commentA.votes.downvotedBy.length;
+        if (downVoteDiff === 0) {
+          return (
+            commentA.votes.upvotedBy.length - commentB.votes.upvotedBy.length
+          );
+        }
+        return downVoteDiff;
+      });
+    } else if (sortCommentsBy === "LATEST") {
+      return commentList
+        .slice()
+        .sort(
+          (commentA, commentB) =>
+            new Date(commentB.updatedAt) - new Date(commentA.updatedAt)
+        );
+    }
     return commentList;
   };
   return (
