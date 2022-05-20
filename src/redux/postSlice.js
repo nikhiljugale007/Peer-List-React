@@ -108,5 +108,5 @@ const postSlice = createSlice({
   },
 });
 
-export const { setFeed } = postSlice.actions;
+export const { setFeed, setSortedFeed } = postSlice.actions;
 export default postSlice.reducer;

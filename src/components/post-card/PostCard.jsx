@@ -73,7 +73,16 @@ const PostCard = ({ post, cardType }) => {
   const checkPostIdOfLoggedUser = () => {
     return username === user.username;
   };
-
+  const getTimeInDMY = (date) => {
+    const dateF = new Date(date);
+    const dmy =
+      dateF.getDate() +
+      " " +
+      dateF.toLocaleString("default", { month: "long" }) +
+      ", " +
+      dateF.getFullYear();
+    return dmy;
+  };
   return (
     <div className=" p-10 flex flex-col gap-5 border-t border-b bg-primary-bg-color w-full">
       {showEditPostModal && (
@@ -90,7 +99,7 @@ const PostCard = ({ post, cardType }) => {
           <img src={avatar} alt="profile-pic" className="h-14 w-14" />
           <div className="flex flex-col">
             <p className="text-lg">{"@" + username}</p>
-            <p className="text-xs text-gray-600">{updatedAt}</p>
+            <p className="text-xs text-gray-600">{getTimeInDMY(updatedAt)}</p>
           </div>
         </Link>
         {checkPostIdOfLoggedUser() && (
