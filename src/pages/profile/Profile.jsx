@@ -4,10 +4,11 @@ import {
   Icon_medium,
   Icon_portfolio2,
 } from "../../assets";
-import { useAuthContext } from "../../context/AuthContext";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { GetApi } from "../../apicalls/GetApi";
+import { logoutUser } from "../../redux/authSlice";
 import {
   EditProfileModal,
   ListModal,
@@ -16,8 +17,9 @@ import {
 } from "../../components";
 
 const Profile = () => {
-  const { authState, authDispatch } = useAuthContext();
+  const { user } = useSelector((store) => store.authSlice);
   const [userState, setUserState] = useState({});
+  const [userPosts, setUserPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showEditProfileModal, setEditProfileModal] = useState(false);
   const [listModal, setListModal] = useState({
@@ -26,6 +28,7 @@ const Profile = () => {
     list: [],
   });
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { user_id } = useParams();
   useEffect(() => {
     const getUserById = async () => {
@@ -43,7 +46,8 @@ const Profile = () => {
         false
       );
       if (success) {
-        authDispatch({ type: "UPDATE_USER_POSTS", payload: data.posts });
+        // dispatch(updateUserPosts({ posts: data.posts }));
+        setUserPosts(data.posts);
       } else {
         alert("Something went wrong, check console");
       }
@@ -54,10 +58,10 @@ const Profile = () => {
       setLoading(false);
     }, 1000);
     getPostsByUser();
-  }, [user_id, userState.username, authDispatch]);
+  }, [user_id, userState.username, dispatch]);
 
-  const logoutUser = () => {
-    authDispatch({ type: "LOGOUT_USER" });
+  const logoutUserFun = () => {
+    dispatch(logoutUser());
     navigate("/home");
   };
   return (
@@ -94,7 +98,7 @@ const Profile = () => {
                   <p className="text-4xl font-semibold">
                     {userState.firstName + " " + userState.lastName}
                   </p>
-                  {userState.username === authState.user.username && (
+                  {userState.username === user.username && (
                     <button
                       className="border px-2 py-1 rounded-sm"
                       onClick={() => setEditProfileModal(true)}
@@ -169,26 +173,24 @@ const Profile = () => {
                 {userState.following.length + " "}Following
               </button>
             </div>
-            {authState.user._id === userState._id && (
+            {user._id === userState._id && (
               <button
                 className="bg-primary-color text-white px-2 py-1 rounded  hover:bg-primary-font-color w-max"
-                onClick={logoutUser}
+                onClick={logoutUserFun}
               >
                 Logout
               </button>
             )}
           </div>
-          {authState.userPosts.length === 0 ? (
+          {userPosts.length === 0 ? (
             <p>You do not have any posts yet</p>
           ) : (
-            authState.userPosts.map((post) => {
+            userPosts.map((post) => {
               return (
                 <PostCard
                   post={post}
                   key={post._id}
-                  cardType={
-                    authState.user._id === userState._id ? "DELETE_CARD" : ""
-                  }
+                  cardType={user._id === userState._id ? "DELETE_CARD" : ""}
                 />
               );
             })

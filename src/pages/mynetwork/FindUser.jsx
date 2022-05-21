@@ -55,7 +55,10 @@ const FindUser = () => {
           </div>
           <button
             className="bg-primary-color text-white px-2 py-1 rounded  hover:bg-primary-font-color w-max"
-            onClick={() => setFilteredData(allUsers)}
+            onClick={() => {
+              setFilteredData(allUsers);
+              setSearchUserName("");
+            }}
           >
             Clear
           </button>
@@ -71,7 +74,7 @@ const FindUser = () => {
             <div className="text-center p-10">No User Found</div>
           )}
           {filteredData.map((user) => (
-            <NetworkCard user={user} key={user._id} />
+            <NetworkCard currentUser={user} key={user._id} />
           ))}
         </div>
       )}

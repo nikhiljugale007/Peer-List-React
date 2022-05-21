@@ -1,16 +1,15 @@
 import { PostCard } from "../../components";
-import { useAuthContext } from "../../context/AuthContext";
-
+import { useSelector } from "react-redux";
 const Bookmark = () => {
-  const { authState } = useAuthContext();
+  const { user } = useSelector((store) => store.authSlice);
   return (
-    <div>
-      {authState.user.bookmarks.length === 0 && (
+    <div className="h-screen">
+      {user.bookmarks.length === 0 && (
         <div className="text-center p-10">
           You haven't bookmared any post yet
         </div>
       )}
-      {authState.user.bookmarks.map((post) => {
+      {user.bookmarks.map((post) => {
         return <PostCard post={post} key={post._id} cardType={"FOLLOW_CARD"} />;
       })}
     </div>

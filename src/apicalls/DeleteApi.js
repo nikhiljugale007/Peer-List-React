@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const DeleteApi = async (url, isAuthRequired) => {
-  const auth = isAuthRequired ? localStorage.getItem("token") : "";
+  const auth = isAuthRequired ? localStorage.getItem("authToken") : "";
   try {
     const response = await axios.delete(url, {
       headers: {
@@ -20,4 +20,12 @@ const DeleteApi = async (url, isAuthRequired) => {
     };
   }
 };
-export { DeleteApi };
+const DeleteApi2 = async (url, isAuthRequired) => {
+  const auth = isAuthRequired ? localStorage.getItem("authToken") : "";
+  return await axios.delete(url, {
+    headers: {
+      authorization: auth,
+    },
+  });
+};
+export { DeleteApi, DeleteApi2 };

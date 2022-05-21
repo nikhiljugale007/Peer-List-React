@@ -1,21 +1,24 @@
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { PostApi } from "../../apicalls/PostApi";
 import { avatar } from "../../assets";
-import { useAuthContext } from "../../context/AuthContext";
+import { updateUser } from "../../redux/authSlice";
 import "./NetworkCard.css";
-const NetworkCard = ({ user }) => {
-  const { firstName, lastName, about, username, _id } = user;
-  const { authState, authDispatch } = useAuthContext();
+const NetworkCard = ({ currentUser }) => {
+  const { firstName, lastName, about, username, _id } = currentUser;
+  const dispatch = useDispatch();
+  const { user } = useSelector((store) => store.authSlice);
   const checkUserIsFollowed = () => {
     return (
-      authState.user.following.find((user) => user.username === username) ||
-      username === authState.user.username
+      user.following.find(
+        (userFollowing) => userFollowing.username === username
+      ) || username === user.username
     );
   };
   const followUser = async () => {
     const res = await PostApi(`/api/users/follow/${_id}`, {}, true);
     if (res.success) {
-      authDispatch({ type: "UPDATE_USER", payload: res.data.user });
+      dispatch(updateUser({ user: res.data.user }));
     } else {
       alert("Some error occurred, check console.");
     }
@@ -23,7 +26,7 @@ const NetworkCard = ({ user }) => {
   const unfollowUser = async () => {
     const res = await PostApi(`/api/users/unfollow/${_id}`, {}, true);
     if (res.success) {
-      authDispatch({ type: "UPDATE_USER", payload: res.data.user });
+      dispatch(updateUser({ user: res.data.user }));
     } else {
       alert("Some error occurred, check console.");
     }
@@ -35,7 +38,7 @@ const NetworkCard = ({ user }) => {
     >
       <div className="flex flex-row justify-between">
         <img src={avatar} alt="profile-pic" className="h-10 w-10 " />
-        {!(username === authState.user.username) &&
+        {!(username === user.username) &&
           (checkUserIsFollowed() ? (
             <button
               onClick={(e) => {

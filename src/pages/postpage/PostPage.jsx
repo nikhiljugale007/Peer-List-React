@@ -1,32 +1,29 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { GetApi } from "../../apicalls/GetApi";
 import { CommentCard, PostCard, SpinLoder } from "../../components";
 import { ArrowLeftIcon } from "@heroicons/react/outline";
 import { PostApi } from "../../apicalls/PostApi";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getCommentsForPost,
+  getPostDetails,
+  setCommentList,
+} from "../../redux/commentSlice";
 const PostPage = () => {
-  const [post, setPost] = useState({});
-  const [loading, setLoading] = useState(true);
   const [newComment, setNewComment] = useState("");
-  const [commentList, setCommentList] = useState([]);
   const [sortCommentsBy, setSortCommentsBy] = useState("LATEST");
   const { post_id } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { currentPost, postStatus, commentList } = useSelector(
+    (state) => state.commentSlice
+  );
   useEffect(() => {
-    const getPostById = async () => {
-      const { data, success } = await GetApi(`/api/posts/${post_id}`, false);
-      if (success) {
-        setPost(data.post);
-      } else {
-        alert("Some error occured, check console");
-      }
-      setLoading(false);
-
-      const res = await GetApi(`/api/comments/${post_id}`, false);
-      setCommentList(res.data.comments);
-    };
-    getPostById();
-  }, [post_id]);
+    if (postStatus === "idle") {
+      dispatch(getPostDetails({ post_id }));
+    }
+    dispatch(getCommentsForPost({ post_id }));
+  }, [post_id, dispatch, postStatus]);
 
   const addCommentToPost = async (e) => {
     e.preventDefault();
@@ -38,16 +35,16 @@ const PostPage = () => {
       true
     );
     if (success) {
-      setCommentList(data.comments);
+      // setCommentList(data.comments);
+      dispatch(setCommentList({ commentList: data.comments }));
       setNewComment("");
     } else {
       alert("Some error occurred. Check console.");
     }
   };
-
   const sortedCommentsArray = () => {
     if (sortCommentsBy === "UPVOTES") {
-      return commentList.sort((commentA, commentB) => {
+      return commentList.slice().sort((commentA, commentB) => {
         const upVoteDiff =
           commentB.votes.upvotedBy.length - commentA.votes.upvotedBy.length;
         if (upVoteDiff === 0) {
@@ -59,7 +56,7 @@ const PostPage = () => {
         return upVoteDiff;
       });
     } else if (sortCommentsBy === "DOWNVOTES") {
-      return commentList.sort((commentA, commentB) => {
+      return commentList.slice().sort((commentA, commentB) => {
         const downVoteDiff =
           commentB.votes.downvotedBy.length - commentA.votes.downvotedBy.length;
         if (downVoteDiff === 0) {
@@ -70,16 +67,18 @@ const PostPage = () => {
         return downVoteDiff;
       });
     } else if (sortCommentsBy === "LATEST") {
-      return commentList.sort(
-        (commentA, commentB) =>
-          new Date(commentB.updatedAt) - new Date(commentA.updatedAt)
-      );
+      return commentList
+        .slice()
+        .sort(
+          (commentA, commentB) =>
+            new Date(commentB.updatedAt) - new Date(commentA.updatedAt)
+        );
     }
     return commentList;
   };
   return (
     <div className="h-screen w-full ">
-      {loading ? (
+      {postStatus === "pending" || postStatus === "idle" ? (
         <div className="text-center p-10">
           <SpinLoder />
         </div>
@@ -93,7 +92,7 @@ const PostPage = () => {
             <ArrowLeftIcon className="p-2 h-8 w-8 hover:bg-hover-color border rounded-full" />
           </button>
 
-          <PostCard post={post} />
+          <PostCard post={currentPost} />
 
           <div className="relative  border-2 bg-gray-50 rounded m-2">
             <form onSubmit={addCommentToPost}>
@@ -159,7 +158,6 @@ const PostPage = () => {
                     key={comment._id}
                     comment={comment}
                     postId={post_id}
-                    setCommentList={setCommentList}
                   />
                 );
               })}

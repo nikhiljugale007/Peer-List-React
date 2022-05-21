@@ -1,13 +1,12 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useAuthContext } from "../../context/AuthContext";
 import { PostApi } from "../../apicalls/PostApi";
-
+import { useDispatch } from "react-redux";
+import { setLoggedUser } from "../../redux/authSlice";
 const inititalLoginState = { username: "", password: "" };
 
 const validateForm = (formState) => {
   const { username, password } = formState;
-
   const errors = {};
 
   if (!username) {
@@ -25,9 +24,9 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loginFormState, setLoginFormState] = useState(inititalLoginState);
   const [formError, setFormError] = useState(inititalLoginState);
-  const { authDispatch } = useAuthContext();
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const loginUserApiCall = async () => {
     const response = await PostApi(
@@ -37,7 +36,7 @@ const Login = () => {
     );
     const { data, success } = response;
     if (success) {
-      authDispatch({ type: "SET_LOGGED_USER", payload: data });
+      dispatch(setLoggedUser({ ...data }));
       location.state === null
         ? navigate("/scroll")
         : navigate(location?.state?.from);
@@ -65,7 +64,7 @@ const Login = () => {
       ...prev,
       username: "adarshbalika",
       password: "adarshBalika123",
-    }));     
+    }));
   };
   return (
     <div className="box-border w-full p-1">

@@ -8,13 +8,13 @@ import {
 import { Scroll } from "../scroll/Scroll";
 import { Routes, Route, NavLink } from "react-router-dom";
 import { Profile } from "../profile/Profile";
-import { useAuthContext } from "../../context/AuthContext";
 import { Network } from "../mynetwork/Network";
 import { BookmarkIcon } from "@heroicons/react/outline";
 import { Bookmark } from "../bookmark/Bookmark";
 import { PostPage } from "../postpage/PostPage";
+import { useSelector } from "react-redux";
 const Feed = () => {
-  const { authState } = useAuthContext();
+  const { user } = useSelector((store) => store.authSlice);
   const getActiveStyle = ({ isActive }) => ({
     backgroundColor: isActive ? "#E0E4E9" : "",
   });
@@ -55,7 +55,7 @@ const Feed = () => {
             <p className="">Notifications</p>
           </li>
           <NavLink
-            to={`/profile/${authState.user._id}`}
+            to={`/profile/${user._id}`}
             className="flex flex-row gap-4  p-2 hover:cursor-pointer rounded-md"
             style={getActiveStyle}
           >
@@ -64,7 +64,7 @@ const Feed = () => {
           </NavLink>
         </ul>
       </aside>
-      <main className="w-full mb-20 md:-mb-0  border-l border-r">
+      <main className="w-full mb-20   border-l border-r">
         <Routes>
           <Route path="scroll" element={<Scroll />} />
           <Route path="network" element={<Network />} />
@@ -104,7 +104,7 @@ const Feed = () => {
             <p className="">Bookmarks</p>
           </NavLink>
           <NavLink
-            to={`/profile/${authState.user._id}`}
+            to={`/profile/${user._id}`}
             className="flex flex-col  p-2 px-4 hover:cursor-pointer "
             style={getMobileActiveStyle}
           >

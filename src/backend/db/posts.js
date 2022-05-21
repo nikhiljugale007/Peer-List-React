@@ -1,5 +1,4 @@
 import { v4 as uuid } from "uuid";
-import { formatDate } from "../utils/authUtils";
 
 /**
  * Posts can be added here.
@@ -18,12 +17,13 @@ export const posts = [
     },
     username: "adarshbalika",
     userId: "f2eba8e4-d8ae-4510-9c3f-d7ad111f541e",
-    createdAt: formatDate(),
-    updatedAt: formatDate(),
+    createdAt: "2022-05-19T21:57:19+05:30",
+    updatedAt: "2022-05-19T21:57:19+05:30",
     comments: [
       {
         _id: uuid(),
-        username: "shubhamsoni",
+        username: "nikhiljugale007",
+        userId: "g2eba8e4-d8ae-4510-9c3f-d7ad111f552e",
         text: "Interesting",
         votes: {
           upvotedBy: [],
@@ -33,7 +33,8 @@ export const posts = [
       },
       {
         _id: uuid(),
-        username: "sohamshah",
+        username: "sanketpatil006",
+        userId: "g2eba8e4-d8ae-4510-9c3f-d7ad111f553e",
         text: "Wow!",
         votes: {
           upvotedBy: [],
@@ -42,6 +43,45 @@ export const posts = [
         updatedAt: "2022-05-12T21:57:19+05:30",
       },
     ],
+  },
+  {
+    _id: uuid(),
+    content: "This is post by sanket patil",
+    likes: {
+      likeCount: 0,
+      likedBy: [],
+      dislikedBy: [],
+    },
+    username: "sanketpatil006",
+    userId: "g2eba8e4-d8ae-4510-9c3f-d7ad111f553e",
+    updatedAt: "2022-03-30T21:57:19+05:30",
+    createdAt: "2022-03-30T21:57:19+05:30",
+  },
+  {
+    _id: uuid(),
+    content: "This is post by Shubham patil",
+    likes: {
+      likeCount: 0,
+      likedBy: [],
+      dislikedBy: [],
+    },
+    username: "shubhampatil005",
+    userId: "g2eba8e4-d8ae-4510-9c3f-d7ad111f554e",
+    updatedAt: "2022-04-11T21:57:19+05:30",
+    createdAt: "2022-04-11T21:57:19+05:30",
+  },
+  {
+    _id: uuid(),
+    content: "This is post by Prem Melage",
+    likes: {
+      likeCount: 0,
+      likedBy: [],
+      dislikedBy: [],
+    },
+    username: "premmelage01",
+    userId: "g2eba8e4-d8ae-4510-9c3f-d7ad111f555e",
+    updatedAt: "2022-03-12T21:57:19+05:30",
+    createdAt: "2022-03-12T21:57:19+05:30",
   },
   {
     _id: uuid(),
@@ -57,7 +97,8 @@ export const posts = [
     comments: [
       {
         _id: uuid(),
-        username: "nikhiljugale007",
+        username: "adarshbalika",
+        userId: "f2eba8e4-d8ae-4510-9c3f-d7ad111f541e",
         text: "Interesting",
         votes: {
           upvotedBy: [],
@@ -67,7 +108,8 @@ export const posts = [
       },
       {
         _id: uuid(),
-        username: "adarshbalika",
+        username: "harshalshelake02",
+        userId: "g2eba8e4-d8ae-4510-9c3f-d7ad111f556e",
         text: "Wow!",
         votes: {
           upvotedBy: [],
@@ -76,7 +118,7 @@ export const posts = [
         updatedAt: "2022-05-16T21:57:19+05:30",
       },
     ],
-    createdAt: formatDate(),
-    updatedAt: formatDate(),
+    createdAt: "2022-01-10T21:57:19+05:30",
+    updatedAt: "2022-01-10T21:57:19+05:30",
   },
 ];

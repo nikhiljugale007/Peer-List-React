@@ -2,8 +2,12 @@ import "./PostCard.css";
 import { avatar } from "../../assets";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useAppContext, useAuthContext } from "../../context";
-import { PostApi } from "../../apicalls/PostApi";
+import {
+  followUnFollowUserUserThunk,
+  bookmarkPost,
+  removeBookmarkPost,
+} from "../../redux/authSlice";
+import { useDispatch, useSelector } from "react-redux";
 import {
   ThumbUpIcon,
   BookmarkIcon,
@@ -11,94 +15,44 @@ import {
   TrashIcon,
   AnnotationIcon,
 } from "@heroicons/react/outline";
-import { DeleteApi } from "../../apicalls/DeleteApi";
 import { EditPostModal } from "../modal/EditPostModal";
+import { likePost, dislikePost, deletePostThunk } from "../../redux/postSlice";
 
 const PostCard = ({ post, cardType }) => {
   const { username, content, updatedAt, likes, userId, media, _id } = post;
   const [expandPost, setExpandPost] = useState(false);
   const [showEditPostModal, setShowEditPostModal] = useState(false);
-  const { authState, authDispatch } = useAuthContext();
-  const { appDispatch } = useAppContext();
+  const { user } = useSelector((state) => state.authSlice);
+  const dispatch = useDispatch();
   const checkUserIsFollowed = () => {
     return (
-      authState.user.following.find((user) => user.username === username) ||
-      username === authState.user.username
+      user.following.find(
+        (userFollowing) => userFollowing.username === username
+      ) || username === user.username
     );
   };
 
   const followUser = async () => {
-    const res = await PostApi(`/api/users/follow/${userId}`, {}, true);
-    if (res.success) {
-      authDispatch({ type: "UPDATE_USER", payload: res.data.user });
-    } else {
-      alert("Some error occurred, check console.");
-    }
+    dispatch(followUnFollowUserUserThunk({ userId, type: "follow" }));
   };
   const unfollowUser = async () => {
-    const res = await PostApi(`/api/users/unfollow/${userId}`, {}, true);
-    if (res.success) {
-      authDispatch({ type: "UPDATE_USER", payload: res.data.user });
-    } else {
-      alert("Some error occurred, check console.");
-    }
+    dispatch(followUnFollowUserUserThunk({ userId, type: "unfollow" }));
   };
-  const likePost = async () => {
-    const { data, success } = await PostApi(`/api/posts/like/${_id}`, {}, true);
-    if (success) {
-      appDispatch({ type: "SET_FEED", payload: data.posts });
-    } else {
-      alert("Some error occurred, check console.");
-    }
+  const likePostFunction = () => {
+    dispatch(likePost({ _id }));
   };
-  const dislikePost = async () => {
-    const { data, success } = await PostApi(
-      `/api/posts/dislike/${_id}`,
-      {},
-      true
-    );
-    if (success) {
-      appDispatch({ type: "SET_FEED", payload: data.posts });
-    } else {
-      alert("Some error occurred, check console.");
-    }
+  const dislikePostFunction = async () => {
+    dispatch(dislikePost({ _id }));
   };
-  const bookmarkPost = async () => {
-    const { data, success } = await PostApi(
-      `api/users/bookmark/${_id}`,
-      {},
-      true
-    );
-    if (success) {
-      authDispatch({ type: "UPDATE_USER_BOOKMARK", payload: data.bookmarks });
-    } else {
-      alert("Some error occurred, check console.");
-    }
+  const bookmarkPostFunction = async () => {
+    dispatch(bookmarkPost({ _id }));
   };
-  const removeBookmarkPost = async () => {
-    const { data, success } = await PostApi(
-      `api/users/remove-bookmark/${_id}`,
-      {},
-      true
-    );
-    if (success) {
-      authDispatch({ type: "UPDATE_USER_BOOKMARK", payload: data.bookmarks });
-    } else {
-      alert("Some error occurred, check console.");
-    }
+  const removeBookmarkPostFunction = async () => {
+    dispatch(removeBookmarkPost({ _id }));
   };
 
   const deletePost = async () => {
-    const { data, success } = await DeleteApi(`/api/posts/${_id}`, true);
-    if (success) {
-      appDispatch({ type: "SET_FEED", payload: data.posts });
-      const updatedUserPosts = data.posts.filter(
-        (post) => post.userId === authState.user._id
-      );
-      authDispatch({ type: "UPDATE_USER_POSTS", payload: updatedUserPosts });
-    } else {
-      alert("Some error occurred, check console.");
-    }
+    dispatch(deletePostThunk({ _id }));
   };
 
   const editPost = () => {
@@ -106,22 +60,29 @@ const PostCard = ({ post, cardType }) => {
   };
   const checkLikedPost = () => {
     const likedArray = likes.likedBy.filter(
-      (user) => user._id === authState.user._id
+      (userLiked) => userLiked._id === user._id
     );
     if (likedArray.length === 0) return false;
     else return true;
   };
   const checkBookmarkedPost = () => {
-    const bookmaredArray = authState.user.bookmarks.filter(
-      (post) => post._id === _id
-    );
+    const bookmaredArray = user.bookmarks.filter((post) => post._id === _id);
     if (bookmaredArray.length === 0) return false;
     else return true;
   };
   const checkPostIdOfLoggedUser = () => {
-    return userId === authState.user._id;
+    return username === user.username;
   };
-
+  const getTimeInDMY = (date) => {
+    const dateF = new Date(date);
+    const dmy =
+      dateF.getDate() +
+      " " +
+      dateF.toLocaleString("default", { month: "long" }) +
+      ", " +
+      dateF.getFullYear();
+    return dmy;
+  };
   return (
     <div className=" p-10 flex flex-col gap-5 border-t border-b bg-primary-bg-color w-full">
       {showEditPostModal && (
@@ -138,7 +99,7 @@ const PostCard = ({ post, cardType }) => {
           <img src={avatar} alt="profile-pic" className="h-14 w-14" />
           <div className="flex flex-col">
             <p className="text-lg">{"@" + username}</p>
-            <p className="text-xs text-gray-600">{updatedAt}</p>
+            <p className="text-xs text-gray-600">{getTimeInDMY(updatedAt)}</p>
           </div>
         </Link>
         {checkPostIdOfLoggedUser() && (
@@ -152,7 +113,7 @@ const PostCard = ({ post, cardType }) => {
           </div>
         )}
 
-        {!(username === authState.user.username) &&
+        {!(username === user.username) &&
           (checkUserIsFollowed() ? (
             <button
               onClick={unfollowUser}
@@ -178,6 +139,7 @@ const PostCard = ({ post, cardType }) => {
           />
         )}
         <p className={expandPost ? "" : "text-ellipsis max-h-24 "}>{content}</p>
+
         {content.length > 150 && (
           <button
             className="text-primary-color py-1 outline-none"
@@ -191,7 +153,7 @@ const PostCard = ({ post, cardType }) => {
         {checkLikedPost() ? (
           <div
             className="flex flex-row items-center cursor-pointer gap-2"
-            onClick={dislikePost}
+            onClick={dislikePostFunction}
           >
             <ThumbUpIcon className="p-2 h-10 w-10 stroke-primary-color  hover:bg-hover-color rounded-full" />
             <p>{likes.likedBy.length}</p>
@@ -199,7 +161,7 @@ const PostCard = ({ post, cardType }) => {
         ) : (
           <div
             className="flex flex-row items-center cursor-pointer gap-2 "
-            onClick={likePost}
+            onClick={likePostFunction}
           >
             <ThumbUpIcon className="p-2 h-10 w-10  hover:bg-hover-color rounded-full" />
             <p>{likes.likedBy.length}</p>
@@ -208,14 +170,14 @@ const PostCard = ({ post, cardType }) => {
         {checkBookmarkedPost() ? (
           <div
             className="flex flex-row items-center cursor-pointer gap-2"
-            onClick={removeBookmarkPost}
+            onClick={removeBookmarkPostFunction}
           >
             <BookmarkIcon className="p-2 h-10 w-10  stroke-primary-color  hover:bg-hover-color rounded-full cursor-pointer" />
           </div>
         ) : (
           <div
             className="flex flex-row items-center cursor-pointer gap-2 "
-            onClick={bookmarkPost}
+            onClick={bookmarkPostFunction}
           >
             <BookmarkIcon className="p-2 h-10 w-10  hover:bg-hover-color rounded-full cursor-pointer" />
           </div>
