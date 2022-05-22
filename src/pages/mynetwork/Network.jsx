@@ -7,7 +7,7 @@ import { Followers } from "./Followers";
 const Network = () => {
   const [activeTab, setActiveTab] = useState("FIND");
   return (
-    <div className="h-screen flex flex-col w-full">
+    <div className="min-h-screen flex flex-col w-full">
       <ul className="w-full  flex flex-row gap-6 px-2 border-b ">
         <li
           className={

@@ -14,6 +14,7 @@ export const users = [
     password: "adarshBalika123",
     createdAt: formatDate(),
     updatedAt: formatDate(),
+    userProfile: "https://www.sragenkab.go.id/assets/images/demo/user-5.jpg",
   },
   {
     _id: "g2eba8e4-d8ae-4510-9c3f-d7ad111f552e",
@@ -23,6 +24,7 @@ export const users = [
     password: "nikhil#123",
     createdAt: formatDate(),
     updatedAt: formatDate(),
+    userProfile: "https://www.sragenkab.go.id/assets/images/demo/user-4.jpg",
   },
   {
     _id: "g2eba8e4-d8ae-4510-9c3f-d7ad111f553e",
@@ -32,6 +34,7 @@ export const users = [
     password: "Sanket@006",
     createdAt: formatDate(),
     updatedAt: formatDate(),
+    userProfile: "https://www.sragenkab.go.id/assets/images/demo/user-6.jpg",
   },
   {
     _id: "g2eba8e4-d8ae-4510-9c3f-d7ad111f554e",
@@ -41,6 +44,7 @@ export const users = [
     password: "Shubham@005",
     createdAt: formatDate(),
     updatedAt: formatDate(),
+    userProfile: "https://www.sragenkab.go.id/assets/images/demo/user-7.jpg",
   },
   {
     _id: "g2eba8e4-d8ae-4510-9c3f-d7ad111f555e",
@@ -50,6 +54,7 @@ export const users = [
     password: "Prem@01",
     createdAt: formatDate(),
     updatedAt: formatDate(),
+    userProfile: "https://www.sragenkab.go.id/assets/images/demo/user-8.jpg",
   },
   {
     _id: "g2eba8e4-d8ae-4510-9c3f-d7ad111f556e",
@@ -59,5 +64,6 @@ export const users = [
     password: "Harshal@02",
     createdAt: formatDate(),
     updatedAt: formatDate(),
+    userProfile: "https://www.sragenkab.go.id/assets/images/demo/user-9.jpg",
   },
 ];

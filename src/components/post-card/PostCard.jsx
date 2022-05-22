@@ -19,10 +19,22 @@ import { EditPostModal } from "../modal/EditPostModal";
 import { likePost, dislikePost, deletePostThunk } from "../../redux/postSlice";
 
 const PostCard = ({ post, cardType }) => {
-  const { username, content, updatedAt, likes, userId, media, _id } = post;
+  const {
+    username,
+    content,
+    createdAt,
+    likes,
+    userId,
+    media,
+    _id,
+    firstName,
+    lastName,
+    userProfile,
+  } = post;
   const [expandPost, setExpandPost] = useState(false);
   const [showEditPostModal, setShowEditPostModal] = useState(false);
   const { user } = useSelector((state) => state.authSlice);
+  const [profileImageLoaded, setProfileImageLoaded] = useState(false);
   const dispatch = useDispatch();
   const checkUserIsFollowed = () => {
     return (
@@ -96,10 +108,27 @@ const PostCard = ({ post, cardType }) => {
           to={`/profile/${userId}`}
           className="flex flex-row items-center gap-5"
         >
-          <img src={avatar} alt="profile-pic" className="h-14 w-14" />
+          {!profileImageLoaded ? (
+            <img
+              src={avatar}
+              alt="profile-pic"
+              className="h-14 w-14 rounded-full"
+              // onLoad={() => setProfileImageLoaded(true)}
+            />
+          ) : null}
+          <img
+            src={userProfile}
+            alt="profile-pic"
+            className="h-14 w-14 rounded-full"
+            onLoad={() => setProfileImageLoaded(true)}
+          />
           <div className="flex flex-col">
-            <p className="text-lg">{"@" + username}</p>
-            <p className="text-xs text-gray-600">{getTimeInDMY(updatedAt)}</p>
+            <div className="flex items-center gap-2">
+              <p className="text-lg">{firstName + " " + lastName}</p>
+              <p>•</p>
+              <p className="text-lg text-gray-600">{"@" + username}</p>
+            </div>
+            <p className="text-xs text-gray-600">{getTimeInDMY(createdAt)}</p>
           </div>
         </Link>
         {checkPostIdOfLoggedUser() && (

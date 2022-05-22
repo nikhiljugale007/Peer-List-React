@@ -20,6 +20,7 @@ const Profile = () => {
   const { user } = useSelector((store) => store.authSlice);
   const [userState, setUserState] = useState({});
   const [userPosts, setUserPosts] = useState([]);
+  const [reloadPage, setReloadPage] = useState(false);
   const [loading, setLoading] = useState(true);
   const [showEditProfileModal, setEditProfileModal] = useState(false);
   const [listModal, setListModal] = useState({
@@ -58,7 +59,7 @@ const Profile = () => {
       setLoading(false);
     }, 1000);
     getPostsByUser();
-  }, [user_id, userState.username, dispatch]);
+  }, [user_id, userState.username, dispatch, reloadPage]);
 
   const logoutUserFun = () => {
     dispatch(logoutUser());
@@ -82,6 +83,7 @@ const Profile = () => {
               <EditProfileModal
                 setEditProfileModal={setEditProfileModal}
                 userState={userState}
+                setReloadPage={setReloadPage}
               />
             </div>
           )}
@@ -108,12 +110,16 @@ const Profile = () => {
                   )}
                 </div>
                 <p className="text-lg">
-                  {userState.about === undefined
+                  {userState.about === undefined || userState.about === ""
                     ? "Add about section."
                     : userState.about}
                 </p>
               </div>
-              <img src={avatar} alt="profile-pic" className="h-20 w-20 " />
+              <img
+                src={userState.userProfile}
+                alt="profile-pic"
+                className="h-20 w-20 rounded-full"
+              />
             </div>
 
             <div className="flex sm:flex-row  sm:gap-20 gap-5 flex-wrap">
