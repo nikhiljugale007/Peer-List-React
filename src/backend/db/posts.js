@@ -9,10 +9,19 @@ export const posts = [
   {
     _id: uuid(),
     content:
-      "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.",
+      "I wrote a short note on LinkedIn about how I learnt how to use NextJs in 2 days. You can find the link below and learn a few things. Also feel free to connect with me on LinkedIn too. 🥰",
     likes: {
-      likeCount: 0,
-      likedBy: [],
+      likeCount: 2,
+      likedBy: [
+        {
+          username: "premmelage01",
+          _id: "g2eba8e4-d8ae-4510-9c3f-d7ad111f555e",
+        },
+        {
+          username: "harshalshelake02",
+          _id: "g2eba8e4-d8ae-4510-9c3f-d7ad111f556e",
+        },
+      ],
       dislikedBy: [],
     },
     username: "adarshbalika",
@@ -38,7 +47,7 @@ export const posts = [
         _id: uuid(),
         username: "sanketpatil006",
         userId: "g2eba8e4-d8ae-4510-9c3f-d7ad111f553e",
-        text: "Wow!",
+        text: "Good read!",
         votes: {
           upvotedBy: [],
           downvotedBy: [],
@@ -49,13 +58,19 @@ export const posts = [
   },
   {
     _id: uuid(),
-    content: "This is post by sanket patil",
+    content:
+      "I made this side project where I have some of my favourite scenes from various animes which the user can scroll through. It has undergone cosmetic and underlying stack changes since deployed which can be traced through my blog articles .  Live link:https://animeccha.com/",
     firstName: "Sanket",
     lastName: "Patil",
     userProfile: "https://www.sragenkab.go.id/assets/images/demo/user-6.jpg",
     likes: {
-      likeCount: 0,
-      likedBy: [],
+      likeCount: 1,
+      likedBy: [
+        {
+          username: "harshalshelake02",
+          _id: "g2eba8e4-d8ae-4510-9c3f-d7ad111f556e",
+        },
+      ],
       dislikedBy: [],
     },
     username: "sanketpatil006",
@@ -65,10 +80,24 @@ export const posts = [
   },
   {
     _id: uuid(),
-    content: "This is post by Shubham patil",
+    content:
+      "How does peerlist position itself? Is it 'connection and profile part of LinkedIn' + 'tweets part of Twitter'? I'm still figuring out.Also, since a context is mandatory, link to my company website:  https://emergeflow.com/",
     likes: {
-      likeCount: 0,
-      likedBy: [],
+      likeCount: 3,
+      likedBy: [
+        {
+          username: "harshalshelake02",
+          _id: "g2eba8e4-d8ae-4510-9c3f-d7ad111f556e",
+        },
+        {
+          username: "adarshbalika",
+          _id: "f2eba8e4-d8ae-4510-9c3f-d7ad111f541e",
+        },
+        {
+          username: "nikhiljugale007",
+          _id: "g2eba8e4-d8ae-4510-9c3f-d7ad111f552e",
+        },
+      ],
       dislikedBy: [],
     },
     username: "shubhampatil005",
@@ -81,7 +110,8 @@ export const posts = [
   },
   {
     _id: uuid(),
-    content: "This is post by Prem Melage",
+    content:
+      "Hey,We are looking for problem setter interns and freelancers for iMochaWorks. We help fortune 500 organizations hire qualified talent and upskill the existing workforce. Problem setters curate problems in domains technology, coding, soft skills, marketing, finance, etc",
     likes: {
       likeCount: 0,
       likedBy: [],
@@ -100,8 +130,13 @@ export const posts = [
     content:
       "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.",
     likes: {
-      likeCount: 0,
-      likedBy: [],
+      likeCount: 1,
+      likedBy: [
+        {
+          username: "adarshbalika",
+          _id: "f2eba8e4-d8ae-4510-9c3f-d7ad111f541e",
+        },
+      ],
       dislikedBy: [],
     },
     username: "nikhiljugale007",

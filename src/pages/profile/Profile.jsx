@@ -72,7 +72,7 @@ const Profile = () => {
     navigate("/home");
   };
   const activeIconStyle = {
-    color: "#00acee",
+    // color: "#00acee",
     fontSize: "1.2em",
   };
 
@@ -175,7 +175,7 @@ const Profile = () => {
                 href={userState.twitterProfile}
                 target="_blank"
                 rel="noreferrer"
-                className="flex flex-row gap-2 p-1 tooltip"
+                className="flex flex-row gap-2 p-1 tooltip hover:text-green-600"
               >
                 <BsTwitter
                   style={
@@ -197,7 +197,7 @@ const Profile = () => {
                 href={userState.portfolioLink}
                 target="_blank"
                 rel="noreferrer"
-                className="flex flex-row gap-2 p-1 tooltip"
+                className="flex flex-row gap-2 p-1 tooltip hover:text-green-600"
               >
                 <BsCompassFill
                   style={
@@ -253,6 +253,8 @@ const Profile = () => {
               </button>
             )}
           </div>
+          <div className="p-4 font-semibold ">Your Posts</div>
+
           {userPosts.length === 0 ? (
             <p>You do not have any posts yet</p>
           ) : (

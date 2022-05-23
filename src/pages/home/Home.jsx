@@ -27,7 +27,11 @@ const Home = () => {
             className="px-5 py-3 bg-primary-color rounded-md flex flex-row items-center gap-3 hover:opacity-75"
           >
             <p className="text-primary-bg-color text-lg font-bold ">
-              {isLoggedIn ? "Explore Peerlist" : "Join Peerlist"}
+              {isLoggedIn ? (
+                <Link to="/scroll">Explore Peerlist</Link>
+              ) : (
+                <Link to="/login">Join Peerlist</Link>
+              )}
             </p>
             <div>
               <svg
