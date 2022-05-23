@@ -9,6 +9,7 @@ import {
   getPostDetails,
   setCommentList,
 } from "../../redux/commentSlice";
+import { getSortCommentsArray } from "../../utility/commonFunctions";
 const PostPage = () => {
   const [newComment, setNewComment] = useState("");
   const [sortCommentsBy, setSortCommentsBy] = useState("LATEST");
@@ -42,40 +43,7 @@ const PostPage = () => {
       alert("Some error occurred. Check console.");
     }
   };
-  const sortedCommentsArray = () => {
-    if (sortCommentsBy === "UPVOTES") {
-      return commentList.slice().sort((commentA, commentB) => {
-        const upVoteDiff =
-          commentB.votes.upvotedBy.length - commentA.votes.upvotedBy.length;
-        if (upVoteDiff === 0) {
-          return (
-            commentA.votes.downvotedBy.length -
-            commentB.votes.downvotedBy.length
-          );
-        }
-        return upVoteDiff;
-      });
-    } else if (sortCommentsBy === "DOWNVOTES") {
-      return commentList.slice().sort((commentA, commentB) => {
-        const downVoteDiff =
-          commentB.votes.downvotedBy.length - commentA.votes.downvotedBy.length;
-        if (downVoteDiff === 0) {
-          return (
-            commentA.votes.upvotedBy.length - commentB.votes.upvotedBy.length
-          );
-        }
-        return downVoteDiff;
-      });
-    } else if (sortCommentsBy === "LATEST") {
-      return commentList
-        .slice()
-        .sort(
-          (commentA, commentB) =>
-            new Date(commentB.updatedAt) - new Date(commentA.updatedAt)
-        );
-    }
-    return commentList;
-  };
+
   return (
     <div className="h-screen w-full ">
       {postStatus === "pending" || postStatus === "idle" ? (
@@ -152,15 +120,17 @@ const PostPage = () => {
               </button>
             </div>
             {commentList !== undefined &&
-              sortedCommentsArray().map((comment) => {
-                return (
-                  <CommentCard
-                    key={comment._id}
-                    comment={comment}
-                    postId={post_id}
-                  />
-                );
-              })}
+              getSortCommentsArray({ commentList, sortCommentsBy }).map(
+                (comment) => {
+                  return (
+                    <CommentCard
+                      key={comment._id}
+                      comment={comment}
+                      postId={post_id}
+                    />
+                  );
+                }
+              )}
           </div>
         </main>
       )}

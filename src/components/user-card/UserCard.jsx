@@ -1,9 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const UserCard = ({ user }) => {
-  const { firstName, lastName, userProfile, about } = user;
+  const { firstName, lastName, userProfile, about, _id } = user;
   return (
-    <div className="flex flex-row gap-5 items-start p-2 bg-primary-bg-color ">
+    <Link
+      to={`/profile/${_id}`}
+      className="flex flex-row gap-5 items-start p-2 bg-primary-bg-color "
+    >
       <img
         src={userProfile}
         alt="profile-pic"
@@ -15,7 +19,7 @@ const UserCard = ({ user }) => {
           {about === "" || about === undefined ? "No about section" : about}
         </p>
       </div>
-    </div>
+    </Link>
   );
 };
 

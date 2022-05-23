@@ -3,18 +3,13 @@ import { Link } from "react-router-dom";
 import { PostApi } from "../../apicalls/PostApi";
 import { avatar } from "../../assets";
 import { updateUser } from "../../redux/authSlice";
+import { checkUserIsFollowed } from "../../utility/commonFunctions";
 import "./NetworkCard.css";
 const NetworkCard = ({ currentUser }) => {
   const { firstName, lastName, about, username, _id } = currentUser;
   const dispatch = useDispatch();
   const { user } = useSelector((store) => store.authSlice);
-  const checkUserIsFollowed = () => {
-    return (
-      user.following.find(
-        (userFollowing) => userFollowing.username === username
-      ) || username === user.username
-    );
-  };
+
   const followUser = async () => {
     const res = await PostApi(`/api/users/follow/${_id}`, {}, true);
     if (res.success) {
@@ -39,7 +34,7 @@ const NetworkCard = ({ currentUser }) => {
       <div className="flex flex-row justify-between">
         <img src={avatar} alt="profile-pic" className="h-10 w-10 " />
         {!(username === user.username) &&
-          (checkUserIsFollowed() ? (
+          (checkUserIsFollowed({ user, username }) ? (
             <button
               onClick={(e) => {
                 e.preventDefault();

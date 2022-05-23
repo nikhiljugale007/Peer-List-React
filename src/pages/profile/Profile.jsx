@@ -11,6 +11,7 @@ import {
   PostCard,
   SpinLoder,
 } from "../../components";
+import { checkTwitterUrl } from "../../utility/commonFunctions";
 
 const Profile = () => {
   const { user } = useSelector((store) => store.authSlice);
@@ -66,16 +67,7 @@ const Profile = () => {
     color: "#00acee",
     fontSize: "1.2em",
   };
-  const checkTwitterUrl = () => {
-    if (
-      userState.twitterProfile === undefined ||
-      useState.twitterProfile === ""
-    ) {
-      return false;
-    } else {
-      return true;
-    }
-  };
+
   return (
     <div className="min-h-screen w-full scroll-smooth">
       {loading ? (
@@ -106,17 +98,21 @@ const Profile = () => {
           {/* main profile */}
           <div className="w-full p-10 flex flex-col gap-5 border-t border-b bg-primary-bg-color">
             <div className="flex sm:flex-row flex-col-reverse gap-10 items-center justify-between">
-              <div className="flex flex-col gap-5">
+              <div className="flex flex-col gap-5 ">
                 <div className="flex sm:flex-row flex-col-reverse items-center gap-5">
                   <p className="text-4xl font-semibold">
                     {userState.firstName + " " + userState.lastName}
                   </p>
-                  {userState.username === user.username && (
+                  {userState.username === user.username ? (
                     <button
                       className="border px-2 py-1 rounded-sm"
                       onClick={() => setEditProfileModal(true)}
                     >
                       <p className="text-sm ">Edit Profile</p>
+                    </button>
+                  ) : (
+                    <button className="border p-1 px-2 rounded-md hover:bg-bg-black text-primary-bg-color bg-secondary-bg-color">
+                      Follow
                     </button>
                   )}
                 </div>
@@ -148,15 +144,14 @@ const Profile = () => {
                 rel="noreferrer"
                 className="flex flex-row gap-2 p-1 items-center tooltip"
               >
-                {/* <img src={Icon_twitter} alt="twitter" /> */}
                 <BsTwitter
-                  style={checkTwitterUrl() && activeIconStyle}
+                  style={checkTwitterUrl({ userState }) && activeIconStyle}
                   size={30}
                 />
                 <p>
                   Twitter
                   <span class="tooltiptext">
-                    {checkTwitterUrl()
+                    {checkTwitterUrl({ userState })
                       ? userState.twitterProfile
                       : "Not Provided"}
                   </span>

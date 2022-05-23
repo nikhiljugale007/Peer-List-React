@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadPosts, refreshFeed } from "../../redux/postSlice";
 import { ChevronDownIcon, RefreshIcon } from "@heroicons/react/outline";
 import { loadUsers } from "../../redux/userSlice";
+import { getSortedFeed } from "../../utility/commonFunctions";
 
 const Scroll = () => {
   const [showNewPostModal, setShowNewPostModal] = useState(false);
@@ -24,21 +25,6 @@ const Scroll = () => {
     }
   }, [dispatch, status, recommendedUsersStatus]);
 
-  const getSortedFeed = () => {
-    switch (sortPostBy) {
-      case "LATEST":
-        return [...feed].sort(
-          (postA, postB) =>
-            new Date(postB.createdAt) - new Date(postA.createdAt)
-        );
-      case "TRENDING":
-        return [...feed].sort((postA, postB) => {
-          return postB.likes.likeCount - postA.likes.likeCount;
-        });
-      default:
-        return feed;
-    }
-  };
   return (
     <div className="h-screen flex flex-row w-full">
       {showNewPostModal && (
@@ -103,7 +89,7 @@ const Scroll = () => {
           </div>
         ) : (
           <div className="scroll-smooth">
-            {getSortedFeed().map((post) => {
+            {getSortedFeed({ feed, sortPostBy }).map((post) => {
               return (
                 <PostCard post={post} key={post._id} cardType={"FOLLOW_CARD"} />
               );
