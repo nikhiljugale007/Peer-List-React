@@ -113,7 +113,6 @@ const PostCard = ({ post, cardType }) => {
               src={avatar}
               alt="profile-pic"
               className="h-14 w-14 rounded-full"
-              // onLoad={() => setProfileImageLoaded(true)}
             />
           ) : null}
           <img
@@ -125,8 +124,10 @@ const PostCard = ({ post, cardType }) => {
           <div className="flex flex-col">
             <div className="flex items-center gap-2">
               <p className="text-lg">{firstName + " " + lastName}</p>
-              <p>•</p>
-              <p className="text-lg text-gray-600">{"@" + username}</p>
+              <p className="invisible sm:visible">•</p>
+              <p className="text-lg text-gray-600 invisible sm:visible ">
+                {"@" + username}
+              </p>
             </div>
             <p className="text-xs text-gray-600">{getTimeInDMY(createdAt)}</p>
           </div>
