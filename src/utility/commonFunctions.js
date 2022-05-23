@@ -1,8 +1,5 @@
-const checkTwitterUrl = ({ userState }) => {
-  if (
-    userState.twitterProfile === undefined ||
-    userState.twitterProfile === ""
-  ) {
+const checkUrlIsProvided = ({ url }) => {
+  if (url === undefined || url === "") {
     return false;
   } else {
     return true;
@@ -119,7 +116,7 @@ const getSortedFeed = ({ feed, sortPostBy }) => {
   }
 };
 export {
-  checkTwitterUrl,
+  checkUrlIsProvided,
   checkUserIsFollowed,
   checkLikedPost,
   checkBookmarkedPost,

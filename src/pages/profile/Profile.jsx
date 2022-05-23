@@ -1,17 +1,20 @@
-import { avatar, Icon_medium, Icon_portfolio2 } from "../../assets";
+import { avatar } from "../../assets";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { GetApi } from "../../apicalls/GetApi";
-import { logoutUser } from "../../redux/authSlice";
-import { BsTwitter } from "react-icons/bs";
+import { followUnFollowUserUserThunk, logoutUser } from "../../redux/authSlice";
+import { BsTwitter, BsCompassFill } from "react-icons/bs";
 import {
   EditProfileModal,
   ListModal,
   PostCard,
   SpinLoder,
 } from "../../components";
-import { checkTwitterUrl } from "../../utility/commonFunctions";
+import {
+  checkUrlIsProvided,
+  checkUserIsFollowed,
+} from "../../utility/commonFunctions";
 
 const Profile = () => {
   const { user } = useSelector((store) => store.authSlice);
@@ -68,6 +71,15 @@ const Profile = () => {
     fontSize: "1.2em",
   };
 
+  const followUser = async ({ userId }) => {
+    dispatch(followUnFollowUserUserThunk({ userId: user_id, type: "follow" }));
+  };
+  const unfollowUser = async ({ userId }) => {
+    dispatch(
+      followUnFollowUserUserThunk({ userId: user_id, type: "unfollow" })
+    );
+  };
+
   return (
     <div className="min-h-screen w-full scroll-smooth">
       {loading ? (
@@ -110,8 +122,21 @@ const Profile = () => {
                     >
                       <p className="text-sm ">Edit Profile</p>
                     </button>
+                  ) : checkUserIsFollowed({
+                      user,
+                      username: userState.username,
+                    }) ? (
+                    <button
+                      onClick={() => unfollowUser({ userId: user._id })}
+                      className="border p-1 px-2 rounded-md hover:bg-hover-color"
+                    >
+                      UnFollow
+                    </button>
                   ) : (
-                    <button className="border p-1 px-2 rounded-md hover:bg-bg-black text-primary-bg-color bg-secondary-bg-color">
+                    <button
+                      onClick={() => followUser({ userId: user._id })}
+                      className="border p-1 px-2 rounded-md hover:bg-hover-color"
+                    >
                       Follow
                     </button>
                   )}
@@ -145,39 +170,41 @@ const Profile = () => {
                 className="flex flex-row gap-2 p-1 items-center tooltip"
               >
                 <BsTwitter
-                  style={checkTwitterUrl({ userState }) && activeIconStyle}
+                  style={
+                    checkUrlIsProvided({ url: userState.twitterProfile }) &&
+                    activeIconStyle
+                  }
                   size={30}
                 />
                 <p>
                   Twitter
-                  <span class="tooltiptext">
-                    {checkTwitterUrl({ userState })
+                  <span className="tooltiptext">
+                    {checkUrlIsProvided({ url: userState.twitterProfile })
                       ? userState.twitterProfile
                       : "Not Provided"}
                   </span>
                 </p>
               </a>
               <a
-                href="https://google.com/"
+                href={userState.portfolioLink}
                 target="_blank"
                 rel="noreferrer"
                 className="flex flex-row gap-2 p-1 tooltip"
               >
-                <img src={Icon_portfolio2} alt="twitter" />
+                <BsCompassFill
+                  style={
+                    checkUrlIsProvided({ url: userState.portfolioLink }) &&
+                    activeIconStyle
+                  }
+                  size={30}
+                />
                 <p>
                   Portfolio
-                  <span className="tooltiptext">Not Provided</span>
-                </p>
-              </a>
-              <a
-                href="https://google.com/"
-                target="_blank"
-                rel="noreferrer"
-                className="flex flex-row gap-2 p-1 tooltip"
-              >
-                <img src={Icon_medium} alt="twitter" />
-                <p>
-                  Medium <span className="tooltiptext">Not Provided</span>
+                  <span className="tooltiptext">
+                    {checkUrlIsProvided({ url: userState.portfolioLink })
+                      ? userState.portfolioLink
+                      : "Not Provided"}
+                  </span>
                 </p>
               </a>
             </div>

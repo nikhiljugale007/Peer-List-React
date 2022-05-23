@@ -4,7 +4,7 @@ const ListModal = ({ setListModal, listModal }) => {
   return (
     <div
       className="modal fade fixed top-0 left-0 w-full h-full outline-none overflow-x-hidden overflow-y-auto
-                      flex flex-row items-center justify-center 
+                      flex flex-row items-center justify-center z-20
                     "
       id="exampleModalCenter"
       tabIndex="-1"

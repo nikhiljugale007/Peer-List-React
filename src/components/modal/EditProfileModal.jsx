@@ -8,8 +8,15 @@ const EditProfileModal = ({
   userState,
   setReloadPage,
 }) => {
-  const { firstName, lastName, _id, about, twitterProfile, userProfile } =
-    userState;
+  const {
+    firstName,
+    lastName,
+    _id,
+    about,
+    twitterProfile,
+    portfolioLink,
+    userProfile,
+  } = userState;
   const dispatch = useDispatch();
   const [editProfileState, setEditProfileState] = useState({
     _id: _id,
@@ -17,6 +24,7 @@ const EditProfileModal = ({
     lastName: lastName,
     about: about === undefined ? "" : about,
     twitterProfile: twitterProfile === undefined ? "" : twitterProfile,
+    portfolioLink: portfolioLink === undefined ? "" : twitterProfile,
     userProfile: userProfile,
   });
   const inputChangeHandler = (e) => {
@@ -41,7 +49,7 @@ const EditProfileModal = ({
   };
   return (
     <div
-      className="modal fade fixed top-10 left-0 w-full  outline-none overflow-x-hidden overflow-y-auto
+      className="modal fade fixed top-5 left-0 w-full  outline-none overflow-x-hidden overflow-y-auto
                 flex flex-row items-center justify-center z-20
               "
       id="exampleModalCenter"
@@ -114,6 +122,20 @@ const EditProfileModal = ({
                 name="twitterProfile"
                 type="text"
                 value={editProfileState.twitterProfile}
+                onChange={inputChangeHandler}
+              />
+            </label>
+            <label
+              className="block text-gray-700 text-sm mb-2 border border-gray-400 rounded px-2 focus-within:border-black"
+              htmlFor="portfolio"
+            >
+              Portfolio
+              <input
+                className="appearance-none w-full my-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="portfolio"
+                name="portfolioLink"
+                type="text"
+                value={editProfileState.portfolioLink}
                 onChange={inputChangeHandler}
               />
             </label>
