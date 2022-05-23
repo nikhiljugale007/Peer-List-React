@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { PostCard, UserCard, SpinLoder, NewPostModal } from "../../components";
 import "./Scroll.css";
 import { useDispatch, useSelector } from "react-redux";
-import { loadPosts } from "../../redux/postSlice";
-import { ChevronDownIcon } from "@heroicons/react/outline";
+import { loadPosts, refreshFeed } from "../../redux/postSlice";
+import { ChevronDownIcon, RefreshIcon } from "@heroicons/react/outline";
 import { loadUsers } from "../../redux/userSlice";
 
 const Scroll = () => {
@@ -46,7 +46,7 @@ const Scroll = () => {
       )}
       <div className="h-screen w-full border-l border-r overflow-y-scroll no-scrollbar sm:pb-16">
         <div className="sticky top-0 flex flex-row items-center justify-between p-2 border-b bg-primary-bg-color">
-          <div>
+          <div className="flex gap-1">
             <button
               className="bg-gray-800 text-white px-6 h-10 w-40 rounded "
               onClick={() => {
@@ -54,7 +54,7 @@ const Scroll = () => {
               }}
             >
               <div className="flex items-center justify-between">
-                {sortPostBy}{" "}
+                {sortPostBy}
                 <ChevronDownIcon className="p-2 h-10 w-10 rounded-full" />
               </div>
             </button>
@@ -82,6 +82,12 @@ const Scroll = () => {
                 </ul>
               </div>
             )}
+            <button
+              title="Refresh Feed"
+              onClick={() => dispatch(refreshFeed())}
+            >
+              <RefreshIcon className="p-2 h-10 w-10 rounded-full" />
+            </button>
           </div>
           <button
             className="p-1 hover:bg-hover-color rounded-md"

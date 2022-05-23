@@ -59,6 +59,9 @@ const postSlice = createSlice({
     setFeed: (state, action) => {
       state.feed = action.payload.feed;
     },
+    refreshFeed: (state) => {
+      state.status = "idle";
+    },
   },
   extraReducers: {
     //get posts reducer
@@ -109,5 +112,5 @@ const postSlice = createSlice({
   },
 });
 
-export const { setFeed, setSortedFeed } = postSlice.actions;
+export const { setFeed, setSortedFeed, refreshFeed } = postSlice.actions;
 export default postSlice.reducer;
