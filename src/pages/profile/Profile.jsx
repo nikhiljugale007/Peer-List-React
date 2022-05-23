@@ -136,7 +136,7 @@ const Profile = () => {
               <img
                 src={userState.userProfile}
                 alt="profile-pic"
-                className="h-20 w-20 rounded-full"
+                className="h-20 w-20 rounded-full object-cover aspect-square"
                 onLoad={() => setProfileImageLoaded(true)}
               />
             </div>

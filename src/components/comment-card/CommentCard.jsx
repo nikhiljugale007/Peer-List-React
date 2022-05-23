@@ -129,7 +129,7 @@ const CommentCard = ({ comment, postId }) => {
           <img
             src={avatar}
             alt="profile-pic"
-            className="h-14 w-14 self-start  cursor-pointer"
+            className="h-14 w-14 self-start  cursor-pointer object-cover aspect-square"
             onClick={navigateToProfilePage}
           />
           <div className="flex flex-col w-full">

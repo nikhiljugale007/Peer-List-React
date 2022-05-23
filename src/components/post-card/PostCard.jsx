@@ -118,7 +118,7 @@ const PostCard = ({ post, cardType }) => {
           <img
             src={userProfile}
             alt="profile-pic"
-            className="h-14 w-14 rounded-full"
+            className="h-14 w-14 rounded-full object-cover aspect-square"
             onLoad={() => setProfileImageLoaded(true)}
           />
           <div className="flex flex-col">
