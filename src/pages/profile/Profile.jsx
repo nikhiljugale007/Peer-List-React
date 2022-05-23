@@ -162,12 +162,15 @@ const Profile = () => {
               />
             </div>
 
-            <div className="flex sm:flex-row  sm:gap-20 gap-5 flex-wrap">
+            <div
+              className="flex sm:flex-row  sm:gap-20 gap-5 flex-wrap sm:justify-start justify-center
+            "
+            >
               <a
                 href={userState.twitterProfile}
                 target="_blank"
                 rel="noreferrer"
-                className="flex flex-row gap-2 p-1 items-center tooltip"
+                className="flex flex-row gap-2 p-1 tooltip"
               >
                 <BsTwitter
                   style={
@@ -208,7 +211,7 @@ const Profile = () => {
                 </p>
               </a>
             </div>
-            <div className="flex sm:flex-row  sm:gap-20 gap-5 flex-wrap">
+            <div className="flex sm:flex-row  sm:gap-20 gap-5 flex-wrap sm:justify-start justify-center">
               <button
                 className="text-lg"
                 onClick={() =>
@@ -238,7 +241,7 @@ const Profile = () => {
             </div>
             {user._id === userState._id && (
               <button
-                className="bg-primary-color text-white px-2 py-1 rounded  hover:bg-primary-font-color w-max"
+                className="bg-primary-color text-white px-2 py-1 rounded sm:self-start  self-center  hover:bg-primary-font-color w-max"
                 onClick={logoutUserFun}
               >
                 Logout

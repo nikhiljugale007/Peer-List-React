@@ -9,9 +9,14 @@ const Bookmark = () => {
           You haven't bookmared any post yet
         </div>
       )}
-      {user.bookmarks.map((post) => {
-        return <PostCard post={post} key={post._id} cardType={"FOLLOW_CARD"} />;
-      })}
+      <div>
+        <div className="text-center p-4 font-semibold ">Your bookmarks</div>
+        {user.bookmarks.map((post) => {
+          return (
+            <PostCard post={post} key={post._id} cardType={"FOLLOW_CARD"} />
+          );
+        })}
+      </div>
     </div>
   );
 };
