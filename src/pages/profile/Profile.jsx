@@ -1,14 +1,10 @@
-import {
-  avatar,
-  Icon_twitter,
-  Icon_medium,
-  Icon_portfolio2,
-} from "../../assets";
+import { avatar, Icon_medium, Icon_portfolio2 } from "../../assets";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { GetApi } from "../../apicalls/GetApi";
 import { logoutUser } from "../../redux/authSlice";
+import { BsTwitter } from "react-icons/bs";
 import {
   EditProfileModal,
   ListModal,
@@ -20,6 +16,7 @@ const Profile = () => {
   const { user } = useSelector((store) => store.authSlice);
   const [userState, setUserState] = useState({});
   const [userPosts, setUserPosts] = useState([]);
+  const [profileImageLoaded, setProfileImageLoaded] = useState(false);
   const [reloadPage, setReloadPage] = useState(false);
   const [loading, setLoading] = useState(true);
   const [showEditProfileModal, setEditProfileModal] = useState(false);
@@ -65,8 +62,22 @@ const Profile = () => {
     dispatch(logoutUser());
     navigate("/home");
   };
+  const activeIconStyle = {
+    color: "#00acee",
+    fontSize: "1.2em",
+  };
+  const checkTwitterUrl = () => {
+    if (
+      userState.twitterProfile === undefined ||
+      useState.twitterProfile === ""
+    ) {
+      return false;
+    } else {
+      return true;
+    }
+  };
   return (
-    <div className="h-screen w-full">
+    <div className="min-h-screen w-full scroll-smooth">
       {loading ? (
         <div className="text-center p-10">
           <SpinLoder />
@@ -74,7 +85,7 @@ const Profile = () => {
       ) : (
         <main
           className={
-            "flex-grow border-l border-r h-screen w-full overflow-scroll pb-4 no-scrollbar"
+            "flex-grow border-l border-r min-h-screen w-full overflow-scroll scroll-smooth pb-4 no-scrollbar"
           }
         >
           {/* modal */}
@@ -115,10 +126,18 @@ const Profile = () => {
                     : userState.about}
                 </p>
               </div>
+              {!profileImageLoaded ? (
+                <img
+                  src={avatar}
+                  alt="profile-pic"
+                  className="h-20 w-20 rounded-full"
+                />
+              ) : null}
               <img
                 src={userState.userProfile}
                 alt="profile-pic"
                 className="h-20 w-20 rounded-full"
+                onLoad={() => setProfileImageLoaded(true)}
               />
             </div>
 
@@ -127,28 +146,44 @@ const Profile = () => {
                 href={userState.twitterProfile}
                 target="_blank"
                 rel="noreferrer"
-                className="flex flex-row gap-2 p-1 "
+                className="flex flex-row gap-2 p-1 items-center tooltip"
               >
-                <img src={Icon_twitter} alt="twitter" />
-                <p>Twitter</p>
+                {/* <img src={Icon_twitter} alt="twitter" /> */}
+                <BsTwitter
+                  style={checkTwitterUrl() && activeIconStyle}
+                  size={30}
+                />
+                <p>
+                  Twitter
+                  <span class="tooltiptext">
+                    {checkTwitterUrl()
+                      ? userState.twitterProfile
+                      : "Not Provided"}
+                  </span>
+                </p>
               </a>
               <a
                 href="https://google.com/"
                 target="_blank"
                 rel="noreferrer"
-                className="flex flex-row gap-2 p-1"
+                className="flex flex-row gap-2 p-1 tooltip"
               >
                 <img src={Icon_portfolio2} alt="twitter" />
-                <p>Portfolio</p>
+                <p>
+                  Portfolio
+                  <span className="tooltiptext">Not Provided</span>
+                </p>
               </a>
               <a
                 href="https://google.com/"
                 target="_blank"
                 rel="noreferrer"
-                className="flex flex-row gap-2 p-1"
+                className="flex flex-row gap-2 p-1 tooltip"
               >
                 <img src={Icon_medium} alt="twitter" />
-                <p>Medium</p>
+                <p>
+                  Medium <span className="tooltiptext">Not Provided</span>
+                </p>
               </a>
             </div>
             <div className="flex sm:flex-row  sm:gap-20 gap-5 flex-wrap">
@@ -191,7 +226,7 @@ const Profile = () => {
           {userPosts.length === 0 ? (
             <p>You do not have any posts yet</p>
           ) : (
-            userPosts.map((post) => {
+            [...userPosts].reverse().map((post) => {
               return (
                 <PostCard
                   post={post}

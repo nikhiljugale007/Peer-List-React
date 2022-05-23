@@ -55,6 +55,29 @@
 	background-color: var(--hover-color);
 	transform: scale(1.2);
 }
+
+.tooltip {
+	position: relative;
+	display: inline-block;
+}
+.tooltip .tooltiptext {
+	visibility: hidden;
+	background-color: black;
+	color: white;
+	text-align: center;
+	border-radius: 6px;
+	padding: 5px ;
+	position: absolute;
+	z-index: 1;
+	min-width: 12rem;
+	bottom: 100%;
+	left: 50%;
+	margin-left: -4rem;
+}
+    
+.tooltip:hover .tooltiptext {
+visibility: visible;
+}   
 .no-scrollbar::-webkit-scrollbar {
     display: none;
 }
