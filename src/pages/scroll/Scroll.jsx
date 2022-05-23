@@ -17,6 +17,7 @@ const Scroll = () => {
     (state) => state.userSlice
   );
   useEffect(() => {
+    document.title = "Scroll | Discover and connect with professionals";
     if (status === "idle") {
       dispatch(loadPosts());
     }
@@ -107,7 +108,7 @@ const Scroll = () => {
             </div>
           ) : (
             <div>
-              {recommendedUsers.map((user) => (
+              {recommendedUsers.slice(0, 4).map((user) => (
                 <UserCard key={user._id} user={user} />
               ))}
             </div>

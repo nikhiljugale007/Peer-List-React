@@ -20,11 +20,10 @@ const PostPage = () => {
     (state) => state.commentSlice
   );
   useEffect(() => {
-    if (postStatus === "idle") {
-      dispatch(getPostDetails({ post_id }));
-    }
+    document.title = "Scroll | Post";
+    dispatch(getPostDetails({ post_id }));
     dispatch(getCommentsForPost({ post_id }));
-  }, [post_id, dispatch, postStatus]);
+  }, [post_id, dispatch]);
 
   const addCommentToPost = async (e) => {
     e.preventDefault();

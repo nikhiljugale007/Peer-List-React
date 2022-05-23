@@ -37,6 +37,11 @@ const Profile = () => {
       const { data, success } = await GetApi(`/api/users/${user_id}`, false);
       if (success) {
         setUserState(data.user);
+        document.title =
+          data.user.firstName +
+          " " +
+          data.user.lastName +
+          " | Peerlist Profile";
       } else {
         alert("Some error occured, check console");
       }
