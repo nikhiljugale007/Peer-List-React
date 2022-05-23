@@ -100,8 +100,8 @@ const PostCard = ({ post, cardType }) => {
           <div className="flex flex-col">
             <div className="flex items-center gap-2">
               <p className="text-lg">{firstName + " " + lastName}</p>
-              <p className="invisible sm:visible">•</p>
-              <p className="text-lg text-gray-600 invisible sm:visible ">
+              <p className="invisible w-0 sm:visible ">•</p>
+              <p className="text-lg text-gray-600 invisible sm:visible w-0 ">
                 {"@" + username}
               </p>
             </div>
