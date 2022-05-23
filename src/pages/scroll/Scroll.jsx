@@ -4,18 +4,25 @@ import "./Scroll.css";
 import { useDispatch, useSelector } from "react-redux";
 import { loadPosts } from "../../redux/postSlice";
 import { ChevronDownIcon } from "@heroicons/react/outline";
+import { loadUsers } from "../../redux/userSlice";
 
 const Scroll = () => {
   const [showNewPostModal, setShowNewPostModal] = useState(false);
   const [sortPostBy, setSortPostBy] = useState("LATEST");
   const [showSortPostDropDown, setSortPostDropdDown] = useState(false);
   const dispatch = useDispatch();
-  const { feed, status, error } = useSelector((store) => store.postSlice);
+  const { feed, status, error } = useSelector((state) => state.postSlice);
+  const { recommendedUsers, recommendedUsersStatus } = useSelector(
+    (state) => state.userSlice
+  );
   useEffect(() => {
     if (status === "idle") {
       dispatch(loadPosts());
     }
-  }, [dispatch, status]);
+    if (recommendedUsersStatus === "idle") {
+      dispatch(loadUsers());
+    }
+  }, [dispatch, status, recommendedUsersStatus]);
 
   const getSortedFeed = () => {
     switch (sortPostBy) {
@@ -101,8 +108,18 @@ const Scroll = () => {
       <aside className="recommended-sidebar w-72 sticky top-0 overflow-y-scroll no-scrollbar">
         <p className="font-semibold border-b p-4">Recommeded People</p>
         <div className="flex flex-col gap-2">
-          <UserCard />
-          <UserCard />
+          {recommendedUsersStatus === "idle" ||
+          recommendedUsers === "pending" ? (
+            <div className="text-center p-10">
+              <SpinLoder />
+            </div>
+          ) : (
+            <div>
+              {recommendedUsers.map((user) => (
+                <UserCard key={user._id} user={user} />
+              ))}
+            </div>
+          )}
         </div>
       </aside>
     </div>

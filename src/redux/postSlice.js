@@ -6,6 +6,7 @@ const initialState = {
   feed: [],
   status: "idle",
   error: null,
+  recommendUsers: [],
 };
 export const loadPosts = createAsyncThunk("feed/loadPosts", () => {
   return GetApi2("/api/posts/", false)
