@@ -56,7 +56,7 @@ const Feed = () => {
           </NavLink>
         </ul>
       </aside>
-      <main className="w-full mb-20   border-l border-r">
+      <main className="w-full mb-20 lg:mb-1   border-l border-r">
         <Routes>
           <Route path="scroll" element={<Scroll />} />
           <Route path="network" element={<Network />} />
