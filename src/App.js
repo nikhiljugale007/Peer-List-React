@@ -6,7 +6,7 @@ import { Header, Footer, RequireAuth } from "./components";
 function App() {
   const location = useLocation();
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen scroll-smooth">
       <Header />
       <main className="flex-grow">
         <Routes>

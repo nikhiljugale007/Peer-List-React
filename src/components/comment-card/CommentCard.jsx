@@ -11,6 +11,12 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setCommentList } from "../../redux/commentSlice";
 import { useNavigate } from "react-router-dom";
+import {
+  checkPostDownVotedByLoggedUser,
+  checkPostIdOfLoggedUser,
+  checkPostUpVotedByLoggedUser,
+  getDateDifferance,
+} from "../../utility/commonFunctions";
 const CommentCard = ({ comment, postId }) => {
   const { text, username, votes, updatedAt, _id, userId } = comment;
   const { user } = useSelector((store) => store.authSlice);
@@ -58,37 +64,7 @@ const CommentCard = ({ comment, postId }) => {
   const navigateToProfilePage = () => {
     navigate(`/profile/${userId}`);
   };
-  const checkPostUpVotedByLoggedUser = () => {
-    return comment.votes.upvotedBy.find(
-      (comment) => comment.username === user.username
-    );
-  };
-  const checkPostDownVotedByLoggedUser = () => {
-    return comment.votes.downvotedBy.find(
-      (comment) => comment.username === user.username
-    );
-  };
-  const getWhenPostCreated = () => {
-    var createdDate = new Date(updatedAt);
-    var currentDate = new Date();
-    const diff = Math.floor(currentDate - createdDate);
-    const days = Math.floor(diff / 86400000);
-    if (days > 0) {
-      return days + " days ago";
-    }
-    const hours = Math.floor((diff % 86400000) / 3600000);
-    if (hours > 0) {
-      return hours + " hours ago";
-    }
-    const minutes = Math.round(((diff % 86400000) % 3600000) / 60000);
-    if (minutes > 0) {
-      return minutes + " minutes ago";
-    }
-    return "Just now";
-  };
-  const checkCommentIdOfLoggedUser = () => {
-    return username === user.username;
-  };
+
   const deleteCommentFunction = async () => {
     const { data, success } = await PostApi(
       `/api/comments/delete/${postId}/${_id}`,
@@ -129,7 +105,7 @@ const CommentCard = ({ comment, postId }) => {
           <img
             src={avatar}
             alt="profile-pic"
-            className="h-14 w-14 self-start  cursor-pointer"
+            className="h-14 w-14 self-start  cursor-pointer object-cover aspect-square"
             onClick={navigateToProfilePage}
           />
           <div className="flex flex-col w-full">
@@ -137,10 +113,12 @@ const CommentCard = ({ comment, postId }) => {
               <div className="flex items-baseline gap-1 ">
                 <p className="font-semibold">{"@" + username}</p>
                 <p className="text-gray-600">•</p>
-                <p className="text-xs text-gray-600">{getWhenPostCreated()}</p>
+                <p className="text-xs text-gray-600">
+                  {getDateDifferance({ dateToCheck: updatedAt })}
+                </p>
               </div>
               <div>
-                {checkCommentIdOfLoggedUser() && (
+                {checkPostIdOfLoggedUser({ user, username }) && (
                   <div className="flex flex-row">
                     <button onClick={deleteCommentFunction}>
                       <TrashIcon className="p-2 h-10 w-10 hover:bg-hover-color rounded-full" />
@@ -187,7 +165,7 @@ const CommentCard = ({ comment, postId }) => {
             )}
             <div className="flex gap-10 pt-2">
               <div className="flex gap-1 items-center justify-center">
-                {checkPostUpVotedByLoggedUser() ? (
+                {checkPostUpVotedByLoggedUser({ comment, user }) ? (
                   <button>
                     <ArrowCircleUpIcon className=" h-6 w-6 stroke-primary-color  hover:bg-hover-color rounded-full" />
                   </button>
@@ -202,7 +180,7 @@ const CommentCard = ({ comment, postId }) => {
                 </p>
               </div>
               <div className="flex gap-1 items-center justify-center">
-                {checkPostDownVotedByLoggedUser() ? (
+                {checkPostDownVotedByLoggedUser({ comment, user }) ? (
                   <button>
                     <ArrowCircleDownIcon className=" h-6 w-6 stroke-primary-color  hover:bg-hover-color rounded-full" />
                   </button>

@@ -1,10 +1,5 @@
 import "./Feed.css";
-import {
-  Icon_home,
-  Icon_my_network,
-  Icon_notification,
-  Icon_profile,
-} from "../../assets";
+import { Icon_home, Icon_my_network, Icon_profile } from "../../assets";
 import { Scroll } from "../scroll/Scroll";
 import { Routes, Route, NavLink } from "react-router-dom";
 import { Profile } from "../profile/Profile";
@@ -17,6 +12,7 @@ const Feed = () => {
   const { user } = useSelector((store) => store.authSlice);
   const getActiveStyle = ({ isActive }) => ({
     backgroundColor: isActive ? "#E0E4E9" : "",
+    fontWeight: isActive ? "600" : "normal",
   });
   const getMobileActiveStyle = ({ isActive }) => ({
     borderTop: isActive ? "2px solid #00aa45" : "",
@@ -31,7 +27,7 @@ const Feed = () => {
             style={getActiveStyle}
           >
             <img src={Icon_home} alt="home" />
-            <p className="font-semibold">Scroll</p>
+            <p>Scroll</p>
           </NavLink>
           <NavLink
             to="/network"
@@ -39,7 +35,7 @@ const Feed = () => {
             style={getActiveStyle}
           >
             <img src={Icon_my_network} alt="home" />
-            <p className="">My Network</p>
+            <p>My Network</p>
           </NavLink>
           <NavLink
             to={`/bookmark`}
@@ -47,24 +43,20 @@ const Feed = () => {
             style={getActiveStyle}
           >
             <BookmarkIcon className="h-6 w-6" />
-            <p className="">Bookmarks</p>
+            <p>Bookmarks</p>
           </NavLink>
 
-          <li className="flex flex-row gap-4  p-2 hover:cursor-pointer ">
-            <img src={Icon_notification} alt="home" />
-            <p className="">Notifications</p>
-          </li>
           <NavLink
             to={`/profile/${user._id}`}
             className="flex flex-row gap-4  p-2 hover:cursor-pointer rounded-md"
             style={getActiveStyle}
           >
             <img src={Icon_profile} alt="home" />
-            <p className="">Profile</p>
+            <p>Profile</p>
           </NavLink>
         </ul>
       </aside>
-      <main className="w-full mb-20   border-l border-r">
+      <main className="w-full mb-20 lg:mb-1   border-l border-r">
         <Routes>
           <Route path="scroll" element={<Scroll />} />
           <Route path="network" element={<Network />} />

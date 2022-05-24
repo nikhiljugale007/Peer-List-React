@@ -3,6 +3,7 @@ import { useState } from "react";
 import { PostApi } from "../../apicalls/PostApi";
 import { useDispatch } from "react-redux";
 import { setLoggedUser } from "../../redux/authSlice";
+import { useEffect } from "react";
 const inititalLoginState = { username: "", password: "" };
 
 const validateForm = (formState) => {
@@ -27,6 +28,10 @@ const Login = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    document.title = "Peerlist | Your most meaningful professional network";
+  });
 
   const loginUserApiCall = async () => {
     const response = await PostApi(
@@ -84,6 +89,7 @@ const Login = () => {
                 id="username"
                 name="username"
                 type="text"
+                placeholder="johnravdoekar007"
                 value={loginFormState.username}
                 onChange={inputChangeHandler}
               />

@@ -1,19 +1,31 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { PostApi } from "../../apicalls/PostApi";
 import { updateUser } from "../../redux/authSlice";
 
-const EditProfileModal = ({ setEditProfileModal, userState }) => {
-  const { firstName, lastName, _id, about, twitterProfile } = userState;
+const EditProfileModal = ({
+  setEditProfileModal,
+  userState,
+  setReloadPage,
+}) => {
+  const {
+    firstName,
+    lastName,
+    _id,
+    about,
+    twitterProfile,
+    portfolioLink,
+    userProfile,
+  } = userState;
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [editProfileState, setEditProfileState] = useState({
     _id: _id,
     firstName: firstName,
     lastName: lastName,
     about: about === undefined ? "" : about,
     twitterProfile: twitterProfile === undefined ? "" : twitterProfile,
+    portfolioLink: portfolioLink === undefined ? "" : twitterProfile,
+    userProfile: userProfile,
   });
   const inputChangeHandler = (e) => {
     const new_val = { [e.target.name]: e.target.value };
@@ -28,8 +40,8 @@ const EditProfileModal = ({ setEditProfileModal, userState }) => {
     );
     if (success) {
       dispatch(updateUser({ user: data.user }));
-      navigate(`/scroll`);
       setEditProfileModal(false);
+      setReloadPage((prev) => !prev);
     } else {
       alert("Some error occurred. Check console.");
       setEditProfileModal(false);
@@ -37,8 +49,8 @@ const EditProfileModal = ({ setEditProfileModal, userState }) => {
   };
   return (
     <div
-      className="modal fade fixed top-0 left-0 w-full h-full outline-none overflow-x-hidden overflow-y-auto
-                flex flex-row items-center justify-center 
+      className="modal fade fixed top-5 left-0 w-full  outline-none overflow-x-hidden overflow-y-auto
+                flex flex-row items-center justify-center z-20
               "
       id="exampleModalCenter"
       tabIndex="-1"
@@ -47,7 +59,7 @@ const EditProfileModal = ({ setEditProfileModal, userState }) => {
       role="dialog"
     >
       <div className="modal-dialog modal-dialog-centered relative w-auto pointer-events-none">
-        <div className="modal-content border-none shadow-lg relative flex flex-col w-max pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
+        <div className="modal-content border-none shadow-lg relative flex flex-col w-max pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current h-70 overflow-y-scroll ">
           <div className="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md">
             <h5
               className="text-xl font-medium leading-normal text-gray-800"
@@ -111,6 +123,38 @@ const EditProfileModal = ({ setEditProfileModal, userState }) => {
                 type="text"
                 value={editProfileState.twitterProfile}
                 onChange={inputChangeHandler}
+              />
+            </label>
+            <label
+              className="block text-gray-700 text-sm mb-2 border border-gray-400 rounded px-2 focus-within:border-black"
+              htmlFor="portfolio"
+            >
+              Portfolio
+              <input
+                className="appearance-none w-full my-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="portfolio"
+                name="portfolioLink"
+                type="text"
+                value={editProfileState.portfolioLink}
+                onChange={inputChangeHandler}
+              />
+            </label>
+            <label
+              className="block text-gray-700 text-sm mb-2 border border-gray-400 rounded px-2 focus-within:border-black"
+              htmlFor="file-input"
+            >
+              Profile Pic
+              <input
+                type="file"
+                id="file-input"
+                name="userProfile"
+                className="appearance-none w-full my-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                onChange={(e) => {
+                  setEditProfileState((prev) => ({
+                    ...prev,
+                    userProfile: URL.createObjectURL(e.target.files[0]),
+                  }));
+                }}
               />
             </label>
           </div>

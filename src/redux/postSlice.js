@@ -6,6 +6,7 @@ const initialState = {
   feed: [],
   status: "idle",
   error: null,
+  recommendUsers: [],
 };
 export const loadPosts = createAsyncThunk("feed/loadPosts", () => {
   return GetApi2("/api/posts/", false)
@@ -15,7 +16,10 @@ export const loadPosts = createAsyncThunk("feed/loadPosts", () => {
 
 export const likePost = createAsyncThunk("post/likePost", ({ _id }) => {
   return PostApi2(`/api/posts/like/${_id}`, {}, true)
-    .then((res) => res.data)
+    .then((res) => {
+      console.log(res.data.posts);
+      return res.data;
+    })
     .catch((err) => err.message);
 });
 
@@ -58,6 +62,9 @@ const postSlice = createSlice({
     setFeed: (state, action) => {
       state.feed = action.payload.feed;
     },
+    refreshFeed: (state) => {
+      state.status = "idle";
+    },
   },
   extraReducers: {
     //get posts reducer
@@ -76,6 +83,7 @@ const postSlice = createSlice({
     //like post reducer
     [likePost.fulfilled]: (state, action) => {
       state.feed = action.payload.posts;
+      console.log(action.payload.posts);
     },
     [likePost.rejected]: (state, action) => {
       alert("Error = " + action.payload.error);
@@ -108,5 +116,5 @@ const postSlice = createSlice({
   },
 });
 
-export const { setFeed, setSortedFeed } = postSlice.actions;
+export const { setFeed, setSortedFeed, refreshFeed } = postSlice.actions;
 export default postSlice.reducer;

@@ -1,13 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Network.css";
 import { FindUser } from "./FindUser";
 import { Following } from "./Following";
 import { Followers } from "./Followers";
 
 const Network = () => {
+  useEffect(() => {
+    document.title = "Peers | Discover and connect with professionals";
+  });
   const [activeTab, setActiveTab] = useState("FIND");
   return (
-    <div className="h-screen flex flex-col w-full">
+    <div className="min-h-screen flex flex-col w-full">
       <ul className="w-full  flex flex-row gap-6 px-2 border-b ">
         <li
           className={

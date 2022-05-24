@@ -30,8 +30,12 @@ export const followUnFollowUserUserThunk = createAsyncThunk(
         ? `/api/users/follow/${userId}`
         : `/api/users/unfollow/${userId}`;
     return PostApi2(apiUrl, {}, true)
-      .then((res) => res.data)
-      .catch((err) => err.message);
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        return err.message;
+      });
   }
 );
 

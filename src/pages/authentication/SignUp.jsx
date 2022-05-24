@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { validateForm } from "./FormValidator";
 import { PostApi } from "../../apicalls/PostApi";
+import { useEffect } from "react";
 
 const initialSignUpFormState = {
   firstName: "",
@@ -19,6 +20,9 @@ const SignUp = () => {
   );
   const [formError, setFormError] = useState(initialSignUpFormState);
   const navigate = useNavigate();
+  useEffect(() => {
+    document.title = "Peerlist | Your most meaningful professional network";
+  });
   const signUpUserFun = async () => {
     const response = await PostApi(
       "/api/auth/signup",
@@ -71,6 +75,7 @@ const SignUp = () => {
                 id="firstName"
                 name="firstName"
                 type="text"
+                placeholder="Johnrav"
                 value={signUpFormState.firstName}
                 onChange={inputChangeHandler}
               />
@@ -87,6 +92,7 @@ const SignUp = () => {
                 className="appearance-none w-full my-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="lastName"
                 name="lastName"
+                placeholder="Doekar"
                 type="text"
                 value={signUpFormState.lastName}
                 onChange={inputChangeHandler}
@@ -105,6 +111,7 @@ const SignUp = () => {
                 id="username"
                 name="username"
                 type="text"
+                placeholder="johnravdoekar007"
                 value={signUpFormState.username}
                 onChange={inputChangeHandler}
               />

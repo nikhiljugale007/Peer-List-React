@@ -35,13 +35,13 @@ const FindUser = () => {
   return (
     <div className="">
       <div className="">
-        <div className="flex items-center">
+        <div className="flex items-center mr-2">
           <div className="relative  border-2 bg-gray-50 rounded m-2">
             <form onSubmit={searchUser}>
               <input
                 type="text"
                 id="search-user-form"
-                className="h-12 w-70 pl-10 pr-20 rounded z-0 focus:shadow focus:outline-none bg-gray-50"
+                className="h-12 lg:w-70 w-full pl-5 pr-20 rounded z-0 focus:shadow focus:outline-none bg-gray-50"
                 placeholder="Enter username to search"
                 value={searchUserName}
                 onChange={(e) => setSearchUserName(e.target.value)}

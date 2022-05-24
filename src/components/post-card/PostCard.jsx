@@ -17,20 +17,32 @@ import {
 } from "@heroicons/react/outline";
 import { EditPostModal } from "../modal/EditPostModal";
 import { likePost, dislikePost, deletePostThunk } from "../../redux/postSlice";
+import {
+  checkBookmarkedPost,
+  checkLikedPost,
+  checkPostIdOfLoggedUser,
+  checkUserIsFollowed,
+  getTimeInDMY,
+} from "../../utility/commonFunctions";
 
 const PostCard = ({ post, cardType }) => {
-  const { username, content, updatedAt, likes, userId, media, _id } = post;
+  const {
+    username,
+    content,
+    createdAt,
+    likes,
+    userId,
+    media,
+    _id,
+    firstName,
+    lastName,
+    userProfile,
+  } = post;
   const [expandPost, setExpandPost] = useState(false);
   const [showEditPostModal, setShowEditPostModal] = useState(false);
   const { user } = useSelector((state) => state.authSlice);
+  const [profileImageLoaded, setProfileImageLoaded] = useState(false);
   const dispatch = useDispatch();
-  const checkUserIsFollowed = () => {
-    return (
-      user.following.find(
-        (userFollowing) => userFollowing.username === username
-      ) || username === user.username
-    );
-  };
 
   const followUser = async () => {
     dispatch(followUnFollowUserUserThunk({ userId, type: "follow" }));
@@ -58,31 +70,7 @@ const PostCard = ({ post, cardType }) => {
   const editPost = () => {
     setShowEditPostModal(true);
   };
-  const checkLikedPost = () => {
-    const likedArray = likes.likedBy.filter(
-      (userLiked) => userLiked._id === user._id
-    );
-    if (likedArray.length === 0) return false;
-    else return true;
-  };
-  const checkBookmarkedPost = () => {
-    const bookmaredArray = user.bookmarks.filter((post) => post._id === _id);
-    if (bookmaredArray.length === 0) return false;
-    else return true;
-  };
-  const checkPostIdOfLoggedUser = () => {
-    return username === user.username;
-  };
-  const getTimeInDMY = (date) => {
-    const dateF = new Date(date);
-    const dmy =
-      dateF.getDate() +
-      " " +
-      dateF.toLocaleString("default", { month: "long" }) +
-      ", " +
-      dateF.getFullYear();
-    return dmy;
-  };
+
   return (
     <div className=" p-10 flex flex-col gap-5 border-t border-b bg-primary-bg-color w-full">
       {showEditPostModal && (
@@ -96,13 +84,31 @@ const PostCard = ({ post, cardType }) => {
           to={`/profile/${userId}`}
           className="flex flex-row items-center gap-5"
         >
-          <img src={avatar} alt="profile-pic" className="h-14 w-14" />
+          {!profileImageLoaded ? (
+            <img
+              src={avatar}
+              alt="profile-pic"
+              className="h-14 w-14 rounded-full"
+            />
+          ) : null}
+          <img
+            src={userProfile}
+            alt="profile-pic"
+            className="h-14 w-14 rounded-full object-cover aspect-square"
+            onLoad={() => setProfileImageLoaded(true)}
+          />
           <div className="flex flex-col">
-            <p className="text-lg">{"@" + username}</p>
-            <p className="text-xs text-gray-600">{getTimeInDMY(updatedAt)}</p>
+            <div className="flex items-center gap-2">
+              <p className="text-lg">{firstName + " " + lastName}</p>
+              <p className="invisible w-0 sm:visible ">•</p>
+              <p className="text-lg text-gray-600 invisible sm:visible w-0 ">
+                {"@" + username}
+              </p>
+            </div>
+            <p className="text-xs text-gray-600">{getTimeInDMY(createdAt)}</p>
           </div>
         </Link>
-        {checkPostIdOfLoggedUser() && (
+        {checkPostIdOfLoggedUser({ user, username }) && (
           <div className="flex flex-row">
             <button onClick={deletePost}>
               <TrashIcon className="p-2 h-10 w-10 hover:bg-hover-color rounded-full" />
@@ -114,7 +120,7 @@ const PostCard = ({ post, cardType }) => {
         )}
 
         {!(username === user.username) &&
-          (checkUserIsFollowed() ? (
+          (checkUserIsFollowed({ user, username }) ? (
             <button
               onClick={unfollowUser}
               className="border p-1 px-2 rounded-md hover:bg-hover-color"
@@ -150,7 +156,7 @@ const PostCard = ({ post, cardType }) => {
         )}
       </div>
       <div className="flex flex-row gap-20">
-        {checkLikedPost() ? (
+        {checkLikedPost({ likes, user }) ? (
           <div
             className="flex flex-row items-center cursor-pointer gap-2"
             onClick={dislikePostFunction}
@@ -167,7 +173,7 @@ const PostCard = ({ post, cardType }) => {
             <p>{likes.likedBy.length}</p>
           </div>
         )}
-        {checkBookmarkedPost() ? (
+        {checkBookmarkedPost({ user, _id }) ? (
           <div
             className="flex flex-row items-center cursor-pointer gap-2"
             onClick={removeBookmarkPostFunction}
