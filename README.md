@@ -1,6 +1,6 @@
 # Social Media (Peerlist Clone )using React + Tailwind Css + Redux
 
-Live Link - [Peerlist Clone](https://peerlist.netlify.app/)
+Live Link - [Peerlist Clone](https://peerlistclone.netlify.app/)
 
 
 ## Technologies used 
