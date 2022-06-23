@@ -4,6 +4,8 @@ import { PostApi } from "../../apicalls/PostApi";
 import { useDispatch } from "react-redux";
 import { setLoggedUser } from "../../redux/authSlice";
 import { useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const inititalLoginState = { username: "", password: "" };
 
 const validateForm = (formState) => {
@@ -39,14 +41,20 @@ const Login = () => {
       { ...loginFormState },
       false
     );
-    const { data, success } = response;
+    const { data, success, status } = response;
     if (success) {
       dispatch(setLoggedUser({ ...data }));
       location.state === null
         ? navigate("/scroll")
         : navigate(location?.state?.from);
     } else {
-      alert("Something went wrong, check console");
+      if (status === 404) {
+        toast.warn("Username entered is not registered");
+      } else if (status === 401) {
+        toast.warn("Invalid credentials");
+      } else {
+        toast.warn("Something went wrong!. Try again");
+      }
     }
   };
 
@@ -152,6 +160,7 @@ const Login = () => {
           Log In As Guest
         </button>
       </div>
+      <ToastContainer />
     </div>
   );
 };
