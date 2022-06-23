@@ -3,6 +3,8 @@ import { useState } from "react";
 import { validateForm } from "./FormValidator";
 import { PostApi } from "../../apicalls/PostApi";
 import { useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const initialSignUpFormState = {
   firstName: "",
@@ -29,11 +31,15 @@ const SignUp = () => {
       { ...signUpFormState },
       false
     );
-    const { success } = response;
+    const { success, status } = response;
     if (success) {
       navigate("/login");
     } else {
-      alert("Some error occured. Check console");
+      if (status === 422) {
+        toast.warn("Username already exists");
+      } else {
+        toast.warn("Something went wrong!. Try again");
+      }
     }
   };
 
@@ -202,6 +208,7 @@ const SignUp = () => {
           </Link>
         </p>
       </div>
+      <ToastContainer />
     </div>
   );
 };
