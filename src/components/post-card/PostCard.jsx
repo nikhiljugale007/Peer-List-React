@@ -25,7 +25,7 @@ import {
   getTimeInDMY,
 } from "../../utility/commonFunctions";
 
-const PostCard = ({ post, cardType, setReloadPage }) => {
+const PostCard = ({ post, setReloadPage }) => {
   const {
     username,
     content,

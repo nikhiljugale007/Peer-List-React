@@ -77,7 +77,7 @@ const Scroll = () => {
             </button>
           </div>
           <button
-            className="p-1 hover:bg-hover-color rounded-md"
+            className="bg-primary-color text-white px-2 py-1 rounded  hover:bg-primary-font-color"
             onClick={() => setShowNewPostModal((prev) => !prev)}
           >
             <p className="font-semibold px-2">New Post</p>
