@@ -25,7 +25,7 @@ import {
   getTimeInDMY,
 } from "../../utility/commonFunctions";
 
-const PostCard = ({ post, cardType }) => {
+const PostCard = ({ post, cardType, setReloadPage }) => {
   const {
     username,
     content,
@@ -65,6 +65,7 @@ const PostCard = ({ post, cardType }) => {
 
   const deletePost = async () => {
     dispatch(deletePostThunk({ _id }));
+    setReloadPage((prev) => !prev);
   };
 
   const editPost = () => {
@@ -76,6 +77,7 @@ const PostCard = ({ post, cardType }) => {
       {showEditPostModal && (
         <EditPostModal
           setShowEditPostModal={setShowEditPostModal}
+          setReloadPage={setReloadPage}
           post={post}
         />
       )}

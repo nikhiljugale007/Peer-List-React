@@ -263,6 +263,7 @@ const Profile = () => {
                 <PostCard
                   post={post}
                   key={post._id}
+                  setReloadPage={setReloadPage}
                   cardType={user._id === userState._id ? "DELETE_CARD" : ""}
                 />
               );

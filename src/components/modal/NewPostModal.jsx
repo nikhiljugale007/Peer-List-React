@@ -116,8 +116,13 @@ const NewPostModal = ({ setShowNewPostModal }) => {
                 </button> */}
               </div>
               <button
-                className="bg-primary-color text-white px-2 py-1 rounded  hover:bg-primary-font-color w-max"
+                className={
+                  "bg-primary-color text-white px-2 py-1 rounded  hover:bg-primary-font-color w-max " +
+                  (newPost.content === "" &&
+                    "bg-gray-500 cursor-not-allowed hover:bg-gray-500")
+                }
                 onClick={() => submitForm()}
+                disabled
               >
                 POST
               </button>

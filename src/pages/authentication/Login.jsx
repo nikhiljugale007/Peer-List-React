@@ -75,8 +75,8 @@ const Login = () => {
   const fillDemoCredentials = () => {
     setLoginFormState((prev) => ({
       ...prev,
-      username: "adarshbalika",
-      password: "adarshBalika123",
+      username: "nikhiljugale007",
+      password: "nikhil#123",
     }));
   };
   return (
@@ -97,7 +97,6 @@ const Login = () => {
                 id="username"
                 name="username"
                 type="text"
-                placeholder="johnravdoekar007"
                 value={loginFormState.username}
                 onChange={inputChangeHandler}
               />
@@ -136,6 +135,8 @@ const Login = () => {
             <a
               className="inline-block align-baseline text-sm text-primary-font-color hover:font-semibold"
               href="https://google.com"
+              target="_blank"
+              rel="noreferrer"
             >
               Forgot Password?
             </a>

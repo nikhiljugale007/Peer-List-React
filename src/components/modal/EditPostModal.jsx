@@ -2,7 +2,7 @@ import { Icon_close, Icon_emoji } from "../../assets";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { editPostThunk } from "../../redux/postSlice";
-const EditPostModal = ({ setShowEditPostModal, post }) => {
+const EditPostModal = ({ setShowEditPostModal, post, setReloadPage }) => {
   const [openEmpjiPicker, setOpenEmojiPicker] = useState(false);
   const { content, media, _id } = post;
   const dispatch = useDispatch();
@@ -42,6 +42,7 @@ const EditPostModal = ({ setShowEditPostModal, post }) => {
   const submitForm = async () => {
     dispatch(editPostThunk({ _id, newPost }));
     setShowEditPostModal(false);
+    setReloadPage((prev) => !prev);
   };
   return (
     <div
