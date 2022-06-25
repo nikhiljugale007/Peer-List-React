@@ -71,7 +71,6 @@ const PostCard = ({ post, setReloadPage }) => {
   const editPost = () => {
     setShowEditPostModal(true);
   };
-
   return (
     <div className=" p-10 flex flex-col gap-5 border-t border-b bg-primary-bg-color w-full">
       {showEditPostModal && (
@@ -82,6 +81,7 @@ const PostCard = ({ post, setReloadPage }) => {
         />
       )}
       <div className="flex flex-row items-center justify-between ">
+        {console.log("POST = ", post.userId)}
         <Link
           to={`/profile/${userId}`}
           className="flex flex-row items-center gap-5"

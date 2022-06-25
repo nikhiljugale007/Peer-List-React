@@ -45,7 +45,7 @@ const NetworkCard = ({ currentUser }) => {
                 e.preventDefault();
                 unfollowUser();
               }}
-              className="border p-1 px-2 rounded-md hover:bg-bg-black text-primary-bg-color bg-secondary-bg-color"
+              className="border p-1 px-2 rounded-md hover:bg-hover-color shadow-sm"
             >
               UnFollow
             </button>
