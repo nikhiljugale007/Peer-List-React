@@ -159,8 +159,13 @@ const Profile = () => {
                   className="h-20 w-20 rounded-full"
                 />
               ) : null}
+              {console.log(userState.userProfile)}
               <img
-                src={userState.userProfile}
+                src={
+                  userState.userProfile === undefined
+                    ? avatar
+                    : userState.userProfile
+                }
                 alt="profile-pic"
                 className="h-20 w-20 rounded-full object-cover aspect-square"
                 onLoad={() => setProfileImageLoaded(true)}

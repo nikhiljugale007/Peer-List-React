@@ -81,7 +81,6 @@ const PostCard = ({ post, setReloadPage }) => {
         />
       )}
       <div className="flex flex-row items-center justify-between ">
-        {console.log("POST = ", post.userId)}
         <Link
           to={`/profile/${userId}`}
           className="flex flex-row items-center gap-5"
@@ -93,8 +92,9 @@ const PostCard = ({ post, setReloadPage }) => {
               className="h-14 w-14 rounded-full"
             />
           ) : null}
+
           <img
-            src={userProfile}
+            src={userProfile === undefined ? avatar : userProfile}
             alt="profile-pic"
             className="h-14 w-14 rounded-full object-cover aspect-square"
             onLoad={() => setProfileImageLoaded(true)}
