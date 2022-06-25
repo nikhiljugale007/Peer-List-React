@@ -108,7 +108,7 @@ const Scroll = () => {
             </div>
           ) : (
             <div>
-              {recommendedUsers.slice(0, 4).map((user) => (
+              {recommendedUsers.slice(2).map((user) => (
                 <UserCard key={user._id} user={user} />
               ))}
             </div>

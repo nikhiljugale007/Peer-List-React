@@ -142,7 +142,7 @@ export const posts = [
     username: "nikhiljugale007",
     firstName: "Nikhil",
     lastName: "Jugale",
-    userProfile: "https://www.sragenkab.go.id/assets/images/demo/user-9.jpg",
+    userProfile: "https://www.sragenkab.go.id/assets/images/demo/user-4.jpg",
     userId: "g2eba8e4-d8ae-4510-9c3f-d7ad111f552e",
     comments: [
       {
@@ -202,9 +202,33 @@ export const posts = [
     username: "vrushali01",
     firstName: "Vrushali",
     lastName: "Kadam",
-    userProfile: "https://www.sragenkab.go.id/assets/images/demo/user-10.jpg",
+    userProfile:
+      "https://writestylesonline.com/wp-content/uploads/2021/02/Michele-Round-Circle-2020.png",
     userId: "g2eba8e4-d8ae-4510-9c3f-d7ad111f556e",
     updatedAt: "2022-03-12T21:57:19+05:30",
     createdAt: "2022-03-12T21:57:19+05:30",
+  },
+  {
+    _id: uuid(),
+    content:
+      "Hello everyone, I am last year computer science engineering student looking for opportunity as a frontend developer",
+    likes: {
+      likeCount: 1,
+      likedBy: [
+        {
+          username: "adarshbalika",
+          _id: "f2eba8e4-d8ae-4510-9c3f-d7ad111f541e",
+        },
+      ],
+      dislikedBy: [],
+    },
+    username: "nikhiljugale007",
+    firstName: "Nikhil",
+    lastName: "Jugale",
+    userProfile: "https://www.sragenkab.go.id/assets/images/demo/user-4.jpg",
+    userId: "g2eba8e4-d8ae-4510-9c3f-d7ad111f552e",
+
+    createdAt: "2022-06-20T21:57:19+05:30",
+    updatedAt: "2022-06-20T21:57:19+05:30",
   },
 ];
