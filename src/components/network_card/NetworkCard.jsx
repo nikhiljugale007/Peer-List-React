@@ -1,12 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { PostApi } from "../../apicalls/PostApi";
-import { avatar } from "../../assets";
 import { updateUser } from "../../redux/authSlice";
 import { checkUserIsFollowed } from "../../utility/commonFunctions";
 import "./NetworkCard.css";
 const NetworkCard = ({ currentUser }) => {
-  const { firstName, lastName, about, username, _id } = currentUser;
+  console.log("CUS = ", currentUser);
+  const { firstName, lastName, about, username, _id, userProfile } =
+    currentUser;
   const dispatch = useDispatch();
   const { user } = useSelector((store) => store.authSlice);
 
@@ -32,7 +33,11 @@ const NetworkCard = ({ currentUser }) => {
       className="flex flex-col gap-2 px-4 py-2 border m-2 rounded-md cursor-pointer"
     >
       <div className="flex flex-row justify-between">
-        <img src={avatar} alt="profile-pic" className="h-10 w-10 " />
+        <img
+          src={userProfile}
+          alt="profile-pic"
+          className="h-10 w-10 rounded-full"
+        />
         {!(username === user.username) &&
           (checkUserIsFollowed({ user, username }) ? (
             <button
