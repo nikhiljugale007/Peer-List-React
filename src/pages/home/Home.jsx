@@ -149,7 +149,7 @@ const Home = () => {
         </div>
         <button className="px-5 py-4 my-5 bg-complimentary-font-color rounded-md flex flex-row items-center gap-3 hover:opacity-75">
           <p className="text-primary-bg-color text-lg font-bold ">
-            Get your Peerlist Profile
+            <Link to="/login">Get your Peerlist Profile</Link>
           </p>
           <div>
             <svg
