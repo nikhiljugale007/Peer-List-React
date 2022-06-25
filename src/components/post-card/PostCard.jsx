@@ -25,7 +25,7 @@ import {
   getTimeInDMY,
 } from "../../utility/commonFunctions";
 
-const PostCard = ({ post, cardType }) => {
+const PostCard = ({ post, setReloadPage }) => {
   const {
     username,
     content,
@@ -65,17 +65,18 @@ const PostCard = ({ post, cardType }) => {
 
   const deletePost = async () => {
     dispatch(deletePostThunk({ _id }));
+    setReloadPage((prev) => !prev);
   };
 
   const editPost = () => {
     setShowEditPostModal(true);
   };
-
   return (
     <div className=" p-10 flex flex-col gap-5 border-t border-b bg-primary-bg-color w-full">
       {showEditPostModal && (
         <EditPostModal
           setShowEditPostModal={setShowEditPostModal}
+          setReloadPage={setReloadPage}
           post={post}
         />
       )}
@@ -91,8 +92,9 @@ const PostCard = ({ post, cardType }) => {
               className="h-14 w-14 rounded-full"
             />
           ) : null}
+
           <img
-            src={userProfile}
+            src={userProfile === undefined ? avatar : userProfile}
             alt="profile-pic"
             className="h-14 w-14 rounded-full object-cover aspect-square"
             onLoad={() => setProfileImageLoaded(true)}

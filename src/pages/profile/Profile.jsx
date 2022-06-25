@@ -160,7 +160,11 @@ const Profile = () => {
                 />
               ) : null}
               <img
-                src={userState.userProfile}
+                src={
+                  userState.userProfile === undefined
+                    ? avatar
+                    : userState.userProfile
+                }
                 alt="profile-pic"
                 className="h-20 w-20 rounded-full object-cover aspect-square"
                 onLoad={() => setProfileImageLoaded(true)}
@@ -263,6 +267,7 @@ const Profile = () => {
                 <PostCard
                   post={post}
                   key={post._id}
+                  setReloadPage={setReloadPage}
                   cardType={user._id === userState._id ? "DELETE_CARD" : ""}
                 />
               );

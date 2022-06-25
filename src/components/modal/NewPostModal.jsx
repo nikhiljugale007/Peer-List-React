@@ -1,13 +1,16 @@
 import { Icon_close, Icon_emoji } from "../../assets";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addNewPostThunk } from "../../redux/postSlice";
 const NewPostModal = ({ setShowNewPostModal }) => {
   const [openEmpjiPicker, setOpenEmojiPicker] = useState(false);
+  const { user } = useSelector((store) => store.authSlice);
+
   const dispatch = useDispatch();
   const [newPost, setNewPost] = useState({
     content: "",
     media: "",
+    userId: user._id,
   });
   const emojiList = [
     { icon: "❤️" },
@@ -116,7 +119,11 @@ const NewPostModal = ({ setShowNewPostModal }) => {
                 </button> */}
               </div>
               <button
-                className="bg-primary-color text-white px-2 py-1 rounded  hover:bg-primary-font-color w-max"
+                className={
+                  "bg-primary-color text-white px-2 py-1 rounded  hover:bg-primary-font-color w-max " +
+                  (newPost.content === "" &&
+                    "bg-gray-500 cursor-not-allowed hover:bg-gray-500")
+                }
                 onClick={() => submitForm()}
               >
                 POST

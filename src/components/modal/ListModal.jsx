@@ -36,8 +36,8 @@ const ListModal = ({ setListModal, listModal }) => {
             {listModal.list.length === 0 && (
               <p className="border-b w-full p-4">{"Zero " + listModal.title}</p>
             )}
-            {listModal.list.map((user) => (
-              <h1 className="border-b w-full p-4">
+            {listModal.list.map((user, index) => (
+              <h1 className="border-b w-full p-4" key={index}>
                 {user.firstName + " " + user.lastName + " @" + user.username}
               </h1>
             ))}

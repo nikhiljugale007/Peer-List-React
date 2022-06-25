@@ -92,6 +92,7 @@ const CommentCard = ({ comment, postId }) => {
     );
     if (success) {
       setCommentList(data.comments);
+      dispatch(setCommentList({ commentList: data.comments }));
     } else {
       alert("Some error occurred. Check console.");
     }
