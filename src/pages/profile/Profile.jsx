@@ -159,7 +159,6 @@ const Profile = () => {
                   className="h-20 w-20 rounded-full"
                 />
               ) : null}
-              {console.log(userState.userProfile)}
               <img
                 src={
                   userState.userProfile === undefined

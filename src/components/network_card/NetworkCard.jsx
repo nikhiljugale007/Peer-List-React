@@ -5,7 +5,6 @@ import { updateUser } from "../../redux/authSlice";
 import { checkUserIsFollowed } from "../../utility/commonFunctions";
 import "./NetworkCard.css";
 const NetworkCard = ({ currentUser }) => {
-  console.log("CUS = ", currentUser);
   const { firstName, lastName, about, username, _id, userProfile } =
     currentUser;
   const dispatch = useDispatch();
